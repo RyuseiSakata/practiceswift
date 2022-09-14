@@ -121,6 +121,7 @@ var f = Foo()
 print(f[1, 3])
 
 print("ここから継承")
+
 /*継承とはあるクラスが他のクラスの属性を引き継ぐことをいう
  例：人というクラスが元々存在するそこに新たに従業員と言うクラスを追加したい時に従業員には元々存在する人クラスの要素を追加したい
  そこでいちいちもう一度新しいクラスを追加しているようではとても生産性が低くてめんどくさいので人クラスの性質を受け継ぎたいそういうことを
@@ -130,3 +131,102 @@ print("ここから継承")
  また継承するには次のように記載する
  class クラス名: スーパークラス名{}
  */
+
+class keishou{
+   final func f(){
+        print("keshou.f()")
+    }
+}
+
+class Bar: keishou{
+    /*override func f(){
+        print("o-ba-raidositayo")
+    }*/
+}
+
+var b = Bar()
+b.f()
+
+print("ここからイニシャライザ")
+/*ここではswiftのオブジェクトを初期化する方法についての勉強をする
+ クラスでも構造体でもイニシャライザをするときは初期化をしないといけない
+ 初期化を行うメソッドはinitで原則このメソッドは必要とされている
+ イニシャライザのデリケーションこれはinit内でinitを呼び出すことをいう全てのプロティを初期化するイニシャライザのことをデジグネイテッドイニシャライザというswiftではこれが最低一つは必要となっている
+ デジグネイテッドイニシャライザ以外のinitのことをコンビニエンスイニシャライザと言う
+ イニシャライザ呼び出しのルール
+ １：継承されている場合デジグネイテッドイニシャライザはスーパークラスから呼び出さないといけない
+ ２：コンビニエンスイニシャライザは同じクラスの他のイニシャライザを呼び出さなければならない
+ ３：コンビニエンスイニシャライザからのイニシャライザのチェーンは最終的にデジグネイテッドイニシャライザに辿り着かないといけない*/
+
+/*class Company{
+    var name :String
+    var id : Int
+    
+    init(name :String, id :Int){
+        self.name = name
+        self.id = id
+    }
+    
+    convenience init(id :Int){
+        var name :String
+        switch (id){
+        case 1:
+            //name = "ABC"
+           name = null
+        default:
+            //name = "nanasinogonnbe~"
+            name = null
+        }
+        self.init(name :name, id :id)
+    }
+}
+
+var com  = Company(id:2)
+print(com.name)*/
+
+print("ここから拡張")
+/*既存のクラス構造体列挙型に後付けで機能をつけることができる*/
+
+class String{
+    var name :Int
+    init(name :Int){
+        self.name = name
+    }
+}
+
+extension String{
+    func hello(){
+        print("Hello ,\(self.name)")
+    }
+}
+
+var s = String(name : 1)
+
+s.hello()
+
+print("ここからがプロトコル")
+/*プロトコルとはクラス構造体列挙隊に使われてメソッドやプロパティ（クラスの中に定義した関数や変数などをまとめたもの）など必要な処理を行うメソッドやプロパティの要件を記述するもの*/
+
+protocol Foozu{
+    var x2 :Int{get}
+    func hello() -> Int
+}
+
+class Person :Foozu{
+    var x :Int
+    var x2 :Int{
+        get{
+            return x * 2
+        }
+    }
+    func hello() -> Int {
+        return 4
+    }
+    init(x :Int){
+        self.x = x
+    }
+}
+
+var p3 = Person(x:5)
+print("p.x = \(p3.x)p.x2 = \(p3.x2)")
+print(p3.hello())
