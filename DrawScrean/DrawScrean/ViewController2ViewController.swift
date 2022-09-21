@@ -1,25 +1,18 @@
 //
-//  ViewController3.swift
-//  ChangeScrean
+//  ViewController2ViewController.swift
+//  DrawScrean
 //
-//  Created by 阪田竜生 on 2022/09/16.
+//  Created by 阪田竜生 on 2022/09/21.
 //
 
 import UIKit
 
-class ViewController3: UIViewController {
-
-    var text : String = ""
-    @IBOutlet weak var label1: UILabel!
+class ViewController2ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        label1.text = text
-    }
 
-    @IBAction func closeTapped(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
-       
+        // Do any additional setup after loading the view.
     }
     
 

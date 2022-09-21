@@ -1,25 +1,24 @@
 //
-//  ViewController3.swift
-//  ChangeScrean
+//  Drawing.swift
+//  DrawScrean
 //
-//  Created by 阪田竜生 on 2022/09/16.
+//  Created by 阪田竜生 on 2022/09/21.
 //
 
 import UIKit
+import CoreGraphics
 
-class ViewController3: UIViewController {
+struct Drawing{
+    var color = UIColor.black
+    var points = [CGPoint]()
+}
 
-    var text : String = ""
-    @IBOutlet weak var label1: UILabel!
+/*class Drawing: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        label1.text = text
-    }
 
-    @IBAction func closeTapped(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
-       
+        // Do any additional setup after loading the view.
     }
     
 
@@ -33,4 +32,4 @@ class ViewController3: UIViewController {
     }
     */
 
-}
+}*/
