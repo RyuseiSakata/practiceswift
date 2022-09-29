@@ -16,6 +16,8 @@
 		0BC2CD4128DAAAFC0027B9B1 /* timerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC2CD4028DAAAFC0027B9B1 /* timerTests.swift */; };
 		0BC2CD4B28DAAAFC0027B9B1 /* timerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC2CD4A28DAAAFC0027B9B1 /* timerUITests.swift */; };
 		0BC2CD4D28DAAAFC0027B9B1 /* timerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC2CD4C28DAAAFC0027B9B1 /* timerUITestsLaunchTests.swift */; };
+		0BCC3AB428E5770E0047D547 /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCC3AB328E5770E0047D547 /* ViewController2.swift */; };
+		0BCC3AB828E58BA80047D547 /* ViewController3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCC3AB728E58BA80047D547 /* ViewController3.swift */; };
 		499A19983F334C0A9DAF2C77 /* Pods_timerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFF1E55659955048851FB4EA /* Pods_timerTests.framework */; };
 		B1A1DDB13A1C71152FAB1F5D /* Pods_timer_timerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3272B372ED98ADDFE61576CA /* Pods_timer_timerUITests.framework */; };
 		CCD6B9DCAE54B76467AB2BE2 /* Pods_timer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D336FA4D5DE25DBF69863C3E /* Pods_timer.framework */; };
@@ -52,6 +54,8 @@
 		0BC2CD4628DAAAFC0027B9B1 /* timerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = timerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BC2CD4A28DAAAFC0027B9B1 /* timerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = timerUITests.swift; sourceTree = "<group>"; };
 		0BC2CD4C28DAAAFC0027B9B1 /* timerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = timerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		0BCC3AB328E5770E0047D547 /* ViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
+		0BCC3AB728E58BA80047D547 /* ViewController3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController3.swift; sourceTree = "<group>"; };
 		3272B372ED98ADDFE61576CA /* Pods_timer_timerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_timer_timerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B02A44DDBB406900C6DB752 /* Pods-timer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-timer.debug.xcconfig"; path = "Target Support Files/Pods-timer/Pods-timer.debug.xcconfig"; sourceTree = "<group>"; };
 		5FD2E7D6C171BF5520DB3614 /* Pods-timer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-timer.release.xcconfig"; path = "Target Support Files/Pods-timer/Pods-timer.release.xcconfig"; sourceTree = "<group>"; };
@@ -120,6 +124,8 @@
 				0BC2CD2B28DAAAF40027B9B1 /* SceneDelegate.swift */,
 				0BC2CD2D28DAAAF40027B9B1 /* ViewController.swift */,
 				0BC2CD2F28DAAAF40027B9B1 /* Main.storyboard */,
+				0BCC3AB328E5770E0047D547 /* ViewController2.swift */,
+				0BCC3AB728E58BA80047D547 /* ViewController3.swift */,
 				0BC2CD3228DAAAFC0027B9B1 /* Assets.xcassets */,
 				0BC2CD3428DAAAFC0027B9B1 /* LaunchScreen.storyboard */,
 				0BC2CD3728DAAAFC0027B9B1 /* Info.plist */,
@@ -406,7 +412,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BCC3AB828E58BA80047D547 /* ViewController3.swift in Sources */,
 				0BC2CD2E28DAAAF40027B9B1 /* ViewController.swift in Sources */,
+				0BCC3AB428E5770E0047D547 /* ViewController2.swift in Sources */,
 				0BC2CD2A28DAAAF40027B9B1 /* AppDelegate.swift in Sources */,
 				0BC2CD2C28DAAAF40027B9B1 /* SceneDelegate.swift in Sources */,
 			);
