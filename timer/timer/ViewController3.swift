@@ -18,6 +18,7 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
    
     @IBOutlet weak var calendar: FSCalendar!
     var newmemoLists: [String] = []
+    var eventsDate : [String] = []
     @IBOutlet weak var tabel: UITableView!
     
     override func viewDidLoad() {
@@ -32,8 +33,18 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
             newmemoLists = loadedMemoList as! [String]
             
             }
+        
+        let defaults2 = UserDefaults.standard
+        let loadedMemoList2 = defaults2.object(forKey: "SKEMEMO_LIST")
+        if (loadedMemoList2 as? [String] != nil) {
+            
+            eventsDate = loadedMemoList2 as! [String]
+            
+            }
 
     }
+    
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
            return newmemoLists.count
@@ -118,5 +129,20 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
         UserDefaults.standard.removePersistentDomain(forName: appDomain!)
         tabel.reloadData()
     }
+    
+    
+    //ここはイベントの処理
+    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
+               dateFormatter.dateFormat = "yyyy-MM-dd"
+               for eventDate in eventsDate{
+                   guard let eventDate = dateFormatter.date(from: eventDate) else { return 0 }
+                   if date.compare(eventDate) == .orderedSame{
+                       return 1
+                   }
+               }
+               return 0
+    }
+    
+    
     
 }

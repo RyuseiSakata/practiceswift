@@ -16,10 +16,12 @@ class ViewController: UIViewController {
     var second = Calendar.current.component(.second, from: Date())
     var memoList: [Int] = []
     var memoLists: [String] = []
+    var skememoLists: [String] = []
     /*let date = Date()
     //日本時間を表示
     let formatterJP = DateFormatter()*/
     var timechecker :String = ""
+    var skechecker :String = ""
     
     var mytimer : Timer!
     override func viewDidLoad() {
@@ -52,11 +54,14 @@ class ViewController: UIViewController {
         let date = Date()
         //日本時間を表示
         let formatterJP = DateFormatter()
+        let formatterJP2 = DateFormatter()
         formatterJP.dateFormat = DateFormatter.dateFormat(fromTemplate: "ydMMMHms", options: 0, locale: Locale(identifier: "ja_JP"))
+        formatterJP2.dateFormat = DateFormatter.dateFormat(fromTemplate: "yyyy-MM-dd", options: 0, locale: Locale(identifier: "ja_JP"))
         formatterJP.timeZone = TimeZone(identifier:  "Asia/Tokyo")
         //memoLists.append(/*hour*3600+minute*60+second*/formatterJP.string(from: date))
         time.text = ("🇯🇵　\(formatterJP.string(from: date))")
         timechecker = formatterJP.string(from: date)
+        skechecker = formatterJP2.string(from: date)
     }
    
     
@@ -68,9 +73,11 @@ class ViewController: UIViewController {
         //memoList.append(/*hour*3600+minute*60+second*/)
         let defaults = UserDefaults.standard
         let defaults2 = UserDefaults.standard
-        defaults.set(memoLists, forKey: "MEMO_LIST")
         memoLists.append(/*hour*3600+minute*60+second*/timechecker)
-        
+       skememoLists.append(/*hour*3600+minute*60+second*/skechecker)
+        defaults.set(memoLists, forKey: "MEMO_LIST")
+        defaults2.set(skememoLists, forKey: "SKEMEMO_LIST")
+    
        // timesave.text = "\(hour) \(minute) \(second)"
     }
     
@@ -86,6 +93,8 @@ class ViewController: UIViewController {
         UserDefaults.standard.removePersistentDomain(forName: appDomain!)
     }
     
+    
+    //ここで画面遷移処理
     override func prepare(
         for segue: UIStoryboardSegue,
         sender: Any?) {
@@ -93,6 +102,9 @@ class ViewController: UIViewController {
         if segue.identifier == "showView2" {
             let vc = segue.destination as! ViewController3
             vc.newmemoLists.append(timechecker)
+            
+            let vc2 = segue.destination as! ViewController3
+            vc.eventsDate.append(skechecker)
         }
     }
     
