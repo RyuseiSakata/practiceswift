@@ -16,16 +16,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="44R-MN-qLE">
-                                <rect key="frame" x="403" y="392" width="218" height="110"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="gray" title="Button"/>
-                                <connections>
-                                    <action selector="input:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ohc-CM-dnz"/>
-                                    <segue destination="bXZ-9N-Ttk" kind="show" identifier="showView2" id="8NG-Sd-Mmd"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AtC-4f-N2c">
                                 <rect key="frame" x="158" y="556" width="727" height="101"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -65,6 +55,16 @@
                                 <buttonConfiguration key="configuration" style="gray" title="Next"/>
                                 <connections>
                                     <segue destination="qVJ-dY-une" kind="show" id="IL3-5V-yut"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="44R-MN-qLE">
+                                <rect key="frame" x="260" y="398" width="218" height="110"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" title="出勤"/>
+                                <connections>
+                                    <action selector="input:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ohc-CM-dnz"/>
+                                    <segue destination="bXZ-9N-Ttk" kind="show" identifier="showView2" id="8NG-Sd-Mmd"/>
                                 </connections>
                             </button>
                         </subviews>

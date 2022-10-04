@@ -17,13 +17,14 @@ class ViewController: UIViewController {
     var memoList: [Int] = []
     var memoLists: [String] = []
     var skememoLists: [String] = []
+    var timema :Int = 0
     /*let date = Date()
     //日本時間を表示
     let formatterJP = DateFormatter()*/
     var timechecker :String = ""
     var skechecker :String = ""
     
-    var mytimer : Timer!
+    var mytimer = Timer()
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -45,7 +46,7 @@ class ViewController: UIViewController {
            /* hour = memoList[0]/3600
             minute = (memoList[0] - hour*3600)/60
             second = memoList[0] - hour*3600 - minute*60 */
-            timesave.text = "\(memoLists[0])"
+            //timesave.text = "\(memoLists[0])"
             }
     }
     
@@ -78,7 +79,11 @@ class ViewController: UIViewController {
         defaults.set(memoLists, forKey: "MEMO_LIST")
         defaults2.set(skememoLists, forKey: "SKEMEMO_LIST")
     
-       // timesave.text = "\(hour) \(minute) \(second)"
+        //timesave.text =
+        mytimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
+            self.timema = self.timema+1
+            self.timesave.text = "\(self.timema/3600)時間\(self.timema/60)分\(self.timema)秒"
+                })
     }
     
     @IBAction func input(_ sender: Any) {
@@ -89,8 +94,11 @@ class ViewController: UIViewController {
     }
     
     @IBAction func clear(_ sender: Any) {
-        let appDomain = Bundle.main.bundleIdentifier
-        UserDefaults.standard.removePersistentDomain(forName: appDomain!)
+        /*hour = Calendar.current.component(.hour, from: Date())
+        minute = Calendar.current.component(.minute, from: Date())
+        second = Calendar.current.component(.second, from: Date())*/
+        
+        
     }
     
     
