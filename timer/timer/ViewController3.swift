@@ -18,8 +18,11 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
    
     @IBOutlet weak var calendar: FSCalendar!
     var newmemoLists: [String] = []
+    var newmemoLists2: [String] = []
+    var savealldate: [String] = []
     var eventsDate : [String] = []
     @IBOutlet weak var tabel: UITableView!
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +34,7 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
         if (loadedMemoList as? [String] != nil) {
             
             newmemoLists = loadedMemoList as! [String]
-            
+            savealldate = loadedMemoList as! [String]
             }
         
         let defaults2 = UserDefaults.standard
@@ -55,6 +58,13 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
            cell.textLabel!.text = newmemoLists[indexPath.row]
            return cell
        }
+    
+    
+    /*func tableView2(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell2: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell2", for: indexPath)
+        cell2.textLabel!.text = newmemoLists2[indexPath.row]
+        return cell2
+    }*/
     
 
     override func didReceiveMemoryWarning() {
@@ -120,7 +130,7 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
     
     @IBAction func close(_ sender: Any) {
         let defaults = UserDefaults.standard
-        defaults.set(newmemoLists, forKey: "MEMO_LIST2")
+        defaults.set(savealldate, forKey: "MEMO_LIST2")
         dismiss(animated: true)
     }
     
