@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Bucket
-   uuid = "853DB9F8-5E94-4896-A60B-EC2AB9346A9B"
-   type = "1"
+   uuid = "0D9401C0-605D-4615-A4AD-923CBE6ACE28"
+   type = "0"
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "0AEDB707-2E60-4889-80F4-4CAA0BF55249"
+            uuid = "1E832DE5-F56D-464B-901E-676F7824A196"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "timer/ViewController.swift"
+            filePath = "timer/ViewController3.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "timecheck()"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -80,55 +80,72 @@ class ViewController: UIViewController {
        skememoLists.append(/*hour*3600+minute*60+second*/skechecker)
         defaults.set(memoLists, forKey: "MEMO_LIST")
         defaults2.set(skememoLists, forKey: "SKEMEMO_LIST")
-    
-        //timesave.text =
+        
+        flag = true
+        
+        
         mytimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
             self.timema = self.timema+1
             self.timesave.text = "\(self.timema/3600)時間\((self.timema/60)%60)分\((self.timema)%60)秒"
-            
-            if self.flag{
-                self.mytimer.invalidate()
-                self.flag = false
-            }
-            
         })
        
     }
     
     
     func applyMemo2() {
-        //memoList.append(/*hour*3600+minute*60+second*/)
-        let defaults = UserDefaults.standard
-        memoLists2.append(timechecker)
-        defaults.set(memoLists2, forKey: "MEMO_LIST2")
-        self.flag = true
-        self.mytimer.invalidate()
-       
+  
+            let defaults = UserDefaults.standard
+            memoLists2.append(timechecker)
+            defaults.set(memoLists2, forKey: "MEMO_LIST2")
+            self.flag = false
+        
+            mytimer.invalidate()
+    
     }
     
     @IBAction func input(_ sender: Any) {
-        applyMemo()
+        if flag == false{
+            applyMemo()
+            
+            // ダイアログ(AlertControllerのインスタンス)を生成します
+            //   titleには、ダイアログの表題として表示される文字列を指定します
+            //   messageには、ダイアログの説明として表示される文字列を指定します
+            let dialog = UIAlertController(title: "出勤しました", message: "出勤時間が記録されます", preferredStyle: .alert)
+            // 選択肢(ボタン)を2つ(OKとCancel)追加します
+            //   titleには、選択肢として表示される文字列を指定します
+            //   styleには、通常は「.default」、キャンセルなど操作を無効にするものは「.cancel」、削除など注意して選択すべきものは「.destructive」を指定します
+            dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            
+            // 生成したダイアログを実際に表示します
+            self.present(dialog, animated: true, completion: nil)
+        }
         
-          // ダイアログ(AlertControllerのインスタンス)を生成します
-          //   titleには、ダイアログの表題として表示される文字列を指定します
-          //   messageには、ダイアログの説明として表示される文字列を指定します
-          let dialog = UIAlertController(title: "出勤しました", message: "出勤時間が記録されます", preferredStyle: .alert)
-          // 選択肢(ボタン)を2つ(OKとCancel)追加します
-          //   titleには、選択肢として表示される文字列を指定します
-          //   styleには、通常は「.default」、キャンセルなど操作を無効にするものは「.cancel」、削除など注意して選択すべきものは「.destructive」を指定します
-          dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-          
-          // 生成したダイアログを実際に表示します
-          self.present(dialog, animated: true, completion: nil)
+        else {
+            let dialog = UIAlertController(title: "退勤してください", message: "退勤しないと出勤できません", preferredStyle: .alert)
+            dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            
+            // 生成したダイアログを実際に表示します
+            self.present(dialog, animated: true, completion: nil)
+        }
     }
     
    
     @IBAction func taikinnbutonn(_ sender: Any) {
-        let dialog = UIAlertController(title: "退勤しました", message: "お疲れ様です。退勤時間が記録されます", preferredStyle: .alert)
-        dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        if flag == false{
+            let dialog = UIAlertController(title: "出勤してください", message: "本日はまだ出勤していません", preferredStyle: .alert)
+            dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            // 生成したダイアログを実際に表示します
+            self.present(dialog, animated: true, completion: nil)
+        }
         
-        // 生成したダイアログを実際に表示します
-        self.present(dialog, animated: true, completion: nil)
+        else{
+            applyMemo2()
+            let dialog = UIAlertController(title: "退勤しました", message: "お疲れ様です。退勤時間が記録されます", preferredStyle: .alert)
+            dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            
+            // 生成したダイアログを実際に表示します
+            self.present(dialog, animated: true, completion: nil)
+        }
     }
     
     //ここで画面遷移処理
@@ -142,7 +159,9 @@ class ViewController: UIViewController {
             
             _ = segue.destination as! ViewController3
             vc.eventsDate.append(skechecker)
-            
+             
+            _ = segue.destination as! ViewController3
+            vc.newmemoLists2.append(timechecker)
             
         }
     }

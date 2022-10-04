@@ -23,6 +23,7 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
     var eventsDate : [String] = []
     @IBOutlet weak var tabel: UITableView!
    
+    @IBOutlet weak var table2: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +45,13 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
             eventsDate = loadedMemoList2 as! [String]
             
             }
-
+        
+        let defaults3 = UserDefaults.standard
+        _ = defaults3.object(forKey: "MEMO_LIST2")
+        if (loadedMemoList2 as? [String] != nil) {
+            newmemoLists2 = loadedMemoList2 as! [String]
+            }
+        
     }
     
     
@@ -59,12 +66,15 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
            return cell
        }
     
+    func tableView2(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+           return newmemoLists2.count
+       }
     
-    /*func tableView2(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView2(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell2: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell2", for: indexPath)
         cell2.textLabel!.text = newmemoLists2[indexPath.row]
         return cell2
-    }*/
+    }
     
 
     override func didReceiveMemoryWarning() {
