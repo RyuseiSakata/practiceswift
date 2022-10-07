@@ -23,9 +23,13 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
     var newmemoLists2: [String] = []
     var savealldate: [String] = []
     var eventsDate : [String] = []
+    var date: [[String]] = []
+    var tag: Int = 0
+    var cellidentifar: String = ""
+    
     @IBOutlet weak var tabel: UITableView!
-   
-    @IBOutlet weak var table2: UITableView!
+    
+   @IBOutlet weak var table2: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,36 +53,43 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
             }
         
         let defaults3 = UserDefaults.standard
-        _ = defaults3.object(forKey: "MEMO_LIST2")
-        if (loadedMemoList2 as? [String] != nil) {
-            newmemoLists2 = loadedMemoList2 as! [String]
+        let loadedMemoList3  = defaults3.object(forKey: "MEMO_LIST2")
+        if (loadedMemoList3 as? [String] != nil) {
+            newmemoLists2 = loadedMemoList3 as! [String]
             }
         
+        tabel.delegate = self
+        table2.delegate = self
+        tabel.dataSource = self
+        table2.dataSource = self
+        
+        
+        date.append(newmemoLists)
+        date.append(newmemoLists2)
+    }
+    
+    func checkTabletag(_ tableView: UITableView) -> Void{
+        if(tableView.tag == 0){
+            tag = 0
+            cellidentifar = "Cell"
+        }
+        else{
+            tag = 1
+            cellidentifar = "Cell2"
+        }
     }
     
     
-    
         func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return newmemoLists.count
+            checkTabletag(tableView)
+            return /*newmemoLists.count*/date[tag].count
        }
        //ここが一覧表示
        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-           let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+           checkTabletag(tableView)
            
-           //cell.textLabel!.text = newmemoLists[indexPath.row]
-           let label1 = cell.contentView.viewWithTag(1) as! UILabel
-           let label2 = cell.contentView.viewWithTag(2) as! UILabel
-           
-           label1.text = newmemoLists[indexPath.row]
-           
-          /* if newmemoLists.count == newmemoLists2.count{
-               
-               label2.text = newmemoLists2[indexPath.row]
-           }
-           else{
-               label2.text = "まだ退勤してないよん"
-           }*/
-           
+           let cell = tableView.dequeueReusableCell(withIdentifier: cellidentifar, for: indexPath as IndexPath)
+           cell.textLabel?.text = date[tag][indexPath.row] //as? String
            
            return cell
        }
