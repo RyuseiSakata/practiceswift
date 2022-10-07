@@ -15,6 +15,8 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
     
     
     
+    
+    
    
     @IBOutlet weak var calendar: FSCalendar!
     var newmemoLists: [String] = []
@@ -56,13 +58,28 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
     
     
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-           return newmemoLists.count
+        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            return newmemoLists.count
        }
        //ここが一覧表示
        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
            let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-           cell.textLabel!.text = newmemoLists[indexPath.row]
+           
+           //cell.textLabel!.text = newmemoLists[indexPath.row]
+           let label1 = cell.contentView.viewWithTag(1) as! UILabel
+           let label2 = cell.contentView.viewWithTag(2) as! UILabel
+           
+           label1.text = newmemoLists[indexPath.row]
+           
+          /* if newmemoLists.count == newmemoLists2.count{
+               
+               label2.text = newmemoLists2[indexPath.row]
+           }
+           else{
+               label2.text = "まだ退勤してないよん"
+           }*/
+           
+           
            return cell
        }
     
@@ -70,7 +87,7 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
            return newmemoLists2.count
        }
     
-    func tableView2(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+     func tableView2(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell2: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell2", for: indexPath)
         cell2.textLabel!.text = newmemoLists2[indexPath.row]
         return cell2
