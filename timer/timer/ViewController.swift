@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     var skememoLists: [String] = []
     var timema :Int = 0
     var flag : Bool = false
+    var flaga: Int = 0;
     /*let date = Date()
     //日本時間を表示
     let formatterJP = DateFormatter()*/
@@ -27,6 +28,7 @@ class ViewController: UIViewController {
     var skechecker :String = ""
     
     var mytimer = Timer()
+    var mytimer2 = Timer()
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -98,9 +100,9 @@ class ViewController: UIViewController {
             memoLists2.append(timechecker)
             defaults.set(memoLists2, forKey: "MEMO_LIST2")
             self.flag = false
-        
+            self.flaga = 1
             mytimer.invalidate()
-    
+            
     }
     
     @IBAction func input(_ sender: Any) {
@@ -162,6 +164,10 @@ class ViewController: UIViewController {
              
             _ = segue.destination as! ViewController3
             vc.newmemoLists2.append(timechecker)
+            
+           
+                _ = segue.destination as! ViewController3
+                vc.showsumtimer += timema
             
         }
     }

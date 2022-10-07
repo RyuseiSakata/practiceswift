@@ -91,7 +91,7 @@
             <objects>
                 <viewController id="bXZ-9N-Ttk" customClass="ViewController3" customModule="timer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4mW-Ts-9yD">
-                        <rect key="frame" x="0.0" y="0.0" width="704" height="995.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="704" height="995"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c6l-rQ-ob7" customClass="FSCalendar">
@@ -170,6 +170,13 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ここに合計の労働時間が表示されます" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Uc-v7-o4H">
+                                <rect key="frame" x="20" y="921" width="664" height="54"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="31"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="fQr-7k-jiy"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -177,6 +184,7 @@
                     <navigationItem key="navigationItem" id="NRQ-RT-hUk"/>
                     <connections>
                         <outlet property="calendar" destination="c6l-rQ-ob7" id="nF7-cG-Wr4"/>
+                        <outlet property="roudoujikann" destination="5Uc-v7-o4H" id="Ucg-eG-WCf"/>
                         <outlet property="tabel" destination="XZz-6O-7vf" id="US3-BN-0Yv"/>
                         <outlet property="table2" destination="7Zn-3h-6Ef" id="lXg-ok-Jl4"/>
                     </connections>
