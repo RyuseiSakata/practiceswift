@@ -21,9 +21,10 @@ class ViewController: UIViewController {
     var timema :Int = 0
     var flag : Bool = false
     var flaga: Int = 0;
-    /*let date = Date()
+    
+    /*let date = Date()*/
     //日本時間を表示
-    let formatterJP = DateFormatter()*/
+    var hiduke = DateFormatter()
     var timechecker :String = ""
     var skechecker :String = ""
     
@@ -40,18 +41,17 @@ class ViewController: UIViewController {
         let defaults = UserDefaults.standard
         let loadedMemoList = defaults.object(forKey: "MEMO_LIST")
         if (loadedMemoList as? [String] != nil) {
-            //
-           /* hour = loadedMemoList as! Int/3600
-            minute = loadedMemoList as! Int/60
-            second = hour*3600 - minute*60
-            
-            timesave.text = "\(hour) \(minute) \(second-1)"*/
+           
             memoLists = loadedMemoList as! [String]
-           /* hour = memoList[0]/3600
-            minute = (memoList[0] - hour*3600)/60
-            second = memoList[0] - hour*3600 - minute*60 */
-            //timesave.text = "\(memoLists[0])"
+          
             }
+        let loadedMemoList2 = defaults.object(forKey: "MEMO_LIST2")
+        if (loadedMemoList2 as? [String] != nil) {
+           
+            memoLists2 = loadedMemoList2 as! [String]
+          
+            }
+        
     }
     
     @objc func timecheck(){
@@ -88,7 +88,11 @@ class ViewController: UIViewController {
         
         mytimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
             self.timema = self.timema+1
-            self.timesave.text = "\(self.timema/3600)時間\((self.timema/60)%60)分\((self.timema)%60)秒"
+            self.timesave.text = "\((self.timema/3600)%60)時間\((self.timema/60)%60)分\((self.timema)%60)秒"
+            
+            if(self.timema == 8*3600){
+                self.applyMemo2()
+            }
         })
        
     }
@@ -103,12 +107,37 @@ class ViewController: UIViewController {
             self.flaga = 1
             mytimer.invalidate()
             
+            
     }
     
     @IBAction func input(_ sender: Any) {
-        if flag == false{
-            applyMemo()
+        let date = Date()
+        let calendar = Calendar.current
+        let day = calendar.component(.day, from: date)
+        let hour = calendar.component(.hour, from: date)
+        let condition = calendar.date(from: DateComponents(hour:0))!
+        let condition2 = calendar.date(from: DateComponents(hour:4))!
+        
+        
+        
+        let defaults = UserDefaults.standard
+        let loadedMemoList4  = defaults.object(forKey: "Hiduke")
+        
+        
+        if /*date > condition && date < condition2 &&*/ flag == false && loadedMemoList4 != nil && day == loadedMemoList4 as! Int{
+            print("adfadf")
+            let dialog = UIAlertController(title: "エラー", message: "出勤は1日に１回しかできません", preferredStyle: .alert)
+            dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             
+            // 生成したダイアログを実際に表示します
+            self.present(dialog, animated: true, completion: nil)
+        }
+        else if flag == false{
+            applyMemo()
+           
+            let nowday = calendar.component(.day, from: date)
+            let defaults5 = UserDefaults.standard
+            defaults5.set(nowday, forKey: "Hiduke")
             // ダイアログ(AlertControllerのインスタンス)を生成します
             //   titleには、ダイアログの表題として表示される文字列を指定します
             //   messageには、ダイアログの説明として表示される文字列を指定します
@@ -147,6 +176,8 @@ class ViewController: UIViewController {
             
             // 生成したダイアログを実際に表示します
             self.present(dialog, animated: true, completion: nil)
+            
+            
         }
     }
     
@@ -154,21 +185,32 @@ class ViewController: UIViewController {
     override func prepare(
         for segue: UIStoryboardSegue,
         sender: Any?) {
-
+            
         if segue.identifier == "showView2" {
-            let vc = segue.destination as! ViewController3
+            
+           /* let vc = segue.destination as! ViewController3
             vc.newmemoLists.append(timechecker)
             
             _ = segue.destination as! ViewController3
             vc.eventsDate.append(skechecker)
              
             _ = segue.destination as! ViewController3
-            vc.newmemoLists2.append(timechecker)
-            
-           
-                _ = segue.destination as! ViewController3
+            vc.newmemoLists2.append(timechecker)*/
+            if(flaga == 1){
+                let defaults = UserDefaults.standard
+                let vc = segue.destination as! ViewController3
+                let loadedMemoList4  = defaults.object(forKey: "sumtime")
+                if (loadedMemoList4 as? Int != nil) {
+                    vc.showsumtimer = loadedMemoList4 as! Int
+                }
+                //let vc = segue.destination as! ViewController3
                 vc.showsumtimer += timema
-            
+                let defaults5 = UserDefaults.standard
+                defaults5.set(vc.showsumtimer, forKey: "sumtime")
+                //dump(timema)
+                timema = 0
+                flaga = 2;
+            }
         }
     }
     

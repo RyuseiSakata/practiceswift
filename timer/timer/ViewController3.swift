@@ -40,6 +40,7 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
         // デリゲートの設定
         self.calendar.dataSource = self
         self.calendar.delegate = self
+        
         let defaults = UserDefaults.standard
         let loadedMemoList = defaults.object(forKey: "MEMO_LIST")
         if (loadedMemoList as? [String] != nil) {
@@ -48,18 +49,24 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
             savealldate = loadedMemoList as! [String]
             }
         
-        let defaults2 = UserDefaults.standard
-        let loadedMemoList2 = defaults2.object(forKey: "SKEMEMO_LIST")
+       
+        let loadedMemoList2 = defaults.object(forKey: "SKEMEMO_LIST")
         if (loadedMemoList2 as? [String] != nil) {
             
             eventsDate = loadedMemoList2 as! [String]
             
             }
         
-        let defaults3 = UserDefaults.standard
-        let loadedMemoList3  = defaults3.object(forKey: "MEMO_LIST2")
+        
+        let loadedMemoList3  = defaults.object(forKey: "MEMO_LIST2")
         if (loadedMemoList3 as? [String] != nil) {
             newmemoLists2 = loadedMemoList3 as! [String]
+            }
+        
+        
+        let loadedMemoList4  = defaults.object(forKey: "sumtime")
+        if (loadedMemoList4 as? Int != nil) {
+            showsumtimer = loadedMemoList4 as! Int
             }
         
         
@@ -69,9 +76,10 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
         tabel.dataSource = self
         table2.dataSource = self
         
-        
+        dump(showsumtimer)
         date.append(newmemoLists)
         date.append(newmemoLists2)
+        roudoujikann.text = "今月は\((showsumtimer/3600)%60)時間\((showsumtimer/60)%60)分\((showsumtimer)%60)秒働きました！！"
     }
     
     func checkTabletag(_ tableView: UITableView) -> Void{
@@ -94,14 +102,14 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
            checkTabletag(tableView)
            
-           roudoujikann.text = "今月は\(self.showsumtimer/3600)時間\((self.showsumtimer/60)%60)分\((self.showsumtimer)%60)秒だけ働きました！"
+          
            let cell = tableView.dequeueReusableCell(withIdentifier: cellidentifar, for: indexPath as IndexPath)
            cell.textLabel?.text = date[tag][indexPath.row] //as? String
            
            return cell
        }
     
-    func tableView2(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    /*func tableView2(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
            return newmemoLists2.count
        }
     
@@ -109,7 +117,7 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
         let cell2: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell2", for: indexPath)
         cell2.textLabel!.text = newmemoLists2[indexPath.row]
         return cell2
-    }
+    }*/
     
 
     override func didReceiveMemoryWarning() {
@@ -174,8 +182,8 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
     }
     
     @IBAction func close(_ sender: Any) {
-        let defaults = UserDefaults.standard
-       // defaults.set(savealldate, forKey: "MEMO_LIST2")
+      //  let defaults = UserDefaults.standard
+       // defaults.set(newmemoLists2, forKey: "MEMO_LIST2")
         dismiss(animated: true)
     }
     
