@@ -7,6 +7,7 @@
 
 import UIKit
 import AVFoundation
+import LocalAuthentication
 
 class ViewController: UIViewController {
 
@@ -23,7 +24,7 @@ class ViewController: UIViewController {
     var flag : Bool = false
     var flaga: Int = 0;
     var player: AVAudioPlayer?
-    
+    var flagera = false
     /*let date = Date()*/
     //日本時間を表示
     var hiduke = DateFormatter()
@@ -32,8 +33,35 @@ class ViewController: UIViewController {
     
     var mytimer = Timer()
     var mytimer2 = Timer()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let context = LAContext()
+        var error: NSError?
+        let description: String = "認証"
+        
+        // Touch ID・Face IDが利用できるデバイスか確認する
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            // 利用できる場合は指紋・顔認証を要求する
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: description, reply: {success, evaluateError in
+                if (success) {
+                    self.flagera = true
+                    print("認証成功")
+                }
+                
+                else {
+                    // 認証失敗時の処理を書く
+                   
+                    print("認証失敗")
+                }
+            })
+        } else {
+            // Touch ID・Face IDが利用できない場合の処理
+            let errorDescription = error?.userInfo["NSLocalizedDescription"] ?? ""
+            print(errorDescription) // Biometry is not available on this device.
+        }
+        
         // Do any additional setup after loading the view.
        
         /*time.text = "\(hour) \(minute) \(second)"*/
@@ -114,81 +142,93 @@ class ViewController: UIViewController {
     }
     
     @IBAction func input(_ sender: Any) {
-        let date = Date()
-        let calendar = Calendar.current
-        let day = calendar.component(.day, from: date)
-        let hour = calendar.component(.hour, from: date)
-        let year = calendar.component(.year, from: date)
-        let month = calendar.component(.month, from: date)
         
-        let kijyunn = calendar.date(from: DateComponents(year: year,month: month,day: day,hour: 0))!
-        let kijyunn2 = calendar.date(from: DateComponents(year: year,month: month,day: day,hour: 4))!
         
-        print(date)
-        print(kijyunn)
-        print(kijyunn2)
         
-        let defaults = UserDefaults.standard
-        let loadedMemoList4  = defaults.object(forKey: "Hiduke")
-        
-        if date > kijyunn && date < kijyunn2  {
+        if flagera{
+            let date = Date()
+            let calendar = Calendar.current
+            let day = calendar.component(.day, from: date)
+            let hour = calendar.component(.hour, from: date)
+            let year = calendar.component(.year, from: date)
+            let month = calendar.component(.month, from: date)
             
-            if flag == false{
-                applyMemo()
-               
-                let nowday = calendar.component(.day, from: date)
-                let defaults5 = UserDefaults.standard
-                defaults5.set(nowday, forKey: "Hiduke")
+            let kijyunn = calendar.date(from: DateComponents(year: year,month: month,day: day,hour: 0))!
+            let kijyunn2 = calendar.date(from: DateComponents(year: year,month: month,day: day,hour: 4))!
+            
+            print(date)
+            print(kijyunn)
+            print(kijyunn2)
+            
+            let defaults = UserDefaults.standard
+            let loadedMemoList4  = defaults.object(forKey: "Hiduke")
+            
+            if date > kijyunn && date < kijyunn2  {
                 
-                let dialog = UIAlertController(title: "残業出勤しました", message: "残業中の時間が記録されます", preferredStyle: .alert)
-               dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                if flag == false{
+                    applyMemo()
+                    
+                    let nowday = calendar.component(.day, from: date)
+                    let defaults5 = UserDefaults.standard
+                    defaults5.set(nowday, forKey: "Hiduke")
+                    
+                    let dialog = UIAlertController(title: "残業出勤しました", message: "残業中の時間が記録されます", preferredStyle: .alert)
+                    dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    
+                    self.present(dialog, animated: true, completion: nil)
+                }
                 
-                self.present(dialog, animated: true, completion: nil)
+                else {
+                    let dialog = UIAlertController(title: "退勤してください", message: "退勤しないと出勤できません", preferredStyle: .alert)
+                    dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    
+                    // 生成したダイアログを実際に表示します
+                    self.present(dialog, animated: true, completion: nil)
+                }
             }
-            
             else {
-                let dialog = UIAlertController(title: "退勤してください", message: "退勤しないと出勤できません", preferredStyle: .alert)
-                dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                if  flag == false && loadedMemoList4 != nil && day == loadedMemoList4 as! Int{
+                    print("adfadf")
+                    let dialog = UIAlertController(title: "エラー", message: "出勤は1日に１回しかできません", preferredStyle: .alert)
+                    dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    
+                    // 生成したダイアログを実際に表示します
+                    self.present(dialog, animated: true, completion: nil)
+                }
+                else if flag == false{
+                    applyMemo()
+                    
+                    let nowday = calendar.component(.day, from: date)
+                    let defaults5 = UserDefaults.standard
+                    defaults5.set(nowday, forKey: "Hiduke")
+                    // ダイアログ(AlertControllerのインスタンス)を生成します
+                    //   titleには、ダイアログの表題として表示される文字列を指定します
+                    //   messageには、ダイアログの説明として表示される文字列を指定します
+                    let dialog = UIAlertController(title: "出勤しました", message: "出勤時間が記録されます", preferredStyle: .alert)
+                    // 選択肢(ボタン)を2つ(OKとCancel)追加します
+                    //   titleには、選択肢として表示される文字列を指定します
+                    //   styleには、通常は「.default」、キャンセルなど操作を無効にするものは「.cancel」、削除など注意して選択すべきものは「.destructive」を指定します
+                    dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    
+                    // 生成したダイアログを実際に表示します
+                    self.present(dialog, animated: true, completion: nil)
+                }
                 
-                // 生成したダイアログを実際に表示します
-                self.present(dialog, animated: true, completion: nil)
+                else {
+                    let dialog = UIAlertController(title: "退勤してください", message: "退勤しないと出勤できません", preferredStyle: .alert)
+                    dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    
+                    // 生成したダイアログを実際に表示します
+                    self.present(dialog, animated: true, completion: nil)
+                }
             }
         }
-        else {
-            if  flag == false && loadedMemoList4 != nil && day == loadedMemoList4 as! Int{
-                print("adfadf")
-                let dialog = UIAlertController(title: "エラー", message: "出勤は1日に１回しかできません", preferredStyle: .alert)
-                dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                
-                // 生成したダイアログを実際に表示します
-                self.present(dialog, animated: true, completion: nil)
-            }
-            else if flag == false{
-                applyMemo()
-                
-                let nowday = calendar.component(.day, from: date)
-                let defaults5 = UserDefaults.standard
-                defaults5.set(nowday, forKey: "Hiduke")
-                // ダイアログ(AlertControllerのインスタンス)を生成します
-                //   titleには、ダイアログの表題として表示される文字列を指定します
-                //   messageには、ダイアログの説明として表示される文字列を指定します
-                let dialog = UIAlertController(title: "出勤しました", message: "出勤時間が記録されます", preferredStyle: .alert)
-                // 選択肢(ボタン)を2つ(OKとCancel)追加します
-                //   titleには、選択肢として表示される文字列を指定します
-                //   styleには、通常は「.default」、キャンセルなど操作を無効にするものは「.cancel」、削除など注意して選択すべきものは「.destructive」を指定します
-                dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                
-                // 生成したダイアログを実際に表示します
-                self.present(dialog, animated: true, completion: nil)
-            }
+        else{
+            let dialog = UIAlertController(title: "認証失敗", message: "アプリを再起動してもう一度本人確認をしてください", preferredStyle: .alert)
+            dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             
-            else {
-                let dialog = UIAlertController(title: "退勤してください", message: "退勤しないと出勤できません", preferredStyle: .alert)
-                dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                
-                // 生成したダイアログを実際に表示します
-                self.present(dialog, animated: true, completion: nil)
-            }
+            // 生成したダイアログを実際に表示します
+            self.present(dialog, animated: true, completion: nil)
         }
     }
     

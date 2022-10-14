@@ -12,12 +12,7 @@ import CalculateCalendarLogic
 
 
 class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,FSCalendarDelegateAppearance,UITableViewDelegate, UITableViewDataSource{
-    
-    
-    
-    
-    
-   
+ 
     @IBOutlet weak var calendar: FSCalendar!
     var newmemoLists: [String] = []
     var newmemoLists2: [String] = []
@@ -69,8 +64,6 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
             showsumtimer = loadedMemoList4 as! Int
             }
         
-        
-        
         tabel.delegate = self
         table2.delegate = self
         tabel.dataSource = self
@@ -108,10 +101,7 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
            
            return cell
        }
-    
-   
-    
-
+ 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -184,7 +174,6 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
         UserDefaults.standard.removePersistentDomain(forName: appDomain!)
         tabel.reloadData()
     }
-    
     
     //ここはイベントの処理
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
