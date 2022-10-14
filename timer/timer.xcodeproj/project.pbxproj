@@ -18,6 +18,7 @@
 		0BC2CD4D28DAAAFC0027B9B1 /* timerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC2CD4C28DAAAFC0027B9B1 /* timerUITestsLaunchTests.swift */; };
 		0BCC3AB428E5770E0047D547 /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCC3AB328E5770E0047D547 /* ViewController2.swift */; };
 		0BCC3AB828E58BA80047D547 /* ViewController3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCC3AB728E58BA80047D547 /* ViewController3.swift */; };
+		0BD0740528F9053800A40982 /* arr-mu.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0BD0740428F9053800A40982 /* arr-mu.mp3 */; };
 		499A19983F334C0A9DAF2C77 /* Pods_timerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFF1E55659955048851FB4EA /* Pods_timerTests.framework */; };
 		B1A1DDB13A1C71152FAB1F5D /* Pods_timer_timerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3272B372ED98ADDFE61576CA /* Pods_timer_timerUITests.framework */; };
 		CCD6B9DCAE54B76467AB2BE2 /* Pods_timer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D336FA4D5DE25DBF69863C3E /* Pods_timer.framework */; };
@@ -56,6 +57,7 @@
 		0BC2CD4C28DAAAFC0027B9B1 /* timerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = timerUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		0BCC3AB328E5770E0047D547 /* ViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
 		0BCC3AB728E58BA80047D547 /* ViewController3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController3.swift; sourceTree = "<group>"; };
+		0BD0740428F9053800A40982 /* arr-mu.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "arr-mu.mp3"; sourceTree = "<group>"; };
 		3272B372ED98ADDFE61576CA /* Pods_timer_timerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_timer_timerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B02A44DDBB406900C6DB752 /* Pods-timer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-timer.debug.xcconfig"; path = "Target Support Files/Pods-timer/Pods-timer.debug.xcconfig"; sourceTree = "<group>"; };
 		5FD2E7D6C171BF5520DB3614 /* Pods-timer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-timer.release.xcconfig"; path = "Target Support Files/Pods-timer/Pods-timer.release.xcconfig"; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				0BC2CD2F28DAAAF40027B9B1 /* Main.storyboard */,
 				0BCC3AB328E5770E0047D547 /* ViewController2.swift */,
 				0BCC3AB728E58BA80047D547 /* ViewController3.swift */,
+				0BD0740428F9053800A40982 /* arr-mu.mp3 */,
 				0BC2CD3228DAAAFC0027B9B1 /* Assets.xcassets */,
 				0BC2CD3428DAAAFC0027B9B1 /* LaunchScreen.storyboard */,
 				0BC2CD3728DAAAFC0027B9B1 /* Info.plist */,
@@ -282,6 +285,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BD0740528F9053800A40982 /* arr-mu.mp3 in Resources */,
 				0BC2CD3628DAAAFC0027B9B1 /* LaunchScreen.storyboard in Resources */,
 				0BC2CD3328DAAAFC0027B9B1 /* Assets.xcassets in Resources */,
 				0BC2CD3128DAAAF40027B9B1 /* Main.storyboard in Resources */,
@@ -594,14 +598,15 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = LQK8Y2JD9R;
+				DEVELOPMENT_TEAM = KYWADAAQDY;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = timer/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -623,14 +628,15 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = LQK8Y2JD9R;
+				DEVELOPMENT_TEAM = KYWADAAQDY;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = timer/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
