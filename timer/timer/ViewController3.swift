@@ -109,15 +109,7 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
            return cell
        }
     
-    /*func tableView2(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-           return newmemoLists2.count
-       }
-    
-     func tableView2(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell2: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell2", for: indexPath)
-        cell2.textLabel!.text = newmemoLists2[indexPath.row]
-        return cell2
-    }*/
+   
     
 
     override func didReceiveMemoryWarning() {
