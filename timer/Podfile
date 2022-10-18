@@ -8,7 +8,8 @@ target 'timer' do
 pod 'FSCalendar'
   pod 'CalculateCalendarLogic'
   # Pods for timer
-
+  pod 'Charts'
+  
   target 'timerTests' do
     inherit! :search_paths
     # Pods for testing
