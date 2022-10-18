@@ -11,6 +11,8 @@ import LocalAuthentication
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var shukkinnbutton: UIButton!
+    @IBOutlet weak var taikinnbutton: UIButton!
     @IBOutlet weak var time: UILabel!
     @IBOutlet weak var timesave: UILabel!
     var hour = Calendar.current.component(.hour, from: Date())
@@ -25,6 +27,7 @@ class ViewController: UIViewController {
     var flaga: Int = 0;
     var player: AVAudioPlayer?
     var flagera = false
+    var backgroundTaskID : UIBackgroundTaskIdentifier = UIBackgroundTaskIdentifier(rawValue: 0)
     /*let date = Date()*/
     //日本時間を表示
     var hiduke = DateFormatter()
@@ -40,6 +43,7 @@ class ViewController: UIViewController {
         let context = LAContext()
         var error: NSError?
         let description: String = "認証"
+        taikinnbutton.isHidden = true
         
         // Touch ID・Face IDが利用できるデバイスか確認する
         if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
@@ -52,7 +56,6 @@ class ViewController: UIViewController {
                 
                 else {
                     // 認証失敗時の処理を書く
-                   
                     print("認証失敗")
                 }
             })
@@ -84,6 +87,8 @@ class ViewController: UIViewController {
         
     }
     
+    
+    
     @objc func timecheck(){
         
         let date = Date()
@@ -102,6 +107,8 @@ class ViewController: UIViewController {
     
     
     func applyMemo() {
+        taikinnbutton.isHidden = false
+        shukkinnbutton.isHidden = true
         hour = Calendar.current.component(.hour, from: Date())
         minute = Calendar.current.component(.minute, from: Date())
         second = Calendar.current.component(.second, from: Date())
@@ -115,7 +122,7 @@ class ViewController: UIViewController {
         
         flag = true
         
-        
+        //self.backgroundTaskID = UIApplication.shared.beginBackgroundTask(expirationHandler: nil)
         mytimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
             self.timema = self.timema+1
             self.timesave.text = "\((self.timema/3600)%60)時間\((self.timema/60)%60)分\((self.timema)%60)秒"
@@ -129,15 +136,18 @@ class ViewController: UIViewController {
     }
     
     
+    
     func applyMemo2() {
-  
+            
+        shukkinnbutton.isHidden = false
+        taikinnbutton.isHidden = true
             let defaults = UserDefaults.standard
             memoLists2.append(timechecker)
             defaults.set(memoLists2, forKey: "MEMO_LIST2")
             self.flag = false
             self.flaga = 1
             mytimer.invalidate()
-            
+            //UIApplication.shared.endBackgroundTask(self.backgroundTaskID)
             
     }
     

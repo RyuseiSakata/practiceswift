@@ -79,6 +79,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="Tzu-jJ-Ufl"/>
                     <connections>
+                        <outlet property="shukkinnbutton" destination="44R-MN-qLE" id="Yqf-pN-1Fo"/>
+                        <outlet property="taikinnbutton" destination="ANp-BL-8ck" id="zVZ-kJ-0bj"/>
                         <outlet property="time" destination="cjC-2b-MRD" id="GOa-6l-Kdd"/>
                         <outlet property="timesave" destination="AtC-4f-N2c" id="xri-Hv-nUm"/>
                     </connections>
