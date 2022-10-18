@@ -28,6 +28,8 @@ class ViewController: UIViewController {
     var player: AVAudioPlayer?
     var flagera = false
     var backgroundTaskID : UIBackgroundTaskIdentifier = UIBackgroundTaskIdentifier(rawValue: 0)
+    var backtime : Int = 0
+    var backtimeflag : Bool = false
     /*let date = Date()*/
     //日本時間を表示
     var hiduke = DateFormatter()
@@ -39,6 +41,16 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(foreground(notification:)),
+                                               name: UIApplication.willEnterForegroundNotification,
+                                               object: nil
+        )
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(background(notification:)),
+                                               name: UIApplication.didEnterBackgroundNotification,
+                                               object: nil
+        )
         
         let context = LAContext()
         var error: NSError?
@@ -87,6 +99,29 @@ class ViewController: UIViewController {
         
     }
     
+    @objc func foreground(notification: Notification) {
+        
+        if(backtimeflag){
+            hour = Calendar.current.component(.hour, from: Date())
+            minute = Calendar.current.component(.minute, from: Date())
+            second = Calendar.current.component(.second, from: Date())
+            let comebacktime = hour*3600+minute*60+second
+            timema += comebacktime - backtime
+        }
+        print("フォアグラウンド")
+        print("\((self.timema/3600)%60)時間\((self.timema/60)%60)分\((self.timema)%60)秒")
+    }
+    
+    @objc func background(notification: Notification) {
+        
+        hour = Calendar.current.component(.hour, from: Date())
+        minute = Calendar.current.component(.minute, from: Date())
+        second = Calendar.current.component(.second, from: Date())
+        print("バックグラウンド")
+        backtime = hour*3600+minute*60+second
+        print(second)
+        backtimeflag = true
+    }
     
     
     @objc func timecheck(){
@@ -147,6 +182,7 @@ class ViewController: UIViewController {
             self.flag = false
             self.flaga = 1
             mytimer.invalidate()
+            mytimer2.invalidate()
             //UIApplication.shared.endBackgroundTask(self.backgroundTaskID)
             
     }
