@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var taikinnbutton: UIButton!
     @IBOutlet weak var time: UILabel!
     @IBOutlet weak var timesave: UILabel!
+    var day = Calendar.current.component(.day, from: Date())
     var hour = Calendar.current.component(.hour, from: Date())
     var minute = Calendar.current.component(.minute, from: Date())
     var second = Calendar.current.component(.second, from: Date())
@@ -101,12 +102,41 @@ class ViewController: UIViewController {
     
     @objc func foreground(notification: Notification) {
         
+        let today = Calendar.current.component(.day, from: Date())
         if(backtimeflag){
-            hour = Calendar.current.component(.hour, from: Date())
-            minute = Calendar.current.component(.minute, from: Date())
-            second = Calendar.current.component(.second, from: Date())
-            let comebacktime = hour*3600+minute*60+second
-            timema += comebacktime - backtime
+            if(today == day){
+                hour = Calendar.current.component(.hour, from: Date())
+                minute = Calendar.current.component(.minute, from: Date())
+                second = Calendar.current.component(.second, from: Date())
+                let comebacktime = hour*3600+minute*60+second
+                timema += comebacktime - backtime
+                print("今日")
+            }
+            else{
+                let calendar = Calendar.current
+                let year = Calendar.current.component(.year, from: Date())
+                let month = Calendar.current.component(.month, from: Date())
+                _ = calendar.date(from: DateComponents(year: year,month: month,day: today,hour: 0))
+                _ = calendar.date(from: DateComponents(year: year,month: month,day: today,hour: 24))
+                
+               let hour2 = Calendar.current.component(.hour, from: Date())
+               let minute2 = Calendar.current.component(.minute, from: Date())
+               let second2 = Calendar.current.component(.second, from: Date())
+                
+                let comebacktime = (24 - hour)*3600 + (60 - minute)*60 + (60 - second) + (hour2*3600+minute2*60+second2)
+                
+               
+                timema += comebacktime //- backtime
+                if(timema >= 8*3600){
+                    timema = 8 * 3600
+                    let dialog = UIAlertController(title: "自動で退勤しました", message: "労働時間が８時間を超えてしまったため自動で退勤しました", preferredStyle: .alert)
+                    dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    
+                    // 生成したダイアログを実際に表示します
+                    self.present(dialog, animated: true, completion: nil)
+                }
+               
+            }
         }
         print("フォアグラウンド")
         print("\((self.timema/3600)%60)時間\((self.timema/60)%60)分\((self.timema)%60)秒")
@@ -114,6 +144,7 @@ class ViewController: UIViewController {
     
     @objc func background(notification: Notification) {
         
+        day = Calendar.current.component(.day, from: Date())
         hour = Calendar.current.component(.hour, from: Date())
         minute = Calendar.current.component(.minute, from: Date())
         second = Calendar.current.component(.second, from: Date())
@@ -162,7 +193,7 @@ class ViewController: UIViewController {
             self.timema = self.timema+1
             self.timesave.text = "\((self.timema/3600)%60)時間\((self.timema/60)%60)分\((self.timema)%60)秒"
             
-            if(self.timema == 8*3600){
+            if(self.timema >= 8*3600){
                 
                 self.applyMemo2()
             }
@@ -195,7 +226,7 @@ class ViewController: UIViewController {
             let date = Date()
             let calendar = Calendar.current
             let day = calendar.component(.day, from: date)
-            let hour = calendar.component(.hour, from: date)
+            _ = calendar.component(.hour, from: date)
             let year = calendar.component(.year, from: date)
             let month = calendar.component(.month, from: date)
             

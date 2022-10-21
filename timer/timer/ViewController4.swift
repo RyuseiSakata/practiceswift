@@ -57,7 +57,7 @@ class ViewController4: UIViewController {
             // その他の変更
             chartView.highlightPerTapEnabled = false // プロットをタップして選択不可
             chartView.legend.enabled = false // グラフ名（凡例）を非表示
-            chartView.pinchZoomEnabled = true // ピンチズーム不可
+            chartView.pinchZoomEnabled = false // ピンチズーム不可
             chartView.doubleTapToZoomEnabled = false // ダブルタップズーム不可
             chartView.extraTopOffset = 20 // 上から20pxオフセットすることで上の方にある値(99.0)を表示する
             
