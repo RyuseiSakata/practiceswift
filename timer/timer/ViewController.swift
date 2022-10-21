@@ -225,7 +225,7 @@ class ViewController: UIViewController {
       //  let defaults4 = UserDefaults.standard
             memoLists2.append(timechecker)
             defaults.set(memoLists2, forKey: "MEMO_LIST2")
-            roudoujikann.append(timema/*/3600*/)
+            roudoujikann.append(timema/3600)
         let dt = Date()
         let dateFormatter = DateFormatter()
 
