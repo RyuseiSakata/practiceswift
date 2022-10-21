@@ -23,6 +23,8 @@ class ViewController: UIViewController {
     var memoLists: [String] = []
     var memoLists2: [String] = []
     var skememoLists: [String] = []
+    var roudoujikann: [Int] = []
+    var hozonnnitiji: [String] = []
     var timema :Int = 0
     var flag : Bool = false
     var flaga: Int = 0;
@@ -97,6 +99,16 @@ class ViewController: UIViewController {
             memoLists2 = loadedMemoList2 as! [String]
           
             }
+        let loadedMemoList3  = defaults.object(forKey: "roudoujikann")
+        if (loadedMemoList3 as? [Int] != nil) {
+            roudoujikann = loadedMemoList3 as! [Int]
+            }
+        
+        
+        let loadedMemoList4  = defaults.object(forKey: "hozonnnitiji")
+        if (loadedMemoList4 as? Int != nil) {
+            hozonnnitiji = loadedMemoList4 as! [String]
+            }
         
     }
     
@@ -113,11 +125,11 @@ class ViewController: UIViewController {
                 print("今日")
             }
             else{
-                let calendar = Calendar.current
+               /* let calendar = Calendar.current
                 let year = Calendar.current.component(.year, from: Date())
-                let month = Calendar.current.component(.month, from: Date())
-                _ = calendar.date(from: DateComponents(year: year,month: month,day: today,hour: 0))
-                _ = calendar.date(from: DateComponents(year: year,month: month,day: today,hour: 24))
+                let month = Calendar.current.component(.month, from: Date())*/
+                
+               
                 
                let hour2 = Calendar.current.component(.hour, from: Date())
                let minute2 = Calendar.current.component(.minute, from: Date())
@@ -204,12 +216,25 @@ class ViewController: UIViewController {
     
     
     func applyMemo2() {
-            
+        
         shukkinnbutton.isHidden = false
         taikinnbutton.isHidden = true
             let defaults = UserDefaults.standard
+        let defaults2 = UserDefaults.standard
+        let defaults3 = UserDefaults.standard
+      //  let defaults4 = UserDefaults.standard
             memoLists2.append(timechecker)
             defaults.set(memoLists2, forKey: "MEMO_LIST2")
+            roudoujikann.append(timema/*/3600*/)
+        let dt = Date()
+        let dateFormatter = DateFormatter()
+
+        // DateFormatter を使用して書式とロケールを指定する
+        dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "Md", options: 0, locale: Locale(identifier: "ja_JP"))
+        hozonnnitiji.append(dateFormatter.string(from: dt))
+        print(hozonnnitiji)
+        defaults2.set(roudoujikann, forKey: "roudoujikann")
+        defaults3.set(hozonnnitiji, forKey: "hozonnnitiji")
             self.flag = false
             self.flaga = 1
             mytimer.invalidate()
