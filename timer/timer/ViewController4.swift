@@ -58,17 +58,17 @@ class ViewController4: UIViewController {
         let dateFormatter2 = DateFormatter()
         
         dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "d", options: 0, locale: Locale(identifier: "ja_JP"))
-        dateFormatter2.dateFormat = DateFormatter.dateFormat(fromTemplate: "ym", options: 0, locale: Locale(identifier: "ja_JP"))
+        dateFormatter2.dateFormat = DateFormatter.dateFormat(fromTemplate: "yM", options: 0, locale: Locale(identifier: "ja_JP"))
         //print(dateFormatter.string(from:today))
         
-        if dateFormatter.string(from:today) == "25日"{
+        if dateFormatter.string(from:today) == "1日"{
             print("月初だよ〜")
             let defaults3 = UserDefaults.standard
             let loadedMemoList5  = defaults3.object(forKey: "TUKIJIKANN")
             if (loadedMemoList5 as? Int != nil) {
                 sumtime2 = loadedMemoList5 as! Int
             }
-            
+            print(sumtime2)
             sumtime.append(dateFormatter2.string(from: today)+"　"+String((sumtime2/3600)%60)+"時間"+String((sumtime2/60)%60)+"分働きました")
             print(dateFormatter2.string(from: today)+"　"+String((sumtime2/3600)%60)+"時間"+String((sumtime2/60)%60)+"分働きました")
             

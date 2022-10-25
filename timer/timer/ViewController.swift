@@ -33,6 +33,7 @@ class ViewController: UIViewController {
     var backgroundTaskID : UIBackgroundTaskIdentifier = UIBackgroundTaskIdentifier(rawValue: 0)
     var backtime : Int = 0
     var backtimeflag : Bool = false
+    var changemonth : Bool = true
     /*let date = Date()*/
     //日本時間を表示
     var hiduke = DateFormatter()
@@ -106,7 +107,7 @@ class ViewController: UIViewController {
         
         
         let loadedMemoList4  = defaults.object(forKey: "hozonnnitiji")
-        if (loadedMemoList4 as? Int != nil) {
+        if (loadedMemoList4 as? String != nil) {
             hozonnnitiji = loadedMemoList4 as! [String]
             }
         
@@ -219,19 +220,17 @@ class ViewController: UIViewController {
         
         shukkinnbutton.isHidden = false
         taikinnbutton.isHidden = true
-            let defaults = UserDefaults.standard
+        let defaults = UserDefaults.standard
         let defaults2 = UserDefaults.standard
         let defaults3 = UserDefaults.standard
         let ji :Int = timema/3600
         let guraftime = Double((timema/60)%60)/100
         let timee : Double = Double(ji) + guraftime
       //  let defaults4 = UserDefaults.standard
-            memoLists2.append(timechecker)
-            defaults.set(memoLists2, forKey: "MEMO_LIST2")
+        memoLists2.append(timechecker)
+        defaults.set(memoLists2, forKey: "MEMO_LIST2")
         roudoujikann.append(timee)
-        print(Double(ji))
-        print(guraftime)
-        print(timee)
+       
         let dt = Date()
         let dateFormatter = DateFormatter()
 
@@ -368,15 +367,14 @@ class ViewController: UIViewController {
             
         if segue.identifier == "showView2" {
             
-           /* let vc = segue.destination as! ViewController3
-            vc.newmemoLists.append(timechecker)*/
+           
             
             
             let today = Date()
             let dateFormatter = DateFormatter()
             
             dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "d", options: 0, locale: Locale(identifier: "ja_JP"))
-            //print(dateFormatter.string(from:today))
+            print(dateFormatter.string(from:today))
             
            /* _ = segue.destination as! ViewController3
             vc.newmemoLists2.append(timechecker)*/
@@ -387,17 +385,21 @@ class ViewController: UIViewController {
                 if (loadedMemoList4 as? Int != nil) {
                     vc.showsumtimer = loadedMemoList4 as! Int
                 }
-                if dateFormatter.string(from:today) == "1日"{
+                if dateFormatter.string(from:today) == "1日" && changemonth{
                     let defaults5 = UserDefaults.standard
                     defaults5.set(vc.showsumtimer, forKey: "TUKIJIKANN")
+                    print(vc.showsumtimer)
+                    print(vc.showsumtimer)
                     vc.showsumtimer = 0;
                     let defaults6 = UserDefaults.standard
                     defaults6.set(vc.showsumtimer, forKey: "sumtime")
+                    changemonth = false
                 }
                 else{
                     vc.showsumtimer += timema
                     let defaults5 = UserDefaults.standard
                     defaults5.set(vc.showsumtimer, forKey: "sumtime")
+                    changemonth = true
                 }
                
                 //dump(timema)
