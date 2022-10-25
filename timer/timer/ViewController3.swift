@@ -58,12 +58,19 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
             newmemoLists2 = loadedMemoList3 as! [String]
             }
         
+        let today = Date()
+        let dateFormatter = DateFormatter()
         
-        let loadedMemoList4  = defaults.object(forKey: "sumtime")
-        if (loadedMemoList4 as? Int != nil) {
-            showsumtimer = loadedMemoList4 as! Int
+        dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "d", options: 0, locale: Locale(identifier: "ja_JP"))
+        //print(dateFormatter.string(from:today))
+   
+            let loadedMemoList4  = defaults.object(forKey: "sumtime")
+            if (loadedMemoList4 as? Int != nil) {
+                showsumtimer = loadedMemoList4 as! Int
             }
-        
+        if dateFormatter.string(from:today) == "1日"{
+            showsumtimer = 0;
+        }
         tabel.delegate = self
         table2.delegate = self
         tabel.dataSource = self

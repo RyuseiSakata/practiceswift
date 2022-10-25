@@ -23,7 +23,7 @@ class ViewController: UIViewController {
     var memoLists: [String] = []
     var memoLists2: [String] = []
     var skememoLists: [String] = []
-    var roudoujikann: [Int] = []
+    var roudoujikann: [Double] = []
     var hozonnnitiji: [String] = []
     var timema :Int = 0
     var flag : Bool = false
@@ -100,8 +100,8 @@ class ViewController: UIViewController {
           
             }
         let loadedMemoList3  = defaults.object(forKey: "roudoujikann")
-        if (loadedMemoList3 as? [Int] != nil) {
-            roudoujikann = loadedMemoList3 as! [Int]
+        if (loadedMemoList3 as? [Double] != nil) {
+            roudoujikann = loadedMemoList3 as! [Double]
             }
         
         
@@ -176,7 +176,7 @@ class ViewController: UIViewController {
         formatterJP.dateFormat = DateFormatter.dateFormat(fromTemplate: "ydMMMHms", options: 0, locale: Locale(identifier: "ja_JP"))
         formatterJP2.dateFormat = DateFormatter.dateFormat(fromTemplate: "yyyy-MM-dd", options: 0, locale: Locale(identifier: "ja_JP"))
         formatterJP.timeZone = TimeZone(identifier:  "Asia/Tokyo")
-        //memoLists.append(/*hour*3600+minute*60+second*/formatterJP.string(from: date))
+       
         time.text = ("🇯🇵　\(formatterJP.string(from: date))")
         timechecker = formatterJP.string(from: date)
         skechecker = formatterJP2.string(from: date)
@@ -193,13 +193,13 @@ class ViewController: UIViewController {
         //memoList.append(/*hour*3600+minute*60+second*/)
         let defaults = UserDefaults.standard
         let defaults2 = UserDefaults.standard
-        memoLists.append(/*hour*3600+minute*60+second*/timechecker)
-       skememoLists.append(/*hour*3600+minute*60+second*/skechecker)
+        memoLists.append(timechecker)
+       skememoLists.append(skechecker)
         defaults.set(memoLists, forKey: "MEMO_LIST")
         defaults2.set(skememoLists, forKey: "SKEMEMO_LIST")
         
         flag = true
-        
+        timema = 0
         //self.backgroundTaskID = UIApplication.shared.beginBackgroundTask(expirationHandler: nil)
         mytimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
             self.timema = self.timema+1
@@ -222,10 +222,16 @@ class ViewController: UIViewController {
             let defaults = UserDefaults.standard
         let defaults2 = UserDefaults.standard
         let defaults3 = UserDefaults.standard
+        let ji :Int = timema/3600
+        let guraftime = Double((timema/60)%60)/100
+        let timee : Double = Double(ji) + guraftime
       //  let defaults4 = UserDefaults.standard
             memoLists2.append(timechecker)
             defaults.set(memoLists2, forKey: "MEMO_LIST2")
-            roudoujikann.append(timema/3600)
+        roudoujikann.append(timee)
+        print(Double(ji))
+        print(guraftime)
+        print(timee)
         let dt = Date()
         let dateFormatter = DateFormatter()
 
@@ -239,7 +245,7 @@ class ViewController: UIViewController {
             self.flaga = 1
             mytimer.invalidate()
             mytimer2.invalidate()
-            //UIApplication.shared.endBackgroundTask(self.backgroundTaskID)
+            
             
     }
     
@@ -366,7 +372,12 @@ class ViewController: UIViewController {
             vc.newmemoLists.append(timechecker)*/
             
             
-             
+            let today = Date()
+            let dateFormatter = DateFormatter()
+            
+            dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "d", options: 0, locale: Locale(identifier: "ja_JP"))
+            //print(dateFormatter.string(from:today))
+            
            /* _ = segue.destination as! ViewController3
             vc.newmemoLists2.append(timechecker)*/
             if(flaga == 1){
@@ -376,10 +387,19 @@ class ViewController: UIViewController {
                 if (loadedMemoList4 as? Int != nil) {
                     vc.showsumtimer = loadedMemoList4 as! Int
                 }
-                //let vc = segue.destination as! ViewController3
-                vc.showsumtimer += timema
-                let defaults5 = UserDefaults.standard
-                defaults5.set(vc.showsumtimer, forKey: "sumtime")
+                if dateFormatter.string(from:today) == "1日"{
+                    let defaults5 = UserDefaults.standard
+                    defaults5.set(vc.showsumtimer, forKey: "TUKIJIKANN")
+                    vc.showsumtimer = 0;
+                    let defaults6 = UserDefaults.standard
+                    defaults6.set(vc.showsumtimer, forKey: "sumtime")
+                }
+                else{
+                    vc.showsumtimer += timema
+                    let defaults5 = UserDefaults.standard
+                    defaults5.set(vc.showsumtimer, forKey: "sumtime")
+                }
+               
                 //dump(timema)
                 timema = 0
                 flaga = 2;

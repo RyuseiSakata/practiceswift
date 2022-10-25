@@ -21,94 +21,25 @@ class ViewController4: UIViewController {
     
     @IBOutlet weak var barChart: BarChartView!
     
-    var roudoujikann: [Int] = []
+    var roudoujikann: [Double] = []
     var hozonnnitiji: [String] = []
+    var sumtime:[String] = []
+    var sumtime2:Int = 0
+    //var date: [[String]] = []
     
     var chartView: LineChartView!
-        var chartDataSet: LineChartDataSet!
+    var chartDataSet: LineChartDataSet!
         // 今回使用するサンプルデータ
-        let sampleData = [0, 99, 93, 67, 45, 72, 58]
+    let sampleData = [0, 99, 93, 67, 45, 72, 58]
         
-        /*override func viewDidLoad() {
-            super.viewDidLoad()
-            // Do any additional setup after loading the view.
-            // グラフを表示する
-            let defaults = UserDefaults.standard
-            let loadedMemoList3  = defaults.object(forKey: "roudoujikann")
-            if (loadedMemoList3 as? [Int] != nil) {
-                roudoujikann = loadedMemoList3 as! [Int]
-                }
-            
-            
-            let loadedMemoList4  = defaults.object(forKey: "hozonnnitiji")
-            if (loadedMemoList4 as? Int != nil) {
-                hozonnnitiji = loadedMemoList4 as! [String]
-                }
-            
-            
-            displayChart(data: sampleData)
-        }
-        
-        func displayChart(data: [Int]) {
-            // グラフの範囲を指定する
-            chartView = LineChartView(frame: CGRect(x: 0, y: 200, width: view.frame.width, height: 400))
-            // プロットデータ(y軸)を保持する配列
-            var dataEntries = [ChartDataEntry]()
-            
-            for (xValue, yValue) in data.enumerated() {
-                let dataEntry = ChartDataEntry(x: Double(xValue), y: Double(yValue))
-                dataEntries.append(dataEntry)
-            }
-            // グラフにデータを適用
-            chartDataSet = LineChartDataSet(entries: dataEntries, label: "SampleDataChart")
-            
-            chartDataSet.lineWidth = 5.0 // グラフの線の太さを変更
-            chartDataSet.mode = .cubicBezier // 滑らかなグラフの曲線にする
-            
-            chartView.data = LineChartData(dataSet: chartDataSet)
-            
-            // X軸(xAxis)
-            chartView.xAxis.labelPosition = .bottom // x軸ラベルをグラフの下に表示する
-            
-            // Y軸(leftAxis/rightAxis)
-            chartView.leftAxis.axisMaximum = 100 //y左軸最大値
-            chartView.leftAxis.axisMinimum = 0 //y左軸最小値
-            chartView.leftAxis.labelCount = 10// y軸ラベルの数
-            chartView.rightAxis.enabled = false // 右側の縦軸ラベルを非表示
-            
-            // その他の変更
-            chartView.highlightPerTapEnabled = false // プロットをタップして選択不可
-            chartView.legend.enabled = false // グラフ名（凡例）を非表示
-            chartView.pinchZoomEnabled = false // ピンチズーム不可
-            chartView.doubleTapToZoomEnabled = false // ダブルタップズーム不可
-            chartView.extraTopOffset = 20 // 上から20pxオフセットすることで上の方にある値(99.0)を表示する
-            
-            chartView.animate(xAxisDuration: 2) // 2秒かけて左から右にグラフをアニメーションで表示する
-            chartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: items.map({$0.name}))
-            
-            //chartView.xAxis.valueFormatter = formatter
-                    //labelCountはChartDataEntryと同じ数だけ入れます。
-                    chartView.xAxis.labelCount = 7
-                    //granularityは1.0で固定
-                    chartView.xAxis.granularity = 1.0
-            
-            let xAxisValues = hozonnnitiji
-
-                    func stringForValue(_ value: Double, axis: AxisBase?) -> String {
-                        //granularityを１.０、labelCountを１２にしているおかげで引数のvalueは1.0, 2.0, 3.0・・・１１.０となります。
-                        let index = Int(value)
-                        return xAxisValues[index]
-                    }
-            
-            view.addSubview(chartView)
-        }*/
+       
     override func viewDidLoad() {
             super.viewDidLoad()
         let defaults = UserDefaults.standard
         let defaults2 = UserDefaults.standard
         let loadedMemoList3  = defaults.object(forKey: "roudoujikann")
-        if (loadedMemoList3 as? [Int] != nil) {
-            roudoujikann = loadedMemoList3 as! [Int]
+        if (loadedMemoList3 as? [Double] != nil) {
+            roudoujikann = loadedMemoList3 as! [Double]
             }
         
         
@@ -116,12 +47,44 @@ class ViewController4: UIViewController {
         if (loadedMemoList4 as? [String] != nil) {
             hozonnnitiji = loadedMemoList4 as! [String]
             }
+        
+        let loadedMemoList6  = defaults2.object(forKey: "TUKIGOTONOROUDOUJIKANN")
+        if (loadedMemoList6 as? [String] != nil) {
+            sumtime = loadedMemoList6 as! [String]
+            }
+        
+        let today = Date()
+        let dateFormatter = DateFormatter()
+        let dateFormatter2 = DateFormatter()
+        
+        dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "d", options: 0, locale: Locale(identifier: "ja_JP"))
+        dateFormatter2.dateFormat = DateFormatter.dateFormat(fromTemplate: "ym", options: 0, locale: Locale(identifier: "ja_JP"))
+        //print(dateFormatter.string(from:today))
+        
+        if dateFormatter.string(from:today) == "25日"{
+            print("月初だよ〜")
+            let defaults3 = UserDefaults.standard
+            let loadedMemoList5  = defaults3.object(forKey: "TUKIJIKANN")
+            if (loadedMemoList5 as? Int != nil) {
+                sumtime2 = loadedMemoList5 as! Int
+            }
             
+            sumtime.append(dateFormatter2.string(from: today)+"　"+String((sumtime2/3600)%60)+"時間"+String((sumtime2/60)%60)+"分働きました")
+            print(dateFormatter2.string(from: today)+"　"+String((sumtime2/3600)%60)+"時間"+String((sumtime2/60)%60)+"分働きました")
+            
+            let defaults5 = UserDefaults.standard
+            defaults5.set(sumtime, forKey: "TUKIGOTONOROUDOUJIKANN")
+        }
+        
+        
+            
+        
             getChart()
             print(hozonnnitiji)
         
-        
         }
+    
+    
     
     func getChart(){
             //適当に数字を入れた配列を作成しておく
@@ -132,31 +95,7 @@ class ViewController4: UIViewController {
             let formatterJP = DateFormatter()
             formatterJP.dateFormat = DateFormatter.dateFormat(fromTemplate: "dMEE", options: 0, locale: Locale(identifier: "ja_JP"))
             formatterJP.timeZone = TimeZone(identifier:  "Asia/Tokyo")
-            
-            /*let day1 = Date(timeIntervalSinceNow: -(60*60*24)) //1日前
-        //  let day2 = Date() //当日 今回これはチャートに表示させない
-            let day3 = Date(timeIntervalSinceNow: 60*60*24) //1日後
-            let day4 = Date(timeIntervalSinceNow: -(60*60*48)) //2日後
-            let day5 = Date(timeIntervalSinceNow: -(60*60*72)) //3日後
-            let day6 = Date(timeIntervalSinceNow: -(60*60*96)) //4日後
-            let day7 = Date(timeIntervalSinceNow: -(60*60*120)) //5日後*/
-            
-            /*let time1 = hozonnnitiji[0]
-            let time2 = hozonnnitiji[1] //当日 今回これはチャートに表示させない
-            let time3 = hozonnnitiji[2]
-            let time4 = hozonnnitiji[3]
-            let time5 = hozonnnitiji[4]
-            let time6 = hozonnnitiji[5]
-            let time7 = hozonnnitiji[6]*/
-            
-            //labels配列に１つずつ代入していく
-           /* labels[0] = hozonnnitiji[0]
-            labels[1] = hozonnnitiji[1] //ここだけ手書きにしてみる
-            labels[2] = "ad"
-            labels[3] = "adf"
-            labels[4] = "dff"
-            labels[5] = "今日"
-            labels[6] = "adf"*/
+           
             var num = 0
         if hozonnnitiji.count > 7{
             hozonnnitiji.removeFirst()
@@ -175,7 +114,7 @@ class ViewController4: UIViewController {
             
             //適当に、棒グラフに使う数字をInt型配列で作成
            // print(roudoujikann[0])
-            let rawData: [Int] = roudoujikann
+            let rawData: [Double] = roudoujikann
             let entries = rawData.enumerated().map { BarChartDataEntry(x: Double($0.offset), y: Double($0.element)) }
             let dataSet = BarChartDataSet(entries: entries)
             let data = BarChartData(dataSet: dataSet)
