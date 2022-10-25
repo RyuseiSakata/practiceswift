@@ -231,12 +231,27 @@
                                 <rect key="frame" x="20" y="752" width="770" height="308"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="Cell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="QCe-cW-ar1">
+                                        <rect key="frame" x="0.0" y="50" width="770" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QCe-cW-ar1" id="cU8-Lo-CS8">
+                                            <rect key="frame" x="0.0" y="0.0" width="770" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="lH3-eo-28u" id="h56-r8-1kN"/>
+                                    <outlet property="delegate" destination="lH3-eo-28u" id="fFB-8Q-f0l"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="L6g-ck-EKO"/>
                         <color key="backgroundColor" systemColor="systemYellowColor"/>
                     </view>
                     <connections>
+                        <outlet property="TableView" destination="YZg-d9-ZS0" id="wox-UF-HAO"/>
                         <outlet property="barChart" destination="ChI-Gt-ry3" id="V56-rx-ZhO"/>
                     </connections>
                 </viewController>

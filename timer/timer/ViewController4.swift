@@ -8,8 +8,8 @@
 import UIKit
 import Charts
 
-class ViewController4: UIViewController {
-
+class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSource {
+    
     //@IBOutlet weak var barChart: BarChartView!
    
     struct BarChartModel {
@@ -32,7 +32,8 @@ class ViewController4: UIViewController {
         // 今回使用するサンプルデータ
     let sampleData = [0, 99, 93, 67, 45, 72, 58]
         
-       
+    @IBOutlet weak var TableView: UITableView!
+    
     override func viewDidLoad() {
             super.viewDidLoad()
         let defaults = UserDefaults.standard
@@ -76,7 +77,9 @@ class ViewController4: UIViewController {
             defaults5.set(sumtime, forKey: "TUKIGOTONOROUDOUJIKANN")
         }
         
-        
+        if sumtime.count == 0{
+            sumtime = ["ここには","月毎の労働時間が記録されます.","検索機能もあるので","特定の月の時間も検索でわかります。"]
+        }
             
         
             getChart()
@@ -84,7 +87,19 @@ class ViewController4: UIViewController {
         
         }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return sumtime.count
+    }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+       // checkTabletag(tableView)
+        
+       
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath as IndexPath)
+        cell.textLabel?.text = sumtime[indexPath.row] //as? String
+        
+        return cell
+    }
     
     func getChart(){
             //適当に数字を入れた配列を作成しておく
