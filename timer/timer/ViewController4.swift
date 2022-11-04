@@ -25,6 +25,7 @@ class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSourc
     var hozonnnitiji: [String] = []
     var sumtime:[String] = []
     var sumtime2:Int = 0
+    var nitiji:Bool = true;
     //var date: [[String]] = []
     
     var chartView: LineChartView!
@@ -35,24 +36,25 @@ class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSourc
     @IBOutlet weak var TableView: UITableView!
     
     override func viewDidLoad() {
-            super.viewDidLoad()
+        super.viewDidLoad()
         let defaults = UserDefaults.standard
         let defaults2 = UserDefaults.standard
+        let defaults3 = UserDefaults.standard
         let loadedMemoList3  = defaults.object(forKey: "roudoujikann")
         if (loadedMemoList3 as? [Double] != nil) {
             roudoujikann = loadedMemoList3 as! [Double]
-            }
+        }
         
         
         let loadedMemoList4  = defaults2.object(forKey: "hozonnnitiji")
         if (loadedMemoList4 as? [String] != nil) {
             hozonnnitiji = loadedMemoList4 as! [String]
-            }
+        }
         
-        let loadedMemoList6  = defaults2.object(forKey: "TUKIGOTONOROUDOUJIKANN")
+        let loadedMemoList6  = defaults3.object(forKey: "TUKIGOTONOROUDOUJIKANN")
         if (loadedMemoList6 as? [String] != nil) {
             sumtime = loadedMemoList6 as! [String]
-            }
+        }
         
         let today = Date()
         let dateFormatter = DateFormatter()
@@ -62,7 +64,7 @@ class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSourc
         dateFormatter2.dateFormat = DateFormatter.dateFormat(fromTemplate: "yM", options: 0, locale: Locale(identifier: "ja_JP"))
         //print(dateFormatter.string(from:today))
         
-        if dateFormatter.string(from:today) == "1日"{
+        if dateFormatter.string(from:today) == "1日"&&nitiji{
             print("月初だよ〜")
             let defaults3 = UserDefaults.standard
             let loadedMemoList5  = defaults3.object(forKey: "TUKIJIKANN")
@@ -75,17 +77,21 @@ class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSourc
             
             let defaults5 = UserDefaults.standard
             defaults5.set(sumtime, forKey: "TUKIGOTONOROUDOUJIKANN")
+            nitiji = false
         }
-        
-        if sumtime.count == 0{
-            sumtime = ["ここには","月毎の労働時間が記録されます.","検索機能もあるので","特定の月の時間も検索でわかります。"]
-        }
+        else{
+            nitiji = true
+            if sumtime.count == 0{
+                sumtime = ["ここには","月毎の労働時間が記録されます.","検索機能もあるので","特定の月の時間も検索でわかります。"]
+            }
             
-        
+            
             getChart()
             print(hozonnnitiji)
-        
+            
         }
+        
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sumtime.count
@@ -112,13 +118,16 @@ class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSourc
             formatterJP.timeZone = TimeZone(identifier:  "Asia/Tokyo")
            
             var num = 0
+        
         if hozonnnitiji.count > 7{
+            
             hozonnnitiji.removeFirst()
             roudoujikann.removeFirst()
             let defaults3 = UserDefaults.standard
             let defaults2 = UserDefaults.standard
             defaults2.set(roudoujikann, forKey: "roudoujikann")
             defaults3.set(hozonnnitiji, forKey: "hozonnnitiji")
+            
             print("消した")
         }
         while num < hozonnnitiji.count{

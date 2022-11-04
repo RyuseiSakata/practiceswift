@@ -94,6 +94,7 @@ class ViewController: UIViewController {
             memoLists = loadedMemoList as! [String]
           
             }
+        print(memoList)
         let loadedMemoList2 = defaults.object(forKey: "MEMO_LIST2")
         if (loadedMemoList2 as? [String] != nil) {
            
@@ -111,9 +112,22 @@ class ViewController: UIViewController {
             hozonnnitiji = loadedMemoList4 as! [String]
             }
         
+        print(hozonnnitiji)
+        
+        let loadedMemoList5  = defaults.object(forKey: "SKEMEMO_LIST")
+        if (loadedMemoList5 as? String != nil) {
+            skememoLists = loadedMemoList5 as! [String]
+            }
+        
     }
     
     @objc func foreground(notification: Notification) {
+        
+        let defaults = UserDefaults.standard
+        let loadedMemoList4  = defaults.object(forKey: "hozonnnitiji")
+        if (loadedMemoList4 as? String != nil) {
+            hozonnnitiji = loadedMemoList4 as! [String]
+            }
         
         let today = Calendar.current.component(.day, from: Date())
         if(backtimeflag){
@@ -126,12 +140,7 @@ class ViewController: UIViewController {
                 print("今日")
             }
             else{
-               /* let calendar = Calendar.current
-                let year = Calendar.current.component(.year, from: Date())
-                let month = Calendar.current.component(.month, from: Date())*/
-                
-               
-                
+              
                let hour2 = Calendar.current.component(.hour, from: Date())
                let minute2 = Calendar.current.component(.minute, from: Date())
                let second2 = Calendar.current.component(.second, from: Date())
@@ -140,7 +149,7 @@ class ViewController: UIViewController {
                 
                
                 timema += comebacktime //- backtime
-                if(timema >= 8*3600){
+                if(timema >= 8*3600&&flag == true){
                     timema = 8 * 3600
                     let dialog = UIAlertController(title: "自動で退勤しました", message: "労働時間が８時間を超えてしまったため自動で退勤しました", preferredStyle: .alert)
                     dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -157,6 +166,9 @@ class ViewController: UIViewController {
     
     @objc func background(notification: Notification) {
         
+        let defaults3 = UserDefaults.standard
+        defaults3.set(hozonnnitiji, forKey: "hozonnnitiji")
+        print(hozonnnitiji)
         day = Calendar.current.component(.day, from: Date())
         hour = Calendar.current.component(.hour, from: Date())
         minute = Calendar.current.component(.minute, from: Date())
@@ -165,6 +177,7 @@ class ViewController: UIViewController {
         backtime = hour*3600+minute*60+second
         print(second)
         backtimeflag = true
+        
     }
     
     
@@ -199,6 +212,13 @@ class ViewController: UIViewController {
         defaults.set(memoLists, forKey: "MEMO_LIST")
         defaults2.set(skememoLists, forKey: "SKEMEMO_LIST")
         
+        let defaults3 = UserDefaults.standard
+        let dt = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "Md", options: 0, locale: Locale(identifier: "ja_JP"))
+        hozonnnitiji.append(dateFormatter.string(from: dt))
+        defaults3.set(hozonnnitiji, forKey: "hozonnnitiji")
+        
         flag = true
         timema = 0
         //self.backgroundTaskID = UIApplication.shared.beginBackgroundTask(expirationHandler: nil)
@@ -231,13 +251,13 @@ class ViewController: UIViewController {
         defaults.set(memoLists2, forKey: "MEMO_LIST2")
         roudoujikann.append(timee)
        
-        let dt = Date()
+      //  let dt = Date()
         let dateFormatter = DateFormatter()
 
         // DateFormatter を使用して書式とロケールを指定する
         dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "Md", options: 0, locale: Locale(identifier: "ja_JP"))
-        hozonnnitiji.append(dateFormatter.string(from: dt))
-        print(hozonnnitiji)
+        //hozonnnitiji.append(dateFormatter.string(from: dt))
+        //print(hozonnnitiji)
         defaults2.set(roudoujikann, forKey: "roudoujikann")
         defaults3.set(hozonnnitiji, forKey: "hozonnnitiji")
             self.flag = false

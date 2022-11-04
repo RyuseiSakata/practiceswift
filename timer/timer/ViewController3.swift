@@ -18,6 +18,7 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
     var newmemoLists2: [String] = []
     var savealldate: [String] = []
     var eventsDate : [String] = []
+    var eventsDate2 : [String] = []
     var date: [[String]] = []
     var tag: Int = 0
     var sumtimer: [Int] = []
@@ -37,6 +38,8 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
         self.calendar.delegate = self
         
         let defaults = UserDefaults.standard
+        let defaults2 = UserDefaults.standard
+        let defaults3 = UserDefaults.standard
         let loadedMemoList = defaults.object(forKey: "MEMO_LIST")
         if (loadedMemoList as? [String] != nil) {
             
@@ -45,15 +48,15 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
             }
         
        
-        let loadedMemoList2 = defaults.object(forKey: "SKEMEMO_LIST")
+        let loadedMemoList2 = defaults2.object(forKey: "SKEMEMO_LIST")
         if (loadedMemoList2 as? [String] != nil) {
             
             eventsDate = loadedMemoList2 as! [String]
             
             }
+       
         
-        
-        let loadedMemoList3  = defaults.object(forKey: "MEMO_LIST2")
+        let loadedMemoList3  = defaults3.object(forKey: "MEMO_LIST2")
         if (loadedMemoList3 as? [String] != nil) {
             newmemoLists2 = loadedMemoList3 as! [String]
             }
@@ -75,10 +78,14 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
         table2.delegate = self
         tabel.dataSource = self
         table2.dataSource = self
-        
+        print(eventsDate)
+        print(newmemoLists)
         dump(showsumtimer)
         date.append(newmemoLists)
         date.append(newmemoLists2)
+        
+        //eventsDate = eventsDate2
+        
         roudoujikann.text = "今月は\((showsumtimer/3600)%60)時間\((showsumtimer/60)%60)分\((showsumtimer)%60)秒働きました！！"
     }
     
