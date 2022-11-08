@@ -141,6 +141,7 @@ class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSourc
             defaults3.set(hozonnnitiji, forKey: "hozonnnitiji")
             print("消した")
         }
+        
         while num < hozonnnitiji.count{
             labels[num] = hozonnnitiji[num]
             num = num + 1

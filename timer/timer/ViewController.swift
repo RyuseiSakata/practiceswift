@@ -25,6 +25,7 @@ class ViewController: UIViewController {
     var skememoLists: [String] = []
     var roudoujikann: [Double] = []
     var hozonnnitiji: [String] = []
+    var tukijikann: [Int] = []
     var timema :Int = 0
     var flag : Bool = false
     var flaga: Int = 0;
@@ -407,9 +408,14 @@ class ViewController: UIViewController {
                 }
                 print(changemonth)
                 if dateFormatter.string(from:today) == "1日" && changemonth{
+                    let loadedMemoList5  = defaults.object(forKey: "TUKIJIKANN")
+                    if (loadedMemoList5 as? [Int] != nil) {
+                        tukijikann = loadedMemoList5 as! [Int]
+                    }
+                    tukijikann.append(vc.showsumtimer)
+                    
                     let defaults5 = UserDefaults.standard
                     defaults5.set(vc.showsumtimer, forKey: "TUKIJIKANN")
-                    print(vc.showsumtimer)
                     print(vc.showsumtimer)
                     vc.showsumtimer = 0;
                     let defaults6 = UserDefaults.standard
