@@ -108,14 +108,14 @@ class ViewController: UIViewController {
         
         
         let loadedMemoList4  = defaults.object(forKey: "hozonnnitiji")
-        if (loadedMemoList4 as? String != nil) {
+        if (loadedMemoList4 as? [String] != nil) {
             hozonnnitiji = loadedMemoList4 as! [String]
             }
         
         print(hozonnnitiji)
         
         let loadedMemoList5  = defaults.object(forKey: "SKEMEMO_LIST")
-        if (loadedMemoList5 as? String != nil) {
+        if (loadedMemoList5 as? [String] != nil) {
             skememoLists = loadedMemoList5 as! [String]
             }
         
@@ -208,7 +208,7 @@ class ViewController: UIViewController {
         let defaults = UserDefaults.standard
         let defaults2 = UserDefaults.standard
         memoLists.append(timechecker)
-       skememoLists.append(skechecker)
+        skememoLists.append(skechecker)
         defaults.set(memoLists, forKey: "MEMO_LIST")
         defaults2.set(skememoLists, forKey: "SKEMEMO_LIST")
         
@@ -328,14 +328,9 @@ class ViewController: UIViewController {
                     let nowday = calendar.component(.day, from: date)
                     let defaults5 = UserDefaults.standard
                     defaults5.set(nowday, forKey: "Hiduke")
-                    // ダイアログ(AlertControllerのインスタンス)を生成します
-                    //   titleには、ダイアログの表題として表示される文字列を指定します
-                    //   messageには、ダイアログの説明として表示される文字列を指定します
+                   
                     let dialog = UIAlertController(title: "出勤しました", message: "出勤時間が記録されます", preferredStyle: .alert)
-                    // 選択肢(ボタン)を2つ(OKとCancel)追加します
-                    //   titleには、選択肢として表示される文字列を指定します
-                    //   styleには、通常は「.default」、キャンセルなど操作を無効にするものは「.cancel」、削除など注意して選択すべきものは「.destructive」を指定します
-                    dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                   dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                     
                     // 生成したダイアログを実際に表示します
                     self.present(dialog, animated: true, completion: nil)
@@ -386,18 +381,13 @@ class ViewController: UIViewController {
         sender: Any?) {
             
         if segue.identifier == "showView2" {
-            
-           
-            
-            
+
             let today = Date()
             let dateFormatter = DateFormatter()
             
             dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "d", options: 0, locale: Locale(identifier: "ja_JP"))
             print(dateFormatter.string(from:today))
             
-           /* _ = segue.destination as! ViewController3
-            vc.newmemoLists2.append(timechecker)*/
             if(flaga == 1){
                 let defaults = UserDefaults.standard
                 let vc = segue.destination as! ViewController3
@@ -421,8 +411,6 @@ class ViewController: UIViewController {
                     defaults5.set(vc.showsumtimer, forKey: "sumtime")
                     changemonth = true
                 }
-               
-                //dump(timema)
                 timema = 0
                 flaga = 2;
             }

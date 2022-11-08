@@ -56,14 +56,23 @@ class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSourc
             sumtime = loadedMemoList6 as! [String]
         }
         
+        let loadedMemoList7  = defaults3.object(forKey: "nitiBOOL")
+        if (loadedMemoList7 as? Bool != nil) {
+            nitiji  = loadedMemoList7 as! Bool
+        }
+        
         let today = Date()
+        let yesterday = Calendar.current.date(byAdding: .day,value: -1,to:Date())!
         let dateFormatter = DateFormatter()
         let dateFormatter2 = DateFormatter()
         
+        print(yesterday)
         dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "d", options: 0, locale: Locale(identifier: "ja_JP"))
         dateFormatter2.dateFormat = DateFormatter.dateFormat(fromTemplate: "yM", options: 0, locale: Locale(identifier: "ja_JP"))
-        //print(dateFormatter.string(from:today))
         
+       
+       
+        print(nitiji)
         if dateFormatter.string(from:today) == "1日"&&nitiji{
             print("月初だよ〜")
             let defaults3 = UserDefaults.standard
@@ -72,25 +81,27 @@ class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSourc
                 sumtime2 = loadedMemoList5 as! Int
             }
             print(sumtime2)
-            sumtime.append(dateFormatter2.string(from: today)+"　"+String((sumtime2/3600)%60)+"時間"+String((sumtime2/60)%60)+"分働きました")
-            print(dateFormatter2.string(from: today)+"　"+String((sumtime2/3600)%60)+"時間"+String((sumtime2/60)%60)+"分働きました")
+            sumtime.append(dateFormatter2.string(from: yesterday)+"　"+String((sumtime2/3600)%60)+"時間"+String((sumtime2/60)%60)+"分働きました")
+            print(dateFormatter2.string(from:yesterday)+"　"+String((sumtime2/3600)%60)+"時間"+String((sumtime2/60)%60)+"分働きました")
             
             let defaults5 = UserDefaults.standard
             defaults5.set(sumtime, forKey: "TUKIGOTONOROUDOUJIKANN")
             nitiji = false
+            let defaults8 = UserDefaults.standard
+            defaults8.set(nitiji, forKey: "nitiBOOL")
+            getChart()
         }
+        
         else{
-            nitiji = true
+            //nitiji = true
+            let defaults9 = UserDefaults.standard
+            defaults9.set(nitiji, forKey: "nitiBOOL")
             if sumtime.count == 0{
                 sumtime = ["ここには","月毎の労働時間が記録されます.","検索機能もあるので","特定の月の時間も検索でわかります。"]
             }
-            
-            
             getChart()
             print(hozonnnitiji)
-            
         }
-        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -100,7 +111,6 @@ class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        // checkTabletag(tableView)
         
-       
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath as IndexPath)
         cell.textLabel?.text = sumtime[indexPath.row] //as? String
         
@@ -119,7 +129,7 @@ class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSourc
            
             var num = 0
         
-        if hozonnnitiji.count > 7{
+        if hozonnnitiji.count > 7 {
             
             hozonnnitiji.removeFirst()
             roudoujikann.removeFirst()
@@ -134,10 +144,7 @@ class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSourc
             labels[num] = hozonnnitiji[num]
             num = num + 1
         }
-           // labels = hozonnnitiji
-            
-            //適当に、棒グラフに使う数字をInt型配列で作成
-           // print(roudoujikann[0])
+          
             let rawData: [Double] = roudoujikann
             let entries = rawData.enumerated().map { BarChartDataEntry(x: Double($0.offset), y: Double($0.element)) }
             let dataSet = BarChartDataSet(entries: entries)
@@ -177,7 +184,7 @@ class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSourc
             //色の指定　数値の表示非表示
             dataSet.drawValuesEnabled = false
             //dataSet.colors = [.gray]
-            dataSet.colors = [UIColor.systemGreen, .systemPink, UIColor.systemGreen, UIColor.systemGreen, UIColor.systemGreen, UIColor.systemGreen, UIColor.systemGreen ]
+           // dataSet.colors = [UIColor.systemGreen, .systemPink, UIColor.systemGreen, UIColor.systemGreen, UIColor.systemGreen, UIColor.systemGreen, UIColor.systemGreen ]
             
             //その他設定
             barChart.dragDecelerationEnabled = true //指を離してもスクロール続くか
@@ -185,7 +192,7 @@ class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSourc
         barChart.chartDescription.text = nil //Description(今回はなし)
             barChart.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1) //Background Color
             barChart.doubleTapToZoomEnabled = false  //ダブルタップでの拡大禁止
-            barChart.animate(xAxisDuration: 2.5, yAxisDuration: 2.5, easingOption: .linear) //グラフのアニメーション(秒数で設定)
+            barChart.animate(xAxisDuration: 1, yAxisDuration: 1, easingOption: .linear) //グラフのアニメーション(秒数で設定)
             
             
         }
