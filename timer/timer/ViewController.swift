@@ -34,6 +34,7 @@ class ViewController: UIViewController {
     var backtime : Int = 0
     var backtimeflag : Bool = false
     var changemonth : Bool = true
+    var nitiji2 :Bool = true
     /*let date = Date()*/
     //日本時間を表示
     var hiduke = DateFormatter()
@@ -220,6 +221,7 @@ class ViewController: UIViewController {
         defaults3.set(hozonnnitiji, forKey: "hozonnnitiji")
         
         flag = true
+        self.flaga = 1
         timema = 0
         //self.backgroundTaskID = UIApplication.shared.beginBackgroundTask(expirationHandler: nil)
         mytimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
@@ -381,7 +383,7 @@ class ViewController: UIViewController {
         sender: Any?) {
             
         if segue.identifier == "showView2" {
-
+           
             let today = Date()
             let dateFormatter = DateFormatter()
             
@@ -395,6 +397,15 @@ class ViewController: UIViewController {
                 if (loadedMemoList4 as? Int != nil) {
                     vc.showsumtimer = loadedMemoList4 as! Int
                 }
+                
+                if dateFormatter.string(from:today) == "1日"&&nitiji2{
+                    changemonth = true
+                    nitiji2 = false
+                }
+                else if dateFormatter.string(from:today) != "1日"{
+                    nitiji2 = true
+                }
+                print(changemonth)
                 if dateFormatter.string(from:today) == "1日" && changemonth{
                     let defaults5 = UserDefaults.standard
                     defaults5.set(vc.showsumtimer, forKey: "TUKIJIKANN")
@@ -409,7 +420,8 @@ class ViewController: UIViewController {
                     vc.showsumtimer += timema
                     let defaults5 = UserDefaults.standard
                     defaults5.set(vc.showsumtimer, forKey: "sumtime")
-                    changemonth = true
+                   // changemonth = true
+                    print(vc.showsumtimer)
                 }
                 timema = 0
                 flaga = 2;

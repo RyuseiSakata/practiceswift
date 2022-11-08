@@ -16,9 +16,7 @@ class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSourc
         let value: Int
         let name: String
     }
-    
-    
-    
+  
     @IBOutlet weak var barChart: BarChartView!
     
     var roudoujikann: [Double] = []
@@ -26,12 +24,10 @@ class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSourc
     var sumtime:[String] = []
     var sumtime2:Int = 0
     var nitiji:Bool = true;
-    //var date: [[String]] = []
+    var nitiji2:Bool = false;
     
     var chartView: LineChartView!
     var chartDataSet: LineChartDataSet!
-        // 今回使用するサンプルデータ
-    let sampleData = [0, 99, 93, 67, 45, 72, 58]
         
     @IBOutlet weak var TableView: UITableView!
     
@@ -44,7 +40,6 @@ class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSourc
         if (loadedMemoList3 as? [Double] != nil) {
             roudoujikann = loadedMemoList3 as! [Double]
         }
-        
         
         let loadedMemoList4  = defaults2.object(forKey: "hozonnnitiji")
         if (loadedMemoList4 as? [String] != nil) {
@@ -69,10 +64,17 @@ class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSourc
         print(yesterday)
         dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "d", options: 0, locale: Locale(identifier: "ja_JP"))
         dateFormatter2.dateFormat = DateFormatter.dateFormat(fromTemplate: "yM", options: 0, locale: Locale(identifier: "ja_JP"))
-        
-       
-       
+      
         print(nitiji)
+        
+        if dateFormatter.string(from:today) == "1日"&&nitiji2{
+            nitiji = true
+            nitiji2 = false
+        }
+        else if dateFormatter.string(from:today) != "1日"{
+            nitiji2 = true
+        }
+        
         if dateFormatter.string(from:today) == "1日"&&nitiji{
             print("月初だよ〜")
             let defaults3 = UserDefaults.standard
@@ -137,7 +139,6 @@ class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSourc
             let defaults2 = UserDefaults.standard
             defaults2.set(roudoujikann, forKey: "roudoujikann")
             defaults3.set(hozonnnitiji, forKey: "hozonnnitiji")
-            
             print("消した")
         }
         while num < hozonnnitiji.count{

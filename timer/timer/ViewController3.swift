@@ -71,9 +71,9 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
             if (loadedMemoList4 as? Int != nil) {
                 showsumtimer = loadedMemoList4 as! Int
             }
-        if dateFormatter.string(from:today) == "1日"{
+        /*if dateFormatter.string(from:today) == "1日"{
             showsumtimer = 0;
-        }
+        }*/
         tabel.delegate = self
         table2.delegate = self
         tabel.dataSource = self
