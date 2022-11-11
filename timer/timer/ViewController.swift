@@ -411,15 +411,10 @@ class ViewController: UIViewController {
                     nitiji2 = false
                 }
                 else if dateFormatter.string(from:today) != "1日"{
-                    nitiji2 = true
+                    changemonth = true
                 }
                 print(changemonth)
                 if dateFormatter.string(from:today) == "1日" && changemonth{
-                    let loadedMemoList5  = defaults.object(forKey: "TUKIJIKANN")
-                    if (loadedMemoList5 as? [Int] != nil) {
-                        tukijikann = loadedMemoList5 as! [Int]
-                    }
-                    tukijikann.append(vc.showsumtimer)
                     
                     let defaults5 = UserDefaults.standard
                     defaults5.set(vc.showsumtimer, forKey: "TUKIJIKANN")
@@ -433,6 +428,8 @@ class ViewController: UIViewController {
                     vc.showsumtimer += timema
                     let defaults5 = UserDefaults.standard
                     defaults5.set(vc.showsumtimer, forKey: "sumtime")
+                    let defaults6 = UserDefaults.standard
+                    defaults6.set(vc.showsumtimer, forKey: "TUKIJIKANN")
                    // changemonth = true
                     print(vc.showsumtimer)
                 }
