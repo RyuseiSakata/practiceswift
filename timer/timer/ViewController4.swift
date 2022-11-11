@@ -102,7 +102,7 @@ class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSourc
                 sumtime = ["ここには","月毎の労働時間が記録されます.","検索機能もあるので","特定の月の時間も検索でわかります。"]
             }
             getChart()
-            print(hozonnnitiji)
+            //print(hozonnnitiji)
         }
     }
     
@@ -129,18 +129,32 @@ class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSourc
             formatterJP.dateFormat = DateFormatter.dateFormat(fromTemplate: "dMEE", options: 0, locale: Locale(identifier: "ja_JP"))
             formatterJP.timeZone = TimeZone(identifier:  "Asia/Tokyo")
            
-            var num = 0
+        var num = 0
+        var count = hozonnnitiji.count
         
-        if hozonnnitiji.count > 7 {
-            
+        let defaults3 = UserDefaults.standard
+        let loadedMemoList3  = defaults3.object(forKey: "roudoujikann")
+        if (loadedMemoList3 as? [Double] != nil) {
+            roudoujikann = loadedMemoList3 as! [Double]
+        }
+        
+        let defaults4 = UserDefaults.standard
+        let loadedMemoList4  = defaults4.object(forKey: "hozonnnitiji")
+        if (loadedMemoList4 as? [String] != nil) {
+            hozonnnitiji = loadedMemoList4 as! [String]
+        }
+        
+        while hozonnnitiji.count > 7 {
             hozonnnitiji.removeFirst()
             roudoujikann.removeFirst()
-            let defaults3 = UserDefaults.standard
-            let defaults2 = UserDefaults.standard
-            defaults2.set(roudoujikann, forKey: "roudoujikann")
-            defaults3.set(hozonnnitiji, forKey: "hozonnnitiji")
+            count = 7
             print("消した")
         }
+        
+        let defaults3 = UserDefaults.standard
+        let defaults2 = UserDefaults.standard
+        defaults2.set(roudoujikann, forKey: "roudoujikann")
+        defaults3.set(hozonnnitiji, forKey: "hozonnnitiji")
         
         while num < hozonnnitiji.count{
             labels[num] = hozonnnitiji[num]

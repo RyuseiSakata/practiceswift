@@ -214,12 +214,12 @@ class ViewController: UIViewController {
         defaults.set(memoLists, forKey: "MEMO_LIST")
         defaults2.set(skememoLists, forKey: "SKEMEMO_LIST")
         
-        let defaults3 = UserDefaults.standard
+        /*let defaults3 = UserDefaults.standard
         let dt = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "Md", options: 0, locale: Locale(identifier: "ja_JP"))
         hozonnnitiji.append(dateFormatter.string(from: dt))
-        defaults3.set(hozonnnitiji, forKey: "hozonnnitiji")
+        defaults3.set(hozonnnitiji, forKey: "hozonnnitiji")*/
         
         flag = true
         self.flaga = 1
@@ -254,12 +254,12 @@ class ViewController: UIViewController {
         defaults.set(memoLists2, forKey: "MEMO_LIST2")
         roudoujikann.append(timee)
        
-      //  let dt = Date()
+        let dt = Date()
         let dateFormatter = DateFormatter()
 
         // DateFormatter を使用して書式とロケールを指定する
         dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "Md", options: 0, locale: Locale(identifier: "ja_JP"))
-        //hozonnnitiji.append(dateFormatter.string(from: dt))
+        hozonnnitiji.append(dateFormatter.string(from: dt))
         //print(hozonnnitiji)
         defaults2.set(roudoujikann, forKey: "roudoujikann")
         defaults3.set(hozonnnitiji, forKey: "hozonnnitiji")
