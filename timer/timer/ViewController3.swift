@@ -25,9 +25,13 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
     var showsumtimer: Int = 0
     var cellidentifar: String = ""
     
+    private var filterdDdatas = [String]()
+    
     @IBOutlet weak var tabel: UITableView!
     
     @IBOutlet weak var table2: UITableView!
+    
+    @IBOutlet weak var text: UITextField!
     
     @IBOutlet weak var roudoujikann: UILabel!
     
@@ -36,6 +40,8 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
         // デリゲートの設定
         self.calendar.dataSource = self
         self.calendar.delegate = self
+        
+        
         
         let defaults = UserDefaults.standard
         let defaults2 = UserDefaults.standard
@@ -99,6 +105,8 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
             cellidentifar = "Cell2"
         }
     }
+    
+    
     
     
         func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
