@@ -260,6 +260,7 @@ class ViewController: UIViewController {
         // DateFormatter を使用して書式とロケールを指定する
         dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "Md", options: 0, locale: Locale(identifier: "ja_JP"))
         hozonnnitiji.append(dateFormatter.string(from: dt))
+        
         //print(hozonnnitiji)
         defaults2.set(roudoujikann, forKey: "roudoujikann")
         defaults3.set(hozonnnitiji, forKey: "hozonnnitiji")

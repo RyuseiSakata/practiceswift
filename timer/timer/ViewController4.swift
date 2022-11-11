@@ -65,15 +65,16 @@ class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSourc
         dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "d", options: 0, locale: Locale(identifier: "ja_JP"))
         dateFormatter2.dateFormat = DateFormatter.dateFormat(fromTemplate: "yM", options: 0, locale: Locale(identifier: "ja_JP"))
       
-        print(nitiji)
-        
         if dateFormatter.string(from:today) == "1日"&&nitiji2{
             nitiji = true
             nitiji2 = false
         }
         else if dateFormatter.string(from:today) != "1日"{
-            nitiji2 = true
+            nitiji = true
+            print("今月も頑張ろう〜")
         }
+        
+        print(nitiji)
         
         if dateFormatter.string(from:today) == "1日"&&nitiji{
             print("月初だよ〜")
@@ -89,6 +90,7 @@ class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSourc
             let defaults5 = UserDefaults.standard
             defaults5.set(sumtime, forKey: "TUKIGOTONOROUDOUJIKANN")
             nitiji = false
+            TableView.reloadData()
             let defaults8 = UserDefaults.standard
             defaults8.set(nitiji, forKey: "nitiBOOL")
             getChart()
@@ -145,10 +147,20 @@ class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSourc
         }
         
         while hozonnnitiji.count > 7 {
+            
             hozonnnitiji.removeFirst()
+           // roudoujikann.removeFirst()
+            print(hozonnnitiji)
+            
+            print("保存している時間を消した")
+        }
+        
+        while roudoujikann.count > 7 {
+            
             roudoujikann.removeFirst()
-            count = 7
-            print("消した")
+            
+            print(roudoujikann)
+            print("労働時間を消した")
         }
         
         let defaults5 = UserDefaults.standard
