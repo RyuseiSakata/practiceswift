@@ -378,6 +378,12 @@ class ViewController: UIViewController {
         }
     }
     
+    
+    @IBAction func clear(_ sender: Any) {
+        let appDomain = Bundle.main.bundleIdentifier
+        UserDefaults.standard.removePersistentDomain(forName: appDomain!)
+    }
+    
     //ここで画面遷移処理
     override func prepare(
         for segue: UIStoryboardSegue,

@@ -151,10 +151,10 @@ class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSourc
             print("消した")
         }
         
-        let defaults3 = UserDefaults.standard
+        let defaults5 = UserDefaults.standard
         let defaults2 = UserDefaults.standard
         defaults2.set(roudoujikann, forKey: "roudoujikann")
-        defaults3.set(hozonnnitiji, forKey: "hozonnnitiji")
+        defaults5.set(hozonnnitiji, forKey: "hozonnnitiji")
         
         while num < hozonnnitiji.count{
             labels[num] = hozonnnitiji[num]
