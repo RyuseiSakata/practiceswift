@@ -140,26 +140,29 @@ class ViewController: UIViewController {
                 let comebacktime = hour*3600+minute*60+second
                 timema += comebacktime - backtime
                 print("今日")
+                if(timema >= 8*3600&&flag == true){
+                    timema = 8 * 3600
+                    let dialog = UIAlertController(title: "自動で退勤しました", message: "労働時間が８時間を超えてしまったため自動で退勤しました", preferredStyle: .alert)
+                    dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    // 生成したダイアログを実際に表示します
+                    self.present(dialog, animated: true, completion: nil)
+                }
             }
             else{
-              
                let hour2 = Calendar.current.component(.hour, from: Date())
                let minute2 = Calendar.current.component(.minute, from: Date())
                let second2 = Calendar.current.component(.second, from: Date())
                 
                 let comebacktime = (24 - hour)*3600 + (60 - minute)*60 + (60 - second) + (hour2*3600+minute2*60+second2)
                 
-               
                 timema += comebacktime //- backtime
                 if(timema >= 8*3600&&flag == true){
                     timema = 8 * 3600
                     let dialog = UIAlertController(title: "自動で退勤しました", message: "労働時間が８時間を超えてしまったため自動で退勤しました", preferredStyle: .alert)
                     dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    
                     // 生成したダイアログを実際に表示します
                     self.present(dialog, animated: true, completion: nil)
                 }
-               
             }
         }
         print("フォアグラウンド")
