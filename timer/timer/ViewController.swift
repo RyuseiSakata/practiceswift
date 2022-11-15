@@ -117,6 +117,28 @@ class ViewController: UIViewController {
         if (loadedMemoList5 as? [String] != nil) {
             skememoLists = loadedMemoList5 as! [String]
             }
+        let loadedMemoList6  = defaults.object(forKey: "Modori")
+        if (loadedMemoList6 as? Bool != nil) {
+            backtimeflag = loadedMemoList6 as! Bool
+            }
+        
+        let loadedMemoList7  = defaults.object(forKey: "Modorimasita")
+        //ここにはアプリのタスクを切った時の処理が記載されています
+        if memoLists2 == [] && memoLists != []{
+            taikinnbutton.isHidden = false
+            shukkinnbutton.isHidden = true
+            flag = true
+            self.flaga = 1
+            print(memoLists2)
+            
+            hour = Calendar.current.component(.hour, from: Date())
+            minute = Calendar.current.component(.minute, from: Date())
+            second = Calendar.current.component(.second, from: Date())
+            let comebacktime = hour*3600+minute*60+second
+            
+            timema = comebacktime
+        }
+        
     }
     
     @objc func foreground(notification: Notification) {
@@ -129,6 +151,8 @@ class ViewController: UIViewController {
         
         let today = Calendar.current.component(.day, from: Date())
         if(backtimeflag){
+            print("戻ったぜ")
+            
             if(today == day){
                 hour = Calendar.current.component(.hour, from: Date())
                 minute = Calendar.current.component(.minute, from: Date())
@@ -160,8 +184,15 @@ class ViewController: UIViewController {
                     self.present(dialog, animated: true, completion: nil)
                 }
             }
+            backtimeflag = false
+            let defaults = UserDefaults.standard
+            defaults.set(backtimeflag, forKey: "Modori")
         }
+        
+        
+        
         print("\((self.timema/3600)%60)時間\((self.timema/60)%60)分\((self.timema)%60)秒")
+        
     }
     
     @objc func background(notification: Notification) {
@@ -174,7 +205,14 @@ class ViewController: UIViewController {
         minute = Calendar.current.component(.minute, from: Date())
         second = Calendar.current.component(.second, from: Date())
         backtime = hour*3600+minute*60+second
+        
         backtimeflag = true
+        
+        let defaults = UserDefaults.standard
+        defaults.set(backtimeflag, forKey: "Modori")
+        
+        let defaults2 = UserDefaults.standard
+        defaults2.set(backtime, forKey: "Modorimasita")
         
     }
     
@@ -213,6 +251,8 @@ class ViewController: UIViewController {
         flag = true
         self.flaga = 1
         timema = 0
+        
+        
         
         mytimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
             self.timema = self.timema+1
