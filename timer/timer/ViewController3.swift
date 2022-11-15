@@ -25,6 +25,8 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
     var showsumtimer: Int = 0
     var cellidentifar: String = ""
     
+    var filterdDatas = [String]()
+    
     private var filterdDdatas = [String]()
     
     @IBOutlet weak var tabel: UITableView!
@@ -112,7 +114,7 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
     
         func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             checkTabletag(tableView)
-            return /*newmemoLists.count*/date[tag].count
+            return date[tag].count
        }
        //ここが一覧表示
        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -217,6 +219,31 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
         let month = tmpDate.component(.month, from: date)
         let day = tmpDate.component(.day, from: date)
         labelDate.text = "\(year)/\(month)/\(day)"
+        
+        let result1 = newmemoLists.first(where: { $0.contains("\(year)年\(month)月\(day)日") })
+        let result2 = newmemoLists2.first(where: { $0.contains("\(year)年\(month)月\(day)日") })
+        print(result1)
+        print(result2)
+        
+        
+        
+        if result1 != nil && result2 != nil{
+            print("入った")
+            self.date.removeAll()
+            var hyoujidate : [String] = []
+            var hyoujidate2 : [String] = []
+            
+            hyoujidate.append(result1!)
+            hyoujidate2.append(result2!)
+            
+            self.date.append(hyoujidate)
+            self.date.append(hyoujidate2)
+            print(self.date)
+            
+        }
+        
+        tabel.reloadData()
+        table2.reloadData()
     }
     
     
