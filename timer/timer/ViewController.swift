@@ -120,7 +120,6 @@ class ViewController: UIViewController {
         if (loadedMemoList5 as? [String] != nil) {
             skememoLists = loadedMemoList5 as! [String]
             }
-        
     }
     
     @objc func foreground(notification: Notification) {
@@ -217,13 +216,6 @@ class ViewController: UIViewController {
         defaults.set(memoLists, forKey: "MEMO_LIST")
         defaults2.set(skememoLists, forKey: "SKEMEMO_LIST")
         
-        /*let defaults3 = UserDefaults.standard
-        let dt = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "Md", options: 0, locale: Locale(identifier: "ja_JP"))
-        hozonnnitiji.append(dateFormatter.string(from: dt))
-        defaults3.set(hozonnnitiji, forKey: "hozonnnitiji")*/
-        
         flag = true
         self.flaga = 1
         timema = 0
@@ -271,8 +263,7 @@ class ViewController: UIViewController {
             self.flaga = 1
             mytimer.invalidate()
             mytimer2.invalidate()
-            
-            
+        
     }
     
     @IBAction func input(_ sender: Any) {

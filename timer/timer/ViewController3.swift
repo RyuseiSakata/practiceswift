@@ -30,6 +30,7 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
     @IBOutlet weak var tabel: UITableView!
     
     @IBOutlet weak var table2: UITableView!
+    @IBOutlet weak var labelDate: UILabel!
     
     @IBOutlet weak var text: UITextField!
     
@@ -207,6 +208,15 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
                    }
                }
                return 0
+    }
+    
+    //この関数は選択した日付を保持
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        let tmpDate = Calendar(identifier: .gregorian)
+        let year = tmpDate.component(.year, from: date)
+        let month = tmpDate.component(.month, from: date)
+        let day = tmpDate.component(.day, from: date)
+        labelDate.text = "\(year)/\(month)/\(day)"
     }
     
     

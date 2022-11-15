@@ -198,6 +198,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0MV-M7-on5">
+                                <rect key="frame" x="20" y="623" width="114" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="fQr-7k-jiy"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -205,6 +212,7 @@
                     <navigationItem key="navigationItem" id="NRQ-RT-hUk"/>
                     <connections>
                         <outlet property="calendar" destination="c6l-rQ-ob7" id="nF7-cG-Wr4"/>
+                        <outlet property="labelDate" destination="0MV-M7-on5" id="cqT-lw-JMc"/>
                         <outlet property="roudoujikann" destination="5Uc-v7-o4H" id="Ucg-eG-WCf"/>
                         <outlet property="tabel" destination="XZz-6O-7vf" id="US3-BN-0Yv"/>
                         <outlet property="table2" destination="7Zn-3h-6Ef" id="lXg-ok-Jl4"/>
