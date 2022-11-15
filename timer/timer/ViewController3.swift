@@ -241,6 +241,12 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
             print(self.date)
             
         }
+        else{
+            self.date.removeAll()
+            self.date.append(newmemoLists)
+            self.date.append(newmemoLists2)
+            print(self.date)
+        }
         
         tabel.reloadData()
         table2.reloadData()
