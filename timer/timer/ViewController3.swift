@@ -74,15 +74,13 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
         let dateFormatter = DateFormatter()
         
         dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "d", options: 0, locale: Locale(identifier: "ja_JP"))
-        //print(dateFormatter.string(from:today))
+       
    
             let loadedMemoList4  = defaults.object(forKey: "sumtime")
             if (loadedMemoList4 as? Int != nil) {
                 showsumtimer = loadedMemoList4 as! Int
             }
-        /*if dateFormatter.string(from:today) == "1日"{
-            showsumtimer = 0;
-        }*/
+        
         tabel.delegate = self
         table2.delegate = self
         tabel.dataSource = self
@@ -92,9 +90,7 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
         dump(showsumtimer)
         date.append(newmemoLists)
         date.append(newmemoLists2)
-        
-        //eventsDate = eventsDate2
-        
+      
         roudoujikann.text = "今月は\((showsumtimer/3600)%60)時間\((showsumtimer/60)%60)分\((showsumtimer)%60)秒働きました！！"
     }
     

@@ -96,7 +96,6 @@ class ViewController: UIViewController {
             memoLists = loadedMemoList as! [String]
           
             }
-        print(memoList)
         let loadedMemoList2 = defaults.object(forKey: "MEMO_LIST2")
         if (loadedMemoList2 as? [String] != nil) {
            
@@ -113,8 +112,6 @@ class ViewController: UIViewController {
         if (loadedMemoList4 as? [String] != nil) {
             hozonnnitiji = loadedMemoList4 as! [String]
             }
-        
-        print(hozonnnitiji)
         
         let loadedMemoList5  = defaults.object(forKey: "SKEMEMO_LIST")
         if (loadedMemoList5 as? [String] != nil) {
@@ -138,7 +135,7 @@ class ViewController: UIViewController {
                 second = Calendar.current.component(.second, from: Date())
                 let comebacktime = hour*3600+minute*60+second
                 timema += comebacktime - backtime
-                print("今日")
+                
                 if(timema >= 8*3600&&flag == true){
                     timema = 8 * 3600
                     let dialog = UIAlertController(title: "自動で退勤しました", message: "労働時間が８時間を超えてしまったため自動で退勤しました", preferredStyle: .alert)
@@ -154,7 +151,7 @@ class ViewController: UIViewController {
                 
                 let comebacktime = (24 - hour)*3600 + (60 - minute)*60 + (60 - second) + (hour2*3600+minute2*60+second2)
                 
-                timema += comebacktime //- backtime
+                timema += comebacktime
                 if(timema >= 8*3600&&flag == true){
                     timema = 8 * 3600
                     let dialog = UIAlertController(title: "自動で退勤しました", message: "労働時間が８時間を超えてしまったため自動で退勤しました", preferredStyle: .alert)
@@ -164,7 +161,6 @@ class ViewController: UIViewController {
                 }
             }
         }
-        print("フォアグラウンド")
         print("\((self.timema/3600)%60)時間\((self.timema/60)%60)分\((self.timema)%60)秒")
     }
     
@@ -177,9 +173,7 @@ class ViewController: UIViewController {
         hour = Calendar.current.component(.hour, from: Date())
         minute = Calendar.current.component(.minute, from: Date())
         second = Calendar.current.component(.second, from: Date())
-        print("バックグラウンド")
         backtime = hour*3600+minute*60+second
-        print(second)
         backtimeflag = true
         
     }
@@ -208,7 +202,7 @@ class ViewController: UIViewController {
         hour = Calendar.current.component(.hour, from: Date())
         minute = Calendar.current.component(.minute, from: Date())
         second = Calendar.current.component(.second, from: Date())
-        //memoList.append(/*hour*3600+minute*60+second*/)
+       
         let defaults = UserDefaults.standard
         let defaults2 = UserDefaults.standard
         memoLists.append(timechecker)
@@ -219,7 +213,7 @@ class ViewController: UIViewController {
         flag = true
         self.flaga = 1
         timema = 0
-        //self.backgroundTaskID = UIApplication.shared.beginBackgroundTask(expirationHandler: nil)
+        
         mytimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
             self.timema = self.timema+1
             self.timesave.text = "\((self.timema/3600)%60)時間\((self.timema/60)%60)分\((self.timema)%60)秒"
@@ -244,7 +238,7 @@ class ViewController: UIViewController {
         let ji :Int = timema/3600
         let guraftime = Double((timema/60)%60)/100
         let timee : Double = Double(ji) + guraftime
-      //  let defaults4 = UserDefaults.standard
+      
         memoLists2.append(timechecker)
         defaults.set(memoLists2, forKey: "MEMO_LIST2")
         roudoujikann.append(timee)
@@ -281,10 +275,6 @@ class ViewController: UIViewController {
             let kijyunn = calendar.date(from: DateComponents(year: year,month: month,day: day,hour: 0))!
             let kijyunn2 = calendar.date(from: DateComponents(year: year,month: month,day: day,hour: 4))!
             
-            print(date)
-            print(kijyunn)
-            print(kijyunn2)
-            
             let defaults = UserDefaults.standard
             let loadedMemoList4  = defaults.object(forKey: "Hiduke")
             
@@ -313,7 +303,6 @@ class ViewController: UIViewController {
             }
             else {
                 if  flag == false && loadedMemoList4 != nil && day == loadedMemoList4 as! Int{
-                    print("adfadf")
                     let dialog = UIAlertController(title: "エラー", message: "出勤は1日に１回しかできません", preferredStyle: .alert)
                     dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                     
@@ -337,7 +326,6 @@ class ViewController: UIViewController {
                 else {
                     let dialog = UIAlertController(title: "退勤してください", message: "退勤しないと出勤できません", preferredStyle: .alert)
                     dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    
                     // 生成したダイアログを実際に表示します
                     self.present(dialog, animated: true, completion: nil)
                 }
@@ -368,7 +356,6 @@ class ViewController: UIViewController {
             
             // 生成したダイアログを実際に表示します
             self.present(dialog, animated: true, completion: nil)
-            
             
         }
     }
@@ -424,7 +411,6 @@ class ViewController: UIViewController {
                     defaults5.set(vc.showsumtimer, forKey: "sumtime")
                     let defaults6 = UserDefaults.standard
                     defaults6.set(vc.showsumtimer, forKey: "TUKIJIKANN")
-                   // changemonth = true
                     print(vc.showsumtimer)
                 }
                 timema = 0
