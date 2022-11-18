@@ -15,6 +15,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var taikinnbutton: UIButton!
     @IBOutlet weak var time: UILabel!
     @IBOutlet weak var timesave: UILabel!
+    @IBOutlet weak var resetbutton: UIButton!
+    
     var day = Calendar.current.component(.day, from: Date())
     var hour = Calendar.current.component(.hour, from: Date())
     var minute = Calendar.current.component(.minute, from: Date())
@@ -63,7 +65,7 @@ class ViewController: UIViewController {
         var error: NSError?
         let description: String = "認証"
         taikinnbutton.isHidden = true
-        
+        resetbutton.isHidden = true
         // Touch ID・Face IDが利用できるデバイスか確認する
         if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
             // 利用できる場合は指紋・顔認証を要求する
@@ -128,33 +130,7 @@ class ViewController: UIViewController {
              modotime = loadedMemoList7 as! Int
             }
         //ここにはアプリのタスクを切った時の処理が記載されています
-        /*if memoLists2.count != memoLists.count{
-            taikinnbutton.isHidden = false
-            shukkinnbutton.isHidden = true
-            flag = true
-            self.flaga = 1
-            print(memoLists2)
-            
-            hour = Calendar.current.component(.hour, from: Date())
-            minute = Calendar.current.component(.minute, from: Date())
-            second = Calendar.current.component(.second, from: Date())
-            let comebacktime = hour*3600+minute*60+second
-            
-            timema = comebacktime - modotime
-            
-            print("これじゃ\(timema)")
-            
-            
-            mytimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
-                self.timema = self.timema+1
-                self.timesave.text = "\((self.timema/3600)%60)時間\((self.timema/60)%60)分\((self.timema)%60)秒"
-                
-                if(self.timema >= 8*3600){
-                    
-                    self.applyMemo2()
-                }
-            })
-        }*/
+       
         
     }
     
@@ -282,6 +258,7 @@ class ViewController: UIViewController {
     func applyMemo() {
         taikinnbutton.isHidden = false
         shukkinnbutton.isHidden = true
+        resetbutton.isHidden = false
         hour = Calendar.current.component(.hour, from: Date())
         minute = Calendar.current.component(.minute, from: Date())
         second = Calendar.current.component(.second, from: Date())
@@ -529,7 +506,31 @@ class ViewController: UIViewController {
             
         }
     }
-    
+        
+    @IBAction func reset(_ sender: Any) {
+        taikinnbutton.isHidden = true
+        shukkinnbutton.isHidden = false
+        resetbutton.isHidden = true
+        
+        let defaults = UserDefaults.standard
+        let defaults2 = UserDefaults.standard
+        memoLists.remove(at: memoLists.count - 1)
+        skememoLists.remove(at: skememoLists.count - 1)
+        defaults.set(memoLists, forKey: "MEMO_LIST")
+        defaults2.set(skememoLists, forKey: "SKEMEMO_LIST")
+        
+        UserDefaults.standard.removeObject(forKey: "Hiduke")
+        
+        
+        flag = false
+        self.flaga = 0
+        timema = 0
+        
+        mytimer.invalidate()
+        mytimer2.invalidate()
+        
+        self.timesave.text = "\((self.timema/3600)%60)時間\((self.timema/60)%60)分\((self.timema)%60)秒"
+    }
     
 }
 

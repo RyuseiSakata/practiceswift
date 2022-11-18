@@ -43,7 +43,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ANp-BL-8ck">
-                                <rect key="frame" x="451" y="319" width="339" height="116"/>
+                                <rect key="frame" x="445" y="319" width="339" height="116"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="gray" title="退勤">
@@ -73,12 +73,22 @@
                                     <segue destination="bXZ-9N-Ttk" kind="presentation" identifier="showView2" modalPresentationStyle="fullScreen" id="qso-38-xQx"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k6l-fe-9J0">
+                                <rect key="frame" x="362" y="319" width="75" height="116"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="取り消し"/>
+                                <connections>
+                                    <action selector="reset:" destination="BYZ-38-t0r" eventType="touchUpInside" id="H1e-YS-iCX"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemOrangeColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="Tzu-jJ-Ufl"/>
                     <connections>
+                        <outlet property="resetbutton" destination="k6l-fe-9J0" id="erB-jn-PAQ"/>
                         <outlet property="shukkinnbutton" destination="44R-MN-qLE" id="Yqf-pN-1Fo"/>
                         <outlet property="taikinnbutton" destination="ANp-BL-8ck" id="zVZ-kJ-0bj"/>
                         <outlet property="time" destination="cjC-2b-MRD" id="GOa-6l-Kdd"/>
