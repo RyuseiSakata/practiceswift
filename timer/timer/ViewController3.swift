@@ -214,7 +214,7 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
         let year = tmpDate.component(.year, from: date)
         let month = tmpDate.component(.month, from: date)
         let day = tmpDate.component(.day, from: date)
-        labelDate.text = "\(year)/\(month)/\(day)"
+        //labelDate.text = "\(year)/\(month)/\(day)"
         
         let result1 = newmemoLists.first(where: { $0.contains("\(year)年\(month)月\(day)日") })
         let result2 = newmemoLists2.first(where: { $0.contains("\(year)年\(month)月\(day)日") })

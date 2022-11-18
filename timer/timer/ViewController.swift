@@ -124,7 +124,7 @@ class ViewController: UIViewController {
         
         let loadedMemoList7  = defaults.object(forKey: "Modorimasita")
         //ここにはアプリのタスクを切った時の処理が記載されています
-        if memoLists2 == [] && memoLists != []{
+        if memoLists2.count != memoLists.count{
             taikinnbutton.isHidden = false
             shukkinnbutton.isHidden = true
             flag = true
@@ -136,7 +136,16 @@ class ViewController: UIViewController {
             second = Calendar.current.component(.second, from: Date())
             let comebacktime = hour*3600+minute*60+second
             
-            timema = comebacktime
+            //timema = comebacktime
+            mytimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
+                self.timema = self.timema+1
+                self.timesave.text = "\((self.timema/3600)%60)時間\((self.timema/60)%60)分\((self.timema)%60)秒"
+                
+                if(self.timema >= 8*3600){
+                    
+                    self.applyMemo2()
+                }
+            })
         }
         
     }
