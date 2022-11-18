@@ -259,12 +259,6 @@ class ViewController: UIViewController {
         
         backtimeflag = true
         
-        /*let defaults = UserDefaults.standard
-        defaults.set(backtimeflag, forKey: "Modori")*/
-        
-        /*let defaults2 = UserDefaults.standard
-        defaults2.set(backtime, forKey: "Modorimasita")*/
-        
     }
     
     
@@ -352,6 +346,15 @@ class ViewController: UIViewController {
             self.flaga = 1
             mytimer.invalidate()
             mytimer2.invalidate()
+        
+        if timema > 3600*6 && timema < 3600*8 {
+            timema = timema - 45*60
+            
+        }
+        else if timema >= 3600*8{
+            timema = timema - 60*60
+            
+        }
         
     }
     
@@ -446,12 +449,24 @@ class ViewController: UIViewController {
         
         else{
             applyMemo2()
-            let dialog = UIAlertController(title: "退勤しました", message: "お疲れ様です。退勤時間が記録されます", preferredStyle: .alert)
-            dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            
-            // 生成したダイアログを実際に表示します
-            self.present(dialog, animated: true, completion: nil)
-            
+            if timema > 3600*6 && timema < 3600*8 {
+                let dialog = UIAlertController(title: "退勤しました", message: "お疲れ様です。退勤時間が記録されます。45分の休憩時間が差し引かれます", preferredStyle: .alert)
+                dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                // 生成したダイアログを実際に表示します
+                self.present(dialog, animated: true, completion: nil)
+            }
+            else if timema >= 3600*8{
+                let dialog = UIAlertController(title: "退勤しました", message: "お疲れ様です。退勤時間が記録されます。1時間の休憩時間が差し引かれます", preferredStyle: .alert)
+                dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                // 生成したダイアログを実際に表示します
+                self.present(dialog, animated: true, completion: nil)
+            }
+            else{
+                let dialog = UIAlertController(title: "退勤しました", message: "お疲れ様です。退勤時間が記録されます", preferredStyle: .alert)
+                dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                // 生成したダイアログを実際に表示します
+                self.present(dialog, animated: true, completion: nil)
+            }
         }
     }
     
