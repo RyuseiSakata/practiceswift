@@ -36,6 +36,7 @@ class ViewController: UIViewController {
     var backtimeflag : Bool = false
     var changemonth : Bool = true
     var nitiji2 :Bool = true
+    var modotime : Int = 0
     /*let date = Date()*/
     //日本時間を表示
     var hiduke = DateFormatter()
@@ -123,8 +124,11 @@ class ViewController: UIViewController {
             }
         
         let loadedMemoList7  = defaults.object(forKey: "Modorimasita")
+        if (loadedMemoList7 as? Int != nil) {
+             modotime = loadedMemoList7 as! Int
+            }
         //ここにはアプリのタスクを切った時の処理が記載されています
-        if memoLists2.count != memoLists.count{
+        /*if memoLists2.count != memoLists.count{
             taikinnbutton.isHidden = false
             shukkinnbutton.isHidden = true
             flag = true
@@ -136,7 +140,11 @@ class ViewController: UIViewController {
             second = Calendar.current.component(.second, from: Date())
             let comebacktime = hour*3600+minute*60+second
             
-            //timema = comebacktime
+            timema = comebacktime - modotime
+            
+            print("これじゃ\(timema)")
+            
+            
             mytimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
                 self.timema = self.timema+1
                 self.timesave.text = "\((self.timema/3600)%60)時間\((self.timema/60)%60)分\((self.timema)%60)秒"
@@ -146,7 +154,7 @@ class ViewController: UIViewController {
                     self.applyMemo2()
                 }
             })
-        }
+        }*/
         
     }
     
@@ -158,6 +166,11 @@ class ViewController: UIViewController {
             hozonnnitiji = loadedMemoList4 as! [String]
             }
         
+        let loadedMemoList7  = defaults.object(forKey: "Modorimasita")
+        if (loadedMemoList7 as? Int != nil) {
+             modotime = loadedMemoList7 as! Int
+            }
+        
         let today = Calendar.current.component(.day, from: Date())
         if(backtimeflag){
             print("戻ったぜ")
@@ -167,8 +180,8 @@ class ViewController: UIViewController {
                 minute = Calendar.current.component(.minute, from: Date())
                 second = Calendar.current.component(.second, from: Date())
                 let comebacktime = hour*3600+minute*60+second
-                timema += comebacktime - backtime
-                
+                timema += comebacktime - backtime - 1
+                print("今日\((self.timema/3600)%60)時間\((self.timema/60)%60)分\((self.timema)%60)秒")
                 if(timema >= 8*3600&&flag == true){
                     timema = 8 * 3600
                     let dialog = UIAlertController(title: "自動で退勤しました", message: "労働時間が８時間を超えてしまったため自動で退勤しました", preferredStyle: .alert)
@@ -197,6 +210,35 @@ class ViewController: UIViewController {
             let defaults = UserDefaults.standard
             defaults.set(backtimeflag, forKey: "Modori")
         }
+        else{
+            if memoLists2.count != memoLists.count{
+                taikinnbutton.isHidden = false
+                shukkinnbutton.isHidden = true
+                flag = true
+                self.flaga = 1
+                print(memoLists2)
+                
+                hour = Calendar.current.component(.hour, from: Date())
+                minute = Calendar.current.component(.minute, from: Date())
+                second = Calendar.current.component(.second, from: Date())
+                let comebacktime = hour*3600+minute*60+second
+                
+                timema = comebacktime - modotime
+                
+                print("これじゃ\(timema)")
+                
+                
+                /*mytimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
+                    self.timema = self.timema+1
+                    self.timesave.text = "\((self.timema/3600)%60)時間\((self.timema/60)%60)分\((self.timema)%60)秒"
+                    
+                    if(self.timema >= 8*3600){
+                        
+                        self.applyMemo2()
+                    }
+                })*/
+            }
+        }
         
         
         
@@ -217,11 +259,11 @@ class ViewController: UIViewController {
         
         backtimeflag = true
         
-        let defaults = UserDefaults.standard
-        defaults.set(backtimeflag, forKey: "Modori")
+        /*let defaults = UserDefaults.standard
+        defaults.set(backtimeflag, forKey: "Modori")*/
         
-        let defaults2 = UserDefaults.standard
-        defaults2.set(backtime, forKey: "Modorimasita")
+        /*let defaults2 = UserDefaults.standard
+        defaults2.set(backtime, forKey: "Modorimasita")*/
         
     }
     
@@ -249,6 +291,10 @@ class ViewController: UIViewController {
         hour = Calendar.current.component(.hour, from: Date())
         minute = Calendar.current.component(.minute, from: Date())
         second = Calendar.current.component(.second, from: Date())
+        let  backtime : Int = hour*3600+minute*60+second
+        
+        let defaults1 = UserDefaults.standard
+        defaults1.set(backtime, forKey: "Modorimasita")
        
         let defaults = UserDefaults.standard
         let defaults2 = UserDefaults.standard
@@ -462,7 +508,7 @@ class ViewController: UIViewController {
                     defaults6.set(vc.showsumtimer, forKey: "TUKIJIKANN")
                     print(vc.showsumtimer)
                 }
-                timema = 0
+                //timema = 0
                 flaga = 2;
             }
             
