@@ -228,7 +228,7 @@ class ViewController: UIViewController {
                 print("これじゃ\(timema)")
                 
                 
-                /*mytimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
+                mytimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
                     self.timema = self.timema+1
                     self.timesave.text = "\((self.timema/3600)%60)時間\((self.timema/60)%60)分\((self.timema)%60)秒"
                     
@@ -236,7 +236,7 @@ class ViewController: UIViewController {
                         
                         self.applyMemo2()
                     }
-                })*/
+                })
             }
         }
         
