@@ -22,8 +22,8 @@ class ViewController: UIViewController {
     var minute = Calendar.current.component(.minute, from: Date())
     var second = Calendar.current.component(.second, from: Date())
     var memoList: [Int] = []
-    var memoLists: [String] = []
-    var memoLists2: [String] = []
+    var start_time: [String] = []
+    var end_time: [String] = []
     var skememoLists: [String] = []
     var roudoujikann: [Double] = []
     var hozonnnitiji: [String] = []
@@ -39,7 +39,6 @@ class ViewController: UIViewController {
     var changemonth : Bool = true
     var nitiji2 :Bool = true
     var modotime : Int = 0
-    /*let date = Date()*/
     //日本時間を表示
     var hiduke = DateFormatter()
     var timechecker :String = ""
@@ -88,7 +87,7 @@ class ViewController: UIViewController {
         
         // Do any additional setup after loading the view.
        
-        /*time.text = "\(hour) \(minute) \(second)"*/
+        
         timecheck()
                 mytimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timecheck), userInfo: nil, repeats: true)
         
@@ -96,13 +95,13 @@ class ViewController: UIViewController {
         let loadedMemoList = defaults.object(forKey: "MEMO_LIST")
         if (loadedMemoList as? [String] != nil) {
            
-            memoLists = loadedMemoList as! [String]
+            start_time = loadedMemoList as! [String]
           
             }
         let loadedMemoList2 = defaults.object(forKey: "MEMO_LIST2")
         if (loadedMemoList2 as? [String] != nil) {
            
-            memoLists2 = loadedMemoList2 as! [String]
+            end_time = loadedMemoList2 as! [String]
           
             }
         let loadedMemoList3  = defaults.object(forKey: "roudoujikann")
@@ -189,44 +188,15 @@ class ViewController: UIViewController {
             defaults.set(backtimeflag, forKey: "Modori")
         }
         else{
-            if memoLists2.count != memoLists.count{
-                if(today != day){
+            if end_time.count != start_time.count{
+                
+                
                     taikinnbutton.isHidden = false
                     shukkinnbutton.isHidden = true
                     resetbutton.isHidden = false
                     flag = true
                     self.flaga = 1
-                    print(memoLists2)
-                    print("こっち通っています")
-                    hour = Calendar.current.component(.hour, from: Date())
-                    minute = Calendar.current.component(.minute, from: Date())
-                    second = Calendar.current.component(.second, from: Date())
-                    let hour2 = Calendar.current.component(.hour, from: Date())
-                    let minute2 = Calendar.current.component(.minute, from: Date())
-                    let second2 = Calendar.current.component(.second, from: Date())
-                    let comebacktime = (24 - hour)*3600 + (60 - minute)*60 + (60 - second) + (hour2*3600+minute2*60+second2)
-                    
-                    timema = comebacktime - modotime
-                    if timema <= 0 {
-                        timema = 24 + timema
-                        print("時間の変更")
-                    }
-                    if(timema >= 8*3600&&flag == true){
-                        timema = 8 * 3600
-                        let dialog = UIAlertController(title: "自動で退勤しました", message: "労働時間が８時間を超えてしまったため自動で退勤しました", preferredStyle: .alert)
-                        dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                        // 生成したダイアログを実際に表示します
-                        self.present(dialog, animated: true, completion: nil)
-                        resetbutton.isHidden = true
-                    }
-                }
-                else{
-                    taikinnbutton.isHidden = false
-                    shukkinnbutton.isHidden = true
-                    resetbutton.isHidden = false
-                    flag = true
-                    self.flaga = 1
-                    print(memoLists2)
+                    print(end_time)
                     
                     hour = Calendar.current.component(.hour, from: Date())
                     minute = Calendar.current.component(.minute, from: Date())
@@ -260,11 +230,9 @@ class ViewController: UIViewController {
                             self.applyMemo2()
                         }
                     })
-                }
+                
             }
         }
-        
-        
         
         print("\((self.timema/3600)%60)時間\((self.timema/60)%60)分\((self.timema)%60)秒")
         
@@ -317,16 +285,14 @@ class ViewController: UIViewController {
        
         let defaults = UserDefaults.standard
         let defaults2 = UserDefaults.standard
-        memoLists.append(timechecker)
+        start_time.append(timechecker)
         skememoLists.append(skechecker)
-        defaults.set(memoLists, forKey: "MEMO_LIST")
+        defaults.set(start_time, forKey: "MEMO_LIST")
         defaults2.set(skememoLists, forKey: "SKEMEMO_LIST")
         
         flag = true
         self.flaga = 1
         timema = 0
-        
-        
         
         mytimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
             self.timema = self.timema+1
@@ -352,11 +318,12 @@ class ViewController: UIViewController {
         let defaults3 = UserDefaults.standard
         let ji :Int = timema/3600
         let guraftime = Double((timema/60)%60)/100
-        let timee : Double = Double(ji) + guraftime
+        var timee : Double = Double(ji) + guraftime
       
-        memoLists2.append(timechecker)
-        defaults.set(memoLists2, forKey: "MEMO_LIST2")
-        roudoujikann.append(timee)
+        end_time.append(timechecker)
+        defaults.set(end_time, forKey: "MEMO_LIST2")
+        
+        //roudoujikann.append(timee)
        
         let dt = Date()
         let dateFormatter = DateFormatter()
@@ -366,7 +333,7 @@ class ViewController: UIViewController {
         hozonnnitiji.append(dateFormatter.string(from: dt))
         
         //print(hozonnnitiji)
-        defaults2.set(roudoujikann, forKey: "roudoujikann")
+        //defaults2.set(roudoujikann, forKey: "roudoujikann")
         defaults3.set(hozonnnitiji, forKey: "hozonnnitiji")
             self.flag = false
             self.flaga = 1
@@ -375,13 +342,14 @@ class ViewController: UIViewController {
         
         if timema > 3600*6 && timema < 3600*8 {
             timema = timema - 45*60
-            
+            //timee = timee - (45*60)/100
         }
         else if timema >= 3600*8{
             timema = timema - 60*60
             
         }
-        
+        roudoujikann.append(timee)
+        defaults2.set(roudoujikann, forKey: "roudoujikann")
     }
     
     @IBAction func input(_ sender: Any) {
@@ -564,17 +532,17 @@ class ViewController: UIViewController {
         let defaults = UserDefaults.standard
         let defaults2 = UserDefaults.standard
         let defaults3 = UserDefaults.standard
-        memoLists.remove(at: memoLists.count - 1)
+        start_time.remove(at: start_time.count - 1)
         skememoLists.remove(at: skememoLists.count - 1)
         
-        if memoLists2.count != memoLists.count {
+        if end_time.count != start_time.count {
             print("あいうえお")
-            memoLists2.remove(at: memoLists2.count - 1)
+            end_time.remove(at: end_time.count - 1)
         }
         
-        defaults.set(memoLists, forKey: "MEMO_LIST")
+        defaults.set(start_time, forKey: "MEMO_LIST")
         defaults2.set(skememoLists, forKey: "SKEMEMO_LIST")
-        defaults3.set(memoLists2, forKey: "MEMO_LIST2")
+        defaults3.set(end_time, forKey: "MEMO_LIST2")
         UserDefaults.standard.removeObject(forKey: "Hiduke")
         
         
