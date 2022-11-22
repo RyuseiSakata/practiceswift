@@ -164,6 +164,7 @@ class ViewController: UIViewController {
                     dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                     // 生成したダイアログを実際に表示します
                     self.present(dialog, animated: true, completion: nil)
+                    resetbutton.isHidden = true
                 }
             }
             else{
@@ -180,6 +181,7 @@ class ViewController: UIViewController {
                     dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                     // 生成したダイアログを実際に表示します
                     self.present(dialog, animated: true, completion: nil)
+                    resetbutton.isHidden = true
                 }
             }
             backtimeflag = false
@@ -188,31 +190,77 @@ class ViewController: UIViewController {
         }
         else{
             if memoLists2.count != memoLists.count{
-                taikinnbutton.isHidden = false
-                shukkinnbutton.isHidden = true
-                flag = true
-                self.flaga = 1
-                print(memoLists2)
-                
-                hour = Calendar.current.component(.hour, from: Date())
-                minute = Calendar.current.component(.minute, from: Date())
-                second = Calendar.current.component(.second, from: Date())
-                let comebacktime = hour*3600+minute*60+second
-                
-                timema = comebacktime - modotime
-                
-                print("これじゃ\(timema)")
-                
-                
-                mytimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
-                    self.timema = self.timema+1
-                    self.timesave.text = "\((self.timema/3600)%60)時間\((self.timema/60)%60)分\((self.timema)%60)秒"
+                if(today != day){
+                    taikinnbutton.isHidden = false
+                    shukkinnbutton.isHidden = true
+                    resetbutton.isHidden = false
+                    flag = true
+                    self.flaga = 1
+                    print(memoLists2)
+                    print("こっち通っています")
+                    hour = Calendar.current.component(.hour, from: Date())
+                    minute = Calendar.current.component(.minute, from: Date())
+                    second = Calendar.current.component(.second, from: Date())
+                    let hour2 = Calendar.current.component(.hour, from: Date())
+                    let minute2 = Calendar.current.component(.minute, from: Date())
+                    let second2 = Calendar.current.component(.second, from: Date())
+                    let comebacktime = (24 - hour)*3600 + (60 - minute)*60 + (60 - second) + (hour2*3600+minute2*60+second2)
                     
-                    if(self.timema >= 8*3600){
-                        
-                        self.applyMemo2()
+                    timema = comebacktime - modotime
+                    if timema <= 0 {
+                        timema = 24 + timema
+                        print("時間の変更")
                     }
-                })
+                    if(timema >= 8*3600&&flag == true){
+                        timema = 8 * 3600
+                        let dialog = UIAlertController(title: "自動で退勤しました", message: "労働時間が８時間を超えてしまったため自動で退勤しました", preferredStyle: .alert)
+                        dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        // 生成したダイアログを実際に表示します
+                        self.present(dialog, animated: true, completion: nil)
+                        resetbutton.isHidden = true
+                    }
+                }
+                else{
+                    taikinnbutton.isHidden = false
+                    shukkinnbutton.isHidden = true
+                    resetbutton.isHidden = false
+                    flag = true
+                    self.flaga = 1
+                    print(memoLists2)
+                    
+                    hour = Calendar.current.component(.hour, from: Date())
+                    minute = Calendar.current.component(.minute, from: Date())
+                    second = Calendar.current.component(.second, from: Date())
+                    let comebacktime = hour*3600+minute*60+second
+                    
+                    timema = comebacktime - modotime
+                    
+                    print("これじゃ\(timema)")
+                    
+                    if timema <= 0 {
+                        timema = 24*3600 + timema
+                        print("デバック")
+                        self.timema = 8*3600
+                    }
+                    else  if(skememoLists[skememoLists.count - 1] != skechecker){
+                        timema = 24*3600 - modotime + hour*3600+minute*60+second
+                        timema = 8*3600
+                    }
+                    
+                    mytimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
+                        self.timema = self.timema+1
+                        self.timesave.text = "\((self.timema/3600)%60)時間\((self.timema/60)%60)分\((self.timema)%60)秒"
+                        
+                        if(self.timema >= 8*3600){
+                            let dialog = UIAlertController(title: "自動で退勤しました", message: "労働時間が８時間を超えてしまったため自動で退勤しました", preferredStyle: .alert)
+                            dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                            // 生成したダイアログを実際に表示します
+                            self.present(dialog, animated: true, completion: nil)
+                            self.timema = 8*3600
+                            self.applyMemo2()
+                        }
+                    })
+                }
             }
         }
         
@@ -298,6 +346,7 @@ class ViewController: UIViewController {
         
         shukkinnbutton.isHidden = false
         taikinnbutton.isHidden = true
+        resetbutton.isHidden = true
         let defaults = UserDefaults.standard
         let defaults2 = UserDefaults.standard
         let defaults3 = UserDefaults.standard
@@ -514,11 +563,18 @@ class ViewController: UIViewController {
         
         let defaults = UserDefaults.standard
         let defaults2 = UserDefaults.standard
+        let defaults3 = UserDefaults.standard
         memoLists.remove(at: memoLists.count - 1)
         skememoLists.remove(at: skememoLists.count - 1)
+        
+        if memoLists2.count != memoLists.count {
+            print("あいうえお")
+            memoLists2.remove(at: memoLists2.count - 1)
+        }
+        
         defaults.set(memoLists, forKey: "MEMO_LIST")
         defaults2.set(skememoLists, forKey: "SKEMEMO_LIST")
-        
+        defaults3.set(memoLists2, forKey: "MEMO_LIST2")
         UserDefaults.standard.removeObject(forKey: "Hiduke")
         
         
