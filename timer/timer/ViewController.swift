@@ -68,7 +68,7 @@ class ViewController: UIViewController {
         // Touch ID・Face IDが利用できるデバイスか確認する
         if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
             // 利用できる場合は指紋・顔認証を要求する
-            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: description, reply: {success, evaluateError in
+            context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: description, reply: {success, evaluateError in
                 if (success) {
                     self.flagera = true
                     print("認証成功")
