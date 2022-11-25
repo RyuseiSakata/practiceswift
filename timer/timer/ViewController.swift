@@ -319,6 +319,7 @@ class ViewController: UIViewController {
         let ji :Int = timema/3600
         let guraftime = Double((timema/60)%60)/100
         var timee : Double = Double(ji) + guraftime
+        //var timee : Double = Double(timema*24) //+ guraftime
       
         end_time.append(timechecker)
         defaults.set(end_time, forKey: "MEMO_LIST2")
