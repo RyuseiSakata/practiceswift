@@ -81,6 +81,17 @@ class ViewController: UIViewController {
             })
         } else {
             // Touch ID・Face IDが利用できない場合の処理
+            context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: description, reply: {success, evaluateError in
+                if (success) {
+                    self.flagera = true
+                    print("認証成功")
+                }
+                
+                else {
+                    // 認証失敗時の処理を書く
+                    print("認証失敗")
+                }
+            })
             let errorDescription = error?.userInfo["NSLocalizedDescription"] ?? ""
             print(errorDescription) // Biometry is not available on this device.
         }
