@@ -216,28 +216,29 @@ class ViewController3: UIViewController,FSCalendarDelegate,FSCalendarDataSource,
         let day = tmpDate.component(.day, from: date)
         //labelDate.text = "\(year)/\(month)/\(day)"
         
-        let result1 = newmemoLists.first(where: { $0.contains("\(year)年\(month)月\(day)日") })
-        let result2 = newmemoLists2.first(where: { $0.contains("\(year)年\(month)月\(day)日") })
+        let result1 = newmemoLists.filter({ $0.contains("\(year)年\(month)月\(day)日") })
+        let result2 = newmemoLists2.filter( { $0.contains("\(year)年\(month)月\(day)日") })
         print(result1)
         print(result2)
         
         
         
-        if result1 != nil && result2 != nil{
+        if result1 != [] && result2 != []{
             print("入った")
             self.date.removeAll()
             var hyoujidate : [String] = []
             var hyoujidate2 : [String] = []
             
-            hyoujidate.append(result1!)
-            hyoujidate2.append(result2!)
+            //hyoujidate.append(result1!)
+            //hyoujidate2.append(result2!)
             
-            self.date.append(hyoujidate)
-            self.date.append(hyoujidate2)
+            self.date.append(result1)
+            self.date.append(result2)
             print(self.date)
             
         }
         else{
+            print("出勤した記録がない")
             self.date.removeAll()
             self.date.append(newmemoLists)
             self.date.append(newmemoLists2)

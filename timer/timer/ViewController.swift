@@ -524,7 +524,7 @@ class ViewController: UIViewController {
                 }
                 else{
                     //vc.showsumtimer += timema
-                    vc.showsumtimer = timema
+                    vc.showsumtimer += timema
                     let defaults5 = UserDefaults.standard
                     defaults5.set(vc.showsumtimer, forKey: "sumtime")
                     let defaults6 = UserDefaults.standard
