@@ -494,10 +494,11 @@ class ViewController: UIViewController {
             
             dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "d", options: 0, locale: Locale(identifier: "ja_JP"))
             print(dateFormatter.string(from:today))
+            let vc = segue.destination as! ViewController3
             
             if(flaga == 1){
                 let defaults = UserDefaults.standard
-                let vc = segue.destination as! ViewController3
+                //let vc = segue.destination as! ViewController3
                 let loadedMemoList4  = defaults.object(forKey: "sumtime")
                 if (loadedMemoList4 as? Int != nil) {
                     vc.showsumtimer = loadedMemoList4 as! Int
@@ -510,7 +511,7 @@ class ViewController: UIViewController {
                 else if dateFormatter.string(from:today) != "1日"{
                     changemonth = true
                 }
-                print(changemonth)
+               
                 if dateFormatter.string(from:today) == "1日" && changemonth{
                     
                     let defaults5 = UserDefaults.standard
@@ -522,7 +523,8 @@ class ViewController: UIViewController {
                     changemonth = false
                 }
                 else{
-                    vc.showsumtimer += timema
+                    //vc.showsumtimer += timema
+                    vc.showsumtimer = timema
                     let defaults5 = UserDefaults.standard
                     defaults5.set(vc.showsumtimer, forKey: "sumtime")
                     let defaults6 = UserDefaults.standard
@@ -530,7 +532,7 @@ class ViewController: UIViewController {
                     print(vc.showsumtimer)
                 }
                 //timema = 0
-                flaga = 2;
+               // flaga = 2;
             }
             
         }
