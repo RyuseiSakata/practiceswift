@@ -302,7 +302,7 @@ class ViewController: UIViewController {
         defaults2.set(skememoLists, forKey: "SKEMEMO_LIST")
         
         flag = true
-        self.flaga = 1
+        //self.flaga = 1
         timema = 0
         
         mytimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
@@ -532,7 +532,7 @@ class ViewController: UIViewController {
                     print(vc.showsumtimer)
                 }
                 //timema = 0
-               // flaga = 2;
+                flaga = 2;
             }
             
         }
