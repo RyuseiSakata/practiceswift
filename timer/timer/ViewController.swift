@@ -30,6 +30,8 @@ class ViewController: UIViewController {
     var tukijikann: [Int] = []
     var timema :Int = 0
     var flag : Bool = false
+    var flag2 : Bool = false
+    var flag3 : Bool = false
     var flaga: Int = 0;
     var player: AVAudioPlayer?
     var flagera = false
@@ -159,6 +161,12 @@ class ViewController: UIViewController {
         
         let today = Calendar.current.component(.day, from: Date())
         if(backtimeflag){
+            
+          /*  if(roudoujikann.count == end_time.count&&start_time.count == end_time.count){
+                timema = Int(roudoujikann.last!)
+                self.timesave.text = "\((self.timema/3600)%60)時間\((self.timema/60)%60)分\((self.timema)%60)秒"
+            }*/
+            
             print("戻ったぜ")
             
             if(today == day){
@@ -524,7 +532,7 @@ class ViewController: UIViewController {
                 }
                 else{
                     //vc.showsumtimer += timema
-                    vc.showsumtimer += timema
+                    //vc.showsumtimer += timema
                     let defaults5 = UserDefaults.standard
                     defaults5.set(vc.showsumtimer, forKey: "sumtime")
                     let defaults6 = UserDefaults.standard
