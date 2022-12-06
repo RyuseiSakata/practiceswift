@@ -526,6 +526,7 @@ class ViewController: UIViewController {
                     defaults5.set(vc.showsumtimer, forKey: "TUKIJIKANN")
                     print(vc.showsumtimer)
                     vc.showsumtimer = 0;
+                    vc.showsumtimer += timema
                     let defaults6 = UserDefaults.standard
                     defaults6.set(vc.showsumtimer, forKey: "sumtime")
                     changemonth = false
