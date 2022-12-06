@@ -214,7 +214,7 @@ class ViewController: UIViewController {
                     shukkinnbutton.isHidden = true
                     resetbutton.isHidden = false
                     flag = true
-                    self.flaga = 1
+                    //self.flaga = 1
                     print(end_time)
                     
                     hour = Calendar.current.component(.hour, from: Date())
@@ -532,7 +532,8 @@ class ViewController: UIViewController {
                 }
                 else{
                     //vc.showsumtimer += timema
-                    //vc.showsumtimer += timema
+                    vc.showsumtimer += timema
+                    
                     let defaults5 = UserDefaults.standard
                     defaults5.set(vc.showsumtimer, forKey: "sumtime")
                     let defaults6 = UserDefaults.standard
