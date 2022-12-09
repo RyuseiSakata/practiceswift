@@ -183,7 +183,7 @@ class ViewController: UIViewController {
                 second = Calendar.current.component(.second, from: Date())
                 let comebacktime = hour*3600+minute*60+second
                 timema += comebacktime - backtime - 1
-                print("今日\((self.timema/3600)%60)時間\((self.timema/60)%60)分\((self.timema)%60)秒")
+                //print("今日\((self.timema/3600)%60)時間\((self.timema/60)%60)分\((self.timema)%60)秒")
                 if(timema >= 8*3600&&flag == true){
                     timema = 8 * 3600
                     let dialog = UIAlertController(title: "自動で退勤しました", message: "労働時間が８時間を超えてしまったため自動で退勤しました", preferredStyle: .alert)
@@ -192,6 +192,7 @@ class ViewController: UIViewController {
                     self.present(dialog, animated: true, completion: nil)
                     resetbutton.isHidden = true
                 }
+                print("今日\((self.timema/3600)%60)時間\((self.timema/60)%60)分\((self.timema)%60)秒")
             }
             else{
                let hour2 = Calendar.current.component(.hour, from: Date())
@@ -208,6 +209,7 @@ class ViewController: UIViewController {
                     // 生成したダイアログを実際に表示します
                     self.present(dialog, animated: true, completion: nil)
                     resetbutton.isHidden = true
+                    print("今日\((self.timema/3600)%60)時間\((self.timema/60)%60)分\((self.timema)%60)秒")
                 }
             }
             backtimeflag = false
@@ -246,7 +248,7 @@ class ViewController: UIViewController {
                     
                     mytimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
                         self.timema = self.timema+1
-                        self.timesave.text = "\((self.timema/3600)%60)時間\((self.timema/60)%60)分\((self.timema)%60)秒"
+                        //self.timesave.text = "\((self.timema/3600)%60)時間\((self.timema/60)%60)分\((self.timema)%60)秒"
                         
                         if(self.timema >= 8*3600){
                             let dialog = UIAlertController(title: "自動で退勤しました", message: "労働時間が８時間を超えてしまったため自動で退勤しました", preferredStyle: .alert)
@@ -256,6 +258,7 @@ class ViewController: UIViewController {
                             self.timema = 8*3600
                             self.applyMemo2()
                         }
+                        self.timesave.text = "\((self.timema/3600)%60)時間\((self.timema/60)%60)分\((self.timema)%60)秒"
                     })
                 
             }
@@ -330,12 +333,13 @@ class ViewController: UIViewController {
         
         mytimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
             self.timema = self.timema+1
-            self.timesave.text = "\((self.timema/3600)%60)時間\((self.timema/60)%60)分\((self.timema)%60)秒"
+            //self.timesave.text = "\((self.timema/3600)%60)時間\((self.timema/60)%60)分\((self.timema)%60)秒"
             
             if(self.timema >= 8*3600){
                 
                 self.applyMemo2()
             }
+            self.timesave.text = "\((self.timema/3600)%60)時間\((self.timema/60)%60)分\((self.timema)%60)秒"
         })
        
     }
