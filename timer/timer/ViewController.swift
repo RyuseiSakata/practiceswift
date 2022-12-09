@@ -316,11 +316,13 @@ class ViewController: UIViewController {
         let defaults = UserDefaults.standard
         let defaults2 = UserDefaults.standard
         let defaults3 = UserDefaults.standard
+       // let defaults4 = UserDefaults.standard
         start_time.append(timechecker)
         skememoLists.append(skechecker)
         defaults.set(start_time, forKey: "MEMO_LIST")
         defaults2.set(skememoLists, forKey: "SKEMEMO_LIST")
         defaults3.set(monchecker, forKey: "Month")
+        //defaults4.set(monchecker, forKey: "Month2")
         
         flag = true
         //self.flaga = 1

@@ -25,6 +25,7 @@ class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSourc
     var sumtime2:Int = 0
     var nitiji:Bool = true;
     var nitiji2:Bool = false;
+    var monchecker2 :String = ""
     
     var chartView: LineChartView!
     var chartDataSet: LineChartDataSet!
@@ -56,25 +57,31 @@ class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSourc
             nitiji  = loadedMemoList7 as! Bool
         }
         
+        let loadedMemoList8  = defaults.object(forKey: "Month2")
+         if (loadedMemoList8 as? String != nil) {
+             monchecker2 = loadedMemoList8 as! String
+         }
+        
         let today = Date()
-        let yesterday = Calendar.current.date(byAdding: .day,value: -1,to:Date())!
+        let yesterday = Calendar.current.date(byAdding: .month,value: -1,to:Date())!
         let dateFormatter = DateFormatter()
         let dateFormatter2 = DateFormatter()
         
-        dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "d", options: 0, locale: Locale(identifier: "ja_JP"))
+        dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "M", options: 0, locale: Locale(identifier: "ja_JP"))
         dateFormatter2.dateFormat = DateFormatter.dateFormat(fromTemplate: "yM", options: 0, locale: Locale(identifier: "ja_JP"))
       
-        if dateFormatter.string(from:today) == "1日"&&nitiji2{
+        /*if dateFormatter.string(from:today) != monchecker2&&nitiji2{
             nitiji = true
             nitiji2 = false
         }
-        else if dateFormatter.string(from:today) != "1日"{
+        else if dateFormatter.string(from:today) == monchecker2{
             nitiji = true
-        }
+        }*/
         
-        print(nitiji)
+        print(dateFormatter.string(from:today))
+        print(monchecker2)
         
-        if dateFormatter.string(from:today) == "1日"&&nitiji{
+        if dateFormatter.string(from:today) != monchecker2/*&&nitiji*/{
            
             let defaults10 = UserDefaults.standard
             let loadedMemoList5  = defaults10.object(forKey: "TUKIJIKANN")
@@ -90,6 +97,8 @@ class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSourc
             TableView.reloadData()
             let defaults8 = UserDefaults.standard
             defaults8.set(nitiji, forKey: "nitiBOOL")
+            let defaults3 = UserDefaults.standard
+            defaults3.set(dateFormatter.string(from:today), forKey: "Month2")
             getChart()
         }
         
