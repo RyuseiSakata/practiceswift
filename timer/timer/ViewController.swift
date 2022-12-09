@@ -335,11 +335,12 @@ class ViewController: UIViewController {
         let defaults = UserDefaults.standard
         let defaults2 = UserDefaults.standard
         let defaults3 = UserDefaults.standard
-        let ji :Int = timema/3600
-        let guraftime = Double((timema/60)%60)/100
-        var timee : Double = Double(ji) + guraftime
+        //let ji :Double = Double(timema/3600)
+        let guraftime = Double(timema/60)/60
+        var timee : Double = /*Double(ji) +*/ guraftime
         //var timee : Double = Double(timema*24) //+ guraftime
-      
+        print("グラフに表示する時間だわさ")
+        print(timee)
         end_time.append(timechecker)
         defaults.set(end_time, forKey: "MEMO_LIST2")
         

@@ -76,8 +76,8 @@ class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSourc
         
         if dateFormatter.string(from:today) == "1日"&&nitiji{
            
-            let defaults3 = UserDefaults.standard
-            let loadedMemoList5  = defaults3.object(forKey: "TUKIJIKANN")
+            let defaults10 = UserDefaults.standard
+            let loadedMemoList5  = defaults10.object(forKey: "TUKIJIKANN")
             if (loadedMemoList5 as? Int != nil) {
                 sumtime2 = loadedMemoList5 as! Int
             }
