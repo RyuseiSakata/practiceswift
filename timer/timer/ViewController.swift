@@ -45,6 +45,8 @@ class ViewController: UIViewController {
     var hiduke = DateFormatter()
     var timechecker :String = ""
     var skechecker :String = ""
+    var monchecker :String = ""
+    var monchecker2 :String = ""
     
     var mytimer = Timer()
     var mytimer2 = Timer()
@@ -141,6 +143,12 @@ class ViewController: UIViewController {
         if (loadedMemoList7 as? Int != nil) {
              modotime = loadedMemoList7 as! Int
             }
+        
+        let loadedMemoList8  = defaults.object(forKey: "Month")
+         if (loadedMemoList8 as? String != nil) {
+             monchecker2 = loadedMemoList8 as! String
+         }
+        
         //ここにはアプリのタスクを切った時の処理が記載されています
        
         
@@ -279,13 +287,16 @@ class ViewController: UIViewController {
         //日本時間を表示
         let formatterJP = DateFormatter()
         let formatterJP2 = DateFormatter()
+        let formatterJP3 = DateFormatter()
         formatterJP.dateFormat = DateFormatter.dateFormat(fromTemplate: "ydMMMHms", options: 0, locale: Locale(identifier: "ja_JP"))
         formatterJP2.dateFormat = DateFormatter.dateFormat(fromTemplate: "yyyy-MM-dd", options: 0, locale: Locale(identifier: "ja_JP"))
+        formatterJP3.dateFormat = DateFormatter.dateFormat(fromTemplate: "M", options: 0, locale: Locale(identifier: "ja_JP"))
         formatterJP.timeZone = TimeZone(identifier:  "Asia/Tokyo")
        
         time.text = ("🇯🇵　\(formatterJP.string(from: date))")
         timechecker = formatterJP.string(from: date)
         skechecker = formatterJP2.string(from: date)
+        monchecker = formatterJP3.string(from: date)
     }
    
     
@@ -304,10 +315,12 @@ class ViewController: UIViewController {
        
         let defaults = UserDefaults.standard
         let defaults2 = UserDefaults.standard
+        let defaults3 = UserDefaults.standard
         start_time.append(timechecker)
         skememoLists.append(skechecker)
         defaults.set(start_time, forKey: "MEMO_LIST")
         defaults2.set(skememoLists, forKey: "SKEMEMO_LIST")
+        defaults3.set(monchecker, forKey: "Month")
         
         flag = true
         //self.flaga = 1
@@ -497,43 +510,59 @@ class ViewController: UIViewController {
         sender: Any?) {
             
         if segue.identifier == "showView2" {
-           
+            let defaults = UserDefaults.standard
             let today = Date()
             let dateFormatter = DateFormatter()
             
-            dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "d", options: 0, locale: Locale(identifier: "ja_JP"))
+           /* let loadedMemoList6  = defaults.object(forKey: "Month")
+            if (loadedMemoList6 as? String != nil) {
+                monchecker = loadedMemoList6 as! String
+            }*/
+            print(monchecker2)
+            
+            dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "M", options: 0, locale: Locale(identifier: "ja_JP"))
             print(dateFormatter.string(from:today))
             let vc = segue.destination as! ViewController3
             
             if(flaga == 1){
-                let defaults = UserDefaults.standard
+               // let defaults = UserDefaults.standard
                 //let vc = segue.destination as! ViewController3
                 let loadedMemoList4  = defaults.object(forKey: "sumtime")
                 if (loadedMemoList4 as? Int != nil) {
                     vc.showsumtimer = loadedMemoList4 as! Int
                 }
                 
-                if dateFormatter.string(from:today) == "1日"&&nitiji2{
+                /*if dateFormatter.string(from:today) != monchecker2&&nitiji2{
+                    print("ミミみい耳耳いい耳耳みm")
                     changemonth = true
                     nitiji2 = false
                 }
-                else if dateFormatter.string(from:today) != "1日"{
+                else if dateFormatter.string(from:today) == monchecker2{
                     changemonth = true
-                }
+                }*/
                
-                if dateFormatter.string(from:today) == "1日" && changemonth{
-                    
+                if dateFormatter.string(from:today) != monchecker2 /*&& changemonth*/{
+                    print("今月初めての出勤だよぞおお")
                     let defaults5 = UserDefaults.standard
                     defaults5.set(vc.showsumtimer, forKey: "TUKIJIKANN")
                     print(vc.showsumtimer)
                     vc.showsumtimer = 0;
-                    vc.showsumtimer += timema
+                    vc.showsumtimer = timema
                     let defaults6 = UserDefaults.standard
                     defaults6.set(vc.showsumtimer, forKey: "sumtime")
+                    let defaults3 = UserDefaults.standard
+                    defaults3.set(monchecker, forKey: "Month")
+                    
+                    let loadedMemoList6  = defaults.object(forKey: "Month")
+                     if (loadedMemoList6 as? String != nil) {
+                         monchecker2 = loadedMemoList6 as! String
+                     }
+                    print(monchecker2)
                     changemonth = false
                 }
                 else{
                     //vc.showsumtimer += timema
+                    print("こっちになってるぞよ")
                     vc.showsumtimer += timema
                     
                     let defaults5 = UserDefaults.standard
