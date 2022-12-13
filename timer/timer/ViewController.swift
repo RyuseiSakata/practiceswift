@@ -169,11 +169,15 @@ class ViewController: UIViewController {
             else if dateFormatter.string(from:today2) == monchecker2{
                 changemonth = true
             }
-           
-            if dateFormatter.string(from:today2) != monchecker2 /*&& changemonth*/{
+        /*let loadedMemoList5  = defaults.object(forKey: "Modori")
+        if (loadedMemoList5 as? Bool != nil) {
+            hozonnnitiji = loadedMemoList5 as! [String]
+            }*/
+            if dateFormatter.string(from:today2) != monchecker2 && (backtimeflag == false || bababaflag == false){
                 timema = 0
                 flaga = 1
                 bababaflag = true
+                backtimeflag = false
                 print("ああああああああ")
             }
         
@@ -420,7 +424,7 @@ class ViewController: UIViewController {
         if flagera{
             let date = Date()
             let calendar = Calendar.current
-            let day = calendar.component(.day, from: date)
+            var day = calendar.component(.day, from: date)
             _ = calendar.component(.hour, from: date)
             let year = calendar.component(.year, from: date)
             let month = calendar.component(.month, from: date)
@@ -430,6 +434,10 @@ class ViewController: UIViewController {
             
             let defaults = UserDefaults.standard
             let loadedMemoList4  = defaults.object(forKey: "Hiduke")
+            
+            if(bababaflag == true){
+                day = 0;
+            }
             
             if date > kijyunn && date < kijyunn2  {
                 
@@ -595,6 +603,7 @@ class ViewController: UIViewController {
                 }
                 else{
                     //vc.showsumtimer += timema
+                    
                     print("こっちになってるぞよ")
                     vc.showsumtimer += timema
                     
