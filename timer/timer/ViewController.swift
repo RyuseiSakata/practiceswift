@@ -173,11 +173,12 @@ class ViewController: UIViewController {
         if (loadedMemoList5 as? Bool != nil) {
             hozonnnitiji = loadedMemoList5 as! [String]
             }*/
+        
             if dateFormatter.string(from:today2) != monchecker2 && (backtimeflag == false || bababaflag == false){
                 timema = 0
                 flaga = 1
                 bababaflag = true
-                backtimeflag = false
+                //backtimeflag = true
                 print("ああああああああ")
             }
         
@@ -343,13 +344,14 @@ class ViewController: UIViewController {
        
         let defaults = UserDefaults.standard
         let defaults2 = UserDefaults.standard
-        let defaults3 = UserDefaults.standard
+        //let defaults3 = UserDefaults.standard
        // let defaults4 = UserDefaults.standard
         start_time.append(timechecker)
         skememoLists.append(skechecker)
         defaults.set(start_time, forKey: "MEMO_LIST")
         defaults2.set(skememoLists, forKey: "SKEMEMO_LIST")
-        defaults3.set(monchecker, forKey: "Month")
+        
+        //defaults3.set(monchecker, forKey: "Month")
         //defaults4.set(monchecker, forKey: "Month2")
         
         flag = true
@@ -372,7 +374,9 @@ class ViewController: UIViewController {
     
     
     func applyMemo2() {
-        
+        let defaults5 = UserDefaults.standard
+        defaults5.set(monchecker, forKey: "Month")
+        bababaflag = false
         shukkinnbutton.isHidden = false
         taikinnbutton.isHidden = true
         resetbutton.isHidden = true
