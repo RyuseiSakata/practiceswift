@@ -41,6 +41,7 @@ class ViewController: UIViewController {
     var changemonth : Bool = true
     var nitiji2 :Bool = true
     var modotime : Int = 0
+    var bababaflag :Bool = false
     //日本時間を表示
     var hiduke = DateFormatter()
     var timechecker :String = ""
@@ -156,6 +157,27 @@ class ViewController: UIViewController {
     
     @objc func foreground(notification: Notification) {
         
+        let today2 = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "M", options: 0, locale: Locale(identifier: "ja_JP"))
+
+            if dateFormatter.string(from:today2) != monchecker2&&nitiji2{
+                print("ミミみい耳耳いい耳耳みm")
+                changemonth = true
+                nitiji2 = false
+            }
+            else if dateFormatter.string(from:today2) == monchecker2{
+                changemonth = true
+            }
+           
+            if dateFormatter.string(from:today2) != monchecker2 /*&& changemonth*/{
+                timema = 0
+                flaga = 1
+                bababaflag = true
+                print("ああああああああ")
+            }
+        
+        
         let defaults = UserDefaults.standard
         let loadedMemoList4  = defaults.object(forKey: "hozonnnitiji")
         if (loadedMemoList4 as? String != nil) {
@@ -174,7 +196,6 @@ class ViewController: UIViewController {
                 timema = Int(roudoujikann.last!)
                 self.timesave.text = "\((self.timema/3600)%60)時間\((self.timema/60)%60)分\((self.timema)%60)秒"
             }*/
-            
             print("戻ったぜ")
             
             if(today == day){
@@ -198,7 +219,7 @@ class ViewController: UIViewController {
                let hour2 = Calendar.current.component(.hour, from: Date())
                let minute2 = Calendar.current.component(.minute, from: Date())
                let second2 = Calendar.current.component(.second, from: Date())
-                
+                print("ここに入っているからおかしいのか？")
                 let comebacktime = (24 - hour)*3600 + (60 - minute)*60 + (60 - second) + (hour2*3600+minute2*60+second2)
                 
                 timema += comebacktime
@@ -248,8 +269,7 @@ class ViewController: UIViewController {
                     
                     mytimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
                         self.timema = self.timema+1
-                        //self.timesave.text = "\((self.timema/3600)%60)時間\((self.timema/60)%60)分\((self.timema)%60)秒"
-                        
+                       
                         if(self.timema >= 8*3600){
                             let dialog = UIAlertController(title: "自動で退勤しました", message: "労働時間が８時間を超えてしまったため自動で退勤しました", preferredStyle: .alert)
                             dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -305,6 +325,7 @@ class ViewController: UIViewController {
     
     
     func applyMemo() {
+        bababaflag = false
         taikinnbutton.isHidden = false
         shukkinnbutton.isHidden = true
         resetbutton.isHidden = false
@@ -394,7 +415,7 @@ class ViewController: UIViewController {
     
     @IBAction func input(_ sender: Any) {
         
-        
+        flaga=0
         
         if flagera{
             let date = Date()
@@ -520,10 +541,6 @@ class ViewController: UIViewController {
             let today = Date()
             let dateFormatter = DateFormatter()
             
-           /* let loadedMemoList6  = defaults.object(forKey: "Month")
-            if (loadedMemoList6 as? String != nil) {
-                monchecker = loadedMemoList6 as! String
-            }*/
             print(monchecker2)
             
             dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "M", options: 0, locale: Locale(identifier: "ja_JP"))
@@ -538,22 +555,32 @@ class ViewController: UIViewController {
                     vc.showsumtimer = loadedMemoList4 as! Int
                 }
                 
-                /*if dateFormatter.string(from:today) != monchecker2&&nitiji2{
+                if dateFormatter.string(from:today) != monchecker2&&nitiji2{
                     print("ミミみい耳耳いい耳耳みm")
                     changemonth = true
                     nitiji2 = false
                 }
                 else if dateFormatter.string(from:today) == monchecker2{
                     changemonth = true
-                }*/
+                }
                
                 if dateFormatter.string(from:today) != monchecker2 /*&& changemonth*/{
-                    print("今月初めての出勤だよぞおお")
                     let defaults5 = UserDefaults.standard
                     defaults5.set(vc.showsumtimer, forKey: "TUKIJIKANN")
+                    print("今月初めての出勤だよぞおお")
                     print(vc.showsumtimer)
-                    vc.showsumtimer = 0;
-                    vc.showsumtimer = timema
+                    //timema = 0
+                    if(bababaflag){
+                        vc.showsumtimer = 0
+                        bababaflag = false
+                        print("ここは最初の処理")
+                    }
+                    else{
+                        vc.showsumtimer = 0
+                        vc.showsumtimer = timema
+                        print("ここは最初以外の処理")
+                    }
+                    
                     let defaults6 = UserDefaults.standard
                     defaults6.set(vc.showsumtimer, forKey: "sumtime")
                     let defaults3 = UserDefaults.standard
