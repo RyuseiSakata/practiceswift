@@ -42,6 +42,7 @@ class ViewController: UIViewController {
     var nitiji2 :Bool = true
     var modotime : Int = 0
     var bababaflag :Bool = false
+    var dontmove :Bool = true
     //日本時間を表示
     var hiduke = DateFormatter()
     var timechecker :String = ""
@@ -70,6 +71,7 @@ class ViewController: UIViewController {
         let description: String = "認証"
         taikinnbutton.isHidden = true
         resetbutton.isHidden = true
+        dontmove = true
         // Touch ID・Face IDが利用できるデバイスか確認する
         if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
             // 利用できる場合は指紋・顔認証を要求する
@@ -169,10 +171,6 @@ class ViewController: UIViewController {
             else if dateFormatter.string(from:today2) == monchecker2{
                 changemonth = true
             }
-        /*let loadedMemoList5  = defaults.object(forKey: "Modori")
-        if (loadedMemoList5 as? Bool != nil) {
-            hozonnnitiji = loadedMemoList5 as! [String]
-            }*/
         
             if dateFormatter.string(from:today2) != monchecker2 && (backtimeflag == false || bababaflag == false){
                 timema = 0
@@ -305,6 +303,82 @@ class ViewController: UIViewController {
         backtime = hour*3600+minute*60+second
         
         backtimeflag = true
+        
+        /*ここはグラフ画面に移動しなかった時に就労時間を足していく処理である*/
+        let defaults = UserDefaults.standard
+        let today = Date()
+        let dateFormatter = DateFormatter()
+        
+        print(monchecker2)
+        
+        dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "M", options: 0, locale: Locale(identifier: "ja_JP"))
+        print(dateFormatter.string(from:today))
+        //let vc = segue.destination as! ViewController3
+        
+        var showsumtimer : Int = 0
+        
+        if(flaga == 1){
+           // let defaults = UserDefaults.standard
+            //let vc = segue.destination as! ViewController3
+            let loadedMemoList4  = defaults.object(forKey: "sumtime")
+            if (loadedMemoList4 as? Int != nil) {
+                 showsumtimer = loadedMemoList4 as! Int
+            }
+            
+            if dateFormatter.string(from:today) != monchecker2&&nitiji2{
+                print("ミミみい耳耳いい耳耳みm")
+                changemonth = true
+                nitiji2 = false
+            }
+            else if dateFormatter.string(from:today) == monchecker2{
+                changemonth = true
+            }
+           
+            if dateFormatter.string(from:today) != monchecker2 /*&& changemonth*/{
+                let defaults5 = UserDefaults.standard
+                defaults5.set(showsumtimer, forKey: "TUKIJIKANN")
+                print("今月初めての出勤だよぞおお")
+                print(showsumtimer)
+                //timema = 0
+                if(bababaflag){
+                    showsumtimer = 0
+                    bababaflag = false
+                    print("ここは最初の処理")
+                }
+                else{
+                    showsumtimer = 0
+                    showsumtimer = timema
+                    print("ここは最初以外の処理")
+                }
+                
+                let defaults6 = UserDefaults.standard
+                defaults6.set(showsumtimer, forKey: "sumtime")
+                let defaults3 = UserDefaults.standard
+                defaults3.set(monchecker, forKey: "Month")
+                
+                let loadedMemoList6  = defaults.object(forKey: "Month")
+                 if (loadedMemoList6 as? String != nil) {
+                     monchecker2 = loadedMemoList6 as! String
+                 }
+                print(monchecker2)
+                changemonth = false
+            }
+            else{
+                //vc.showsumtimer += timema
+                
+                print("こっちになってるぞよ")
+                showsumtimer += timema
+                
+                let defaults5 = UserDefaults.standard
+                defaults5.set(showsumtimer, forKey: "sumtime")
+                let defaults6 = UserDefaults.standard
+                defaults6.set(showsumtimer, forKey: "TUKIJIKANN")
+                print(showsumtimer)
+            }
+            //timema = 0
+            flaga = 2;
+        }
+        
         
     }
     
@@ -549,6 +623,7 @@ class ViewController: UIViewController {
         sender: Any?) {
             
         if segue.identifier == "showView2" {
+            dontmove = false
             let defaults = UserDefaults.standard
             let today = Date()
             let dateFormatter = DateFormatter()
