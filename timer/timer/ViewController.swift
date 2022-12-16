@@ -49,6 +49,7 @@ class ViewController: UIViewController {
     var skechecker :String = ""
     var monchecker :String = ""
     var monchecker2 :String = ""
+    var showdate :String = ""
     
     var mytimer = Timer()
     var mytimer2 = Timer()
@@ -356,6 +357,8 @@ class ViewController: UIViewController {
                 let defaults3 = UserDefaults.standard
                 defaults3.set(monchecker, forKey: "Month")
                 
+               
+                
                 let loadedMemoList6  = defaults.object(forKey: "Month")
                  if (loadedMemoList6 as? String != nil) {
                      monchecker2 = loadedMemoList6 as! String
@@ -373,6 +376,10 @@ class ViewController: UIViewController {
                 defaults5.set(showsumtimer, forKey: "sumtime")
                 let defaults6 = UserDefaults.standard
                 defaults6.set(showsumtimer, forKey: "TUKIJIKANN")
+                
+                let defaults12 = UserDefaults.standard
+                defaults12.set(showdate, forKey: "SHOWMonth")
+                
                 print(showsumtimer)
             }
             //timema = 0
@@ -390,15 +397,18 @@ class ViewController: UIViewController {
         let formatterJP = DateFormatter()
         let formatterJP2 = DateFormatter()
         let formatterJP3 = DateFormatter()
+        let formatterJP4 = DateFormatter()
         formatterJP.dateFormat = DateFormatter.dateFormat(fromTemplate: "ydMMMHms", options: 0, locale: Locale(identifier: "ja_JP"))
         formatterJP2.dateFormat = DateFormatter.dateFormat(fromTemplate: "yyyy-MM-dd", options: 0, locale: Locale(identifier: "ja_JP"))
         formatterJP3.dateFormat = DateFormatter.dateFormat(fromTemplate: "M", options: 0, locale: Locale(identifier: "ja_JP"))
+        formatterJP4.dateFormat = DateFormatter.dateFormat(fromTemplate: "YM", options: 0, locale: Locale(identifier: "ja_JP"))
         formatterJP.timeZone = TimeZone(identifier:  "Asia/Tokyo")
        
         time.text = ("🇯🇵　\(formatterJP.string(from: date))")
         timechecker = formatterJP.string(from: date)
         skechecker = formatterJP2.string(from: date)
         monchecker = formatterJP3.string(from: date)
+        showdate = formatterJP4.string(from: date)
     }
    
     
@@ -448,8 +458,25 @@ class ViewController: UIViewController {
     
     
     func applyMemo2() {
+        
+        let defaults1 = UserDefaults.standard
+        let today = Date()
+        let dateFormatter1 = DateFormatter()
+        
+        print(monchecker2)
+        
+        dateFormatter1.dateFormat = DateFormatter.dateFormat(fromTemplate: "M", options: 0, locale: Locale(identifier: "ja_JP"))
+        
+        if (dateFormatter1.string(from:today) == monchecker2 || monchecker2 == ""){
+            print("ここにはいいておりますか〜〜〜〜？")
+            let defaults12 = UserDefaults.standard
+            defaults12.set(showdate, forKey: "SHOWMonth")
+        }
+        
         let defaults5 = UserDefaults.standard
         defaults5.set(monchecker, forKey: "Month")
+        
+        
         bababaflag = false
         shukkinnbutton.isHidden = false
         taikinnbutton.isHidden = true
@@ -673,6 +700,9 @@ class ViewController: UIViewController {
                     let defaults3 = UserDefaults.standard
                     defaults3.set(monchecker, forKey: "Month")
                     
+                    
+                    
+                    
                     let loadedMemoList6  = defaults.object(forKey: "Month")
                      if (loadedMemoList6 as? String != nil) {
                          monchecker2 = loadedMemoList6 as! String
@@ -690,6 +720,8 @@ class ViewController: UIViewController {
                     defaults5.set(vc.showsumtimer, forKey: "sumtime")
                     let defaults6 = UserDefaults.standard
                     defaults6.set(vc.showsumtimer, forKey: "TUKIJIKANN")
+                    let defaults12 = UserDefaults.standard
+                    defaults12.set(showdate, forKey: "SHOWMonth")
                     print(vc.showsumtimer)
                 }
                 //timema = 0

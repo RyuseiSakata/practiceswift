@@ -26,13 +26,14 @@ class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSourc
     var nitiji:Bool = true;
     var nitiji2:Bool = false;
     var monchecker2 :String = ""
+    var monchecker3 :String = ""
     
     var chartView: LineChartView!
     var chartDataSet: LineChartDataSet!
         
     @IBOutlet weak var TableView: UITableView!
     
-    override func viewDidLoad() {
+    override func viewDidLoad(){
         super.viewDidLoad()
         let defaults = UserDefaults.standard
         let defaults2 = UserDefaults.standard
@@ -61,22 +62,21 @@ class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSourc
          if (loadedMemoList8 as? String != nil) {
              monchecker2 = loadedMemoList8 as! String
          }
+        let loadedMemoList9  = defaults.object(forKey: "SHOWMonth")
+         if (loadedMemoList9 as? String != nil) {
+             monchecker3 = loadedMemoList9 as! String
+         }
         
-        let today = Date()
-        let yesterday = Calendar.current.date(byAdding: .month,value: -1,to:Date())!
         let dateFormatter = DateFormatter()
         let dateFormatter2 = DateFormatter()
-        
         dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "M", options: 0, locale: Locale(identifier: "ja_JP"))
         dateFormatter2.dateFormat = DateFormatter.dateFormat(fromTemplate: "yM", options: 0, locale: Locale(identifier: "ja_JP"))
-      
-        /*if dateFormatter.string(from:today) != monchecker2&&nitiji2{
-            nitiji = true
-            nitiji2 = false
-        }
-        else if dateFormatter.string(from:today) == monchecker2{
-            nitiji = true
-        }*/
+        print(monchecker2)
+        
+       // let month :Int = monchecker2.toInt()!
+        
+        let today = Date()
+        //let yesterday = Calendar.current.date(bySetting: .month,value:month,of:Date())!
         
         print(dateFormatter.string(from:today))
         print(monchecker2)
@@ -89,7 +89,7 @@ class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSourc
                 sumtime2 = loadedMemoList5 as! Int
             }
             
-            sumtime.append(dateFormatter2.string(from: yesterday)+"　"+String((sumtime2/3600)%60)+"時間"+String((sumtime2/60)%60)+"分働きました")
+            sumtime.append(/*dateFormatter2.string(from: yesterday)*/monchecker3+"　"+String((sumtime2/3600)%60)+"時間"+String((sumtime2/60)%60)+"分働きました")
             
             let defaults5 = UserDefaults.standard
             defaults5.set(sumtime, forKey: "TUKIGOTONOROUDOUJIKANN")
