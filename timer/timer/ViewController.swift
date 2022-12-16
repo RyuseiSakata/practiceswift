@@ -160,6 +160,31 @@ class ViewController: UIViewController {
     
     @objc func foreground(notification: Notification) {
         
+        
+        let defaults1 = UserDefaults.standard
+        let today1 = Date()
+        let dateFormatter1 = DateFormatter()
+        
+        print(monchecker2)
+        
+        dateFormatter1.dateFormat = DateFormatter.dateFormat(fromTemplate: "M", options: 0, locale: Locale(identifier: "ja_JP"))
+        
+        if (dateFormatter1.string(from:today1) == monchecker2 || monchecker2 == ""){
+            print("ここにはいいておりますか〜〜〜〜？")
+            let defaults12 = UserDefaults.standard
+            defaults12.set(showdate, forKey: "SHOWMonth")
+            
+            let defaults5 = UserDefaults.standard
+            defaults5.set(monchecker, forKey: "Month")
+            
+            let defaults6 = UserDefaults.standard
+            defaults6.set(monchecker, forKey: "Month2")
+        }
+        
+        
+        
+        
+        
         let today2 = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "M", options: 0, locale: Locale(identifier: "ja_JP"))
@@ -414,6 +439,9 @@ class ViewController: UIViewController {
     
     
     func applyMemo() {
+        
+        
+        
         bababaflag = false
         taikinnbutton.isHidden = false
         shukkinnbutton.isHidden = true
@@ -475,6 +503,9 @@ class ViewController: UIViewController {
         
         let defaults5 = UserDefaults.standard
         defaults5.set(monchecker, forKey: "Month")
+        
+        let defaults6 = UserDefaults.standard
+        defaults6.set(monchecker, forKey: "Month2")
         
         
         bababaflag = false

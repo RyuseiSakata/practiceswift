@@ -91,6 +91,9 @@ class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSourc
             
             sumtime.append(/*dateFormatter2.string(from: yesterday)*/monchecker3+"　"+String((sumtime2/3600)%60)+"時間"+String((sumtime2/60)%60)+"分働きました")
             
+            if(monchecker2 == ""){
+                sumtime.removeFirst();
+            }
             let defaults5 = UserDefaults.standard
             defaults5.set(sumtime, forKey: "TUKIGOTONOROUDOUJIKANN")
             nitiji = false
@@ -99,6 +102,7 @@ class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSourc
             defaults8.set(nitiji, forKey: "nitiBOOL")
             let defaults3 = UserDefaults.standard
             defaults3.set(dateFormatter.string(from:today), forKey: "Month2")
+            
             getChart()
         }
         
@@ -111,6 +115,9 @@ class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSourc
             }
             getChart()
            
+        }
+        if(monchecker2 == ""){
+            sumtime = ["ここには","月毎の労働時間が記録されます。","上のグラフでは","直近１週間の就労時間が表示されます。"]
         }
     }
     
