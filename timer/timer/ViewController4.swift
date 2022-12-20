@@ -91,9 +91,9 @@ class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSourc
             
             sumtime.append(/*dateFormatter2.string(from: yesterday)*/monchecker3+"　"+String((sumtime2/3600)%60)+"時間"+String((sumtime2/60)%60)+"分働きました")
             
-            if(monchecker2 == ""){
+            /*if(monchecker2 == ""){
                 sumtime.removeFirst();
-            }
+            }*/
             let defaults5 = UserDefaults.standard
             defaults5.set(sumtime, forKey: "TUKIGOTONOROUDOUJIKANN")
             nitiji = false

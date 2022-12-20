@@ -52,7 +52,7 @@ class ViewController: UIViewController {
     var monchecker3 :String = ""
     var showdate :String = ""
     
-    var sumtime:[String] = []
+    var g_sumtime:[String] = []
     var sumtime2:Int = 0
     
     var mytimer = Timer()
@@ -156,7 +156,10 @@ class ViewController: UIViewController {
          if (loadedMemoList8 as? String != nil) {
              monchecker2 = loadedMemoList8 as! String
          }
-        
+        let loadedMemoList9  = defaults.object(forKey: "TUKIGOTONOROUDOUJIKANN")
+        if (loadedMemoList9 as? [String] != nil) {
+            g_sumtime = loadedMemoList9 as! [String]
+        }
         
         //ここにはアプリのタスクを切った時の処理が記載されています
        
@@ -204,20 +207,20 @@ class ViewController: UIViewController {
                  monchecker3 = loadedMemoList9 as! String
              }
             sumtime2 = showsumtimer
-            sumtime.append(/*dateFormatter2.string(from: yesterday)*/monchecker3+"　"+String((sumtime2/3600)%60)+"時間"+String((sumtime2/60)%60)+"分働きました")
+            g_sumtime.append(/*dateFormatter2.string(from: yesterday)*/monchecker3+"　"+String((sumtime2/3600)%60)+"時間"+String((sumtime2/60)%60)+"分働きました")
             
             if(monchecker2 == ""){
-                sumtime.removeFirst();
+                g_sumtime.removeFirst();
             }
             let defaults5 = UserDefaults.standard
-            defaults5.set(sumtime, forKey: "TUKIGOTONOROUDOUJIKANN")
+            defaults5.set(g_sumtime, forKey: "TUKIGOTONOROUDOUJIKANN")
             let defaults3 = UserDefaults.standard
             defaults3.set(dateFormatter1.string(from:today1), forKey: "Month2")
             
            
         }
         
-        
+        print(g_sumtime)
         
         let today2 = Date()
         let dateFormatter = DateFormatter()
