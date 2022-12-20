@@ -49,7 +49,11 @@ class ViewController: UIViewController {
     var skechecker :String = ""
     var monchecker :String = ""
     var monchecker2 :String = ""
+    var monchecker3 :String = ""
     var showdate :String = ""
+    
+    var sumtime:[String] = []
+    var sumtime2:Int = 0
     
     var mytimer = Timer()
     var mytimer2 = Timer()
@@ -153,6 +157,7 @@ class ViewController: UIViewController {
              monchecker2 = loadedMemoList8 as! String
          }
         
+        
         //ここにはアプリのタスクを切った時の処理が記載されています
        
         
@@ -170,7 +175,7 @@ class ViewController: UIViewController {
         dateFormatter1.dateFormat = DateFormatter.dateFormat(fromTemplate: "M", options: 0, locale: Locale(identifier: "ja_JP"))
         
         if (dateFormatter1.string(from:today1) == monchecker2 || monchecker2 == ""){
-            print("ここにはいいておりますか〜〜〜〜？")
+           
             let defaults12 = UserDefaults.standard
             defaults12.set(showdate, forKey: "SHOWMonth")
             
@@ -181,7 +186,36 @@ class ViewController: UIViewController {
             defaults6.set(monchecker, forKey: "Month2")
         }
         
-        
+        if dateFormatter1.string(from:today1) != monchecker2/*&&nitiji*/{
+            let defaults10 = UserDefaults.standard
+            var showsumtimer : Int = 0
+            let loadedMemoList90  = defaults10.object(forKey: "sumtime")
+            if (loadedMemoList90 as? Int != nil) {
+                 showsumtimer = loadedMemoList90 as! Int
+            }
+           print("グラフの時間はここで設定されております")
+            
+            let loadedMemoList5  = defaults10.object(forKey: "TUKIJIKANN")
+            if (loadedMemoList5 as? Int != nil) {
+                sumtime2 = loadedMemoList5 as! Int
+            }
+            let loadedMemoList9  = defaults10.object(forKey: "SHOWMonth")
+             if (loadedMemoList9 as? String != nil) {
+                 monchecker3 = loadedMemoList9 as! String
+             }
+            sumtime2 = showsumtimer
+            sumtime.append(/*dateFormatter2.string(from: yesterday)*/monchecker3+"　"+String((sumtime2/3600)%60)+"時間"+String((sumtime2/60)%60)+"分働きました")
+            
+            if(monchecker2 == ""){
+                sumtime.removeFirst();
+            }
+            let defaults5 = UserDefaults.standard
+            defaults5.set(sumtime, forKey: "TUKIGOTONOROUDOUJIKANN")
+            let defaults3 = UserDefaults.standard
+            defaults3.set(dateFormatter1.string(from:today1), forKey: "Month2")
+            
+           
+        }
         
         
         
@@ -495,7 +529,7 @@ class ViewController: UIViewController {
         
         dateFormatter1.dateFormat = DateFormatter.dateFormat(fromTemplate: "M", options: 0, locale: Locale(identifier: "ja_JP"))
         
-        if (dateFormatter1.string(from:today) == monchecker2 || monchecker2 == ""){
+        if (dateFormatter1.string(from:today) != monchecker2 || monchecker2 == ""){
             print("ここにはいいておりますか〜〜〜〜？")
             let defaults12 = UserDefaults.standard
             defaults12.set(showdate, forKey: "SHOWMonth")
