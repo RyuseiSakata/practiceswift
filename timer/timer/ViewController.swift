@@ -212,6 +212,10 @@ class ViewController: UIViewController {
             if(monchecker2 == ""){
                 g_sumtime.removeFirst();
             }
+            if(g_sumtime.count > 1&&g_sumtime[0] == g_sumtime[1]){
+                print("ここを通れば二つ表示が消去できる")
+                g_sumtime.removeFirst();
+            }
             let defaults5 = UserDefaults.standard
             defaults5.set(g_sumtime, forKey: "TUKIGOTONOROUDOUJIKANN")
             let defaults3 = UserDefaults.standard
@@ -356,8 +360,8 @@ class ViewController: UIViewController {
     
     @objc func background(notification: Notification) {
         
-        let defaults3 = UserDefaults.standard
-        defaults3.set(hozonnnitiji, forKey: "hozonnnitiji")
+        /*let defaults3 = UserDefaults.standard
+        defaults3.set(hozonnnitiji, forKey: "hozonnnitiji")*/
         print(hozonnnitiji)
         day = Calendar.current.component(.day, from: Date())
         hour = Calendar.current.component(.hour, from: Date())
@@ -398,8 +402,8 @@ class ViewController: UIViewController {
             }
            
             if dateFormatter.string(from:today) != monchecker2 /*&& changemonth*/{
-                let defaults5 = UserDefaults.standard
-                defaults5.set(showsumtimer, forKey: "TUKIJIKANN")
+                /*let defaults5 = UserDefaults.standard
+                defaults5.set(showsumtimer, forKey: "TUKIJIKANN")*/
                 print("今月初めての出勤だよぞおお")
                 print(showsumtimer)
                 //timema = 0
@@ -436,8 +440,8 @@ class ViewController: UIViewController {
                 
                 let defaults5 = UserDefaults.standard
                 defaults5.set(showsumtimer, forKey: "sumtime")
-                let defaults6 = UserDefaults.standard
-                defaults6.set(showsumtimer, forKey: "TUKIJIKANN")
+                /*let defaults6 = UserDefaults.standard
+                defaults6.set(showsumtimer, forKey: "TUKIJIKANN")*/
                 
                 let defaults12 = UserDefaults.standard
                 defaults12.set(showdate, forKey: "SHOWMonth")
@@ -717,119 +721,121 @@ class ViewController: UIViewController {
         for segue: UIStoryboardSegue,
         sender: Any?) {
             
-        if segue.identifier == "showView2" {
-            dontmove = false
-            let defaults = UserDefaults.standard
-            let today = Date()
-            let dateFormatter = DateFormatter()
-            
-            print(monchecker2)
-            
-            dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "M", options: 0, locale: Locale(identifier: "ja_JP"))
-            print(dateFormatter.string(from:today))
-            let vc = segue.destination as! ViewController3
-            
-            if(flaga == 1){
-               // let defaults = UserDefaults.standard
-                //let vc = segue.destination as! ViewController3
-                let loadedMemoList4  = defaults.object(forKey: "sumtime")
-                if (loadedMemoList4 as? Int != nil) {
-                    vc.showsumtimer = loadedMemoList4 as! Int
-                }
+            if segue.identifier == "showView2" {
+                dontmove = false
+                let defaults = UserDefaults.standard
+                let today = Date()
+                let dateFormatter = DateFormatter()
                 
-                if dateFormatter.string(from:today) != monchecker2&&nitiji2{
-                    print("ミミみい耳耳いい耳耳みm")
-                    changemonth = true
-                    nitiji2 = false
-                }
-                else if dateFormatter.string(from:today) == monchecker2{
-                    changemonth = true
-                }
-               
-                if dateFormatter.string(from:today) != monchecker2 /*&& changemonth*/{
-                    let defaults5 = UserDefaults.standard
-                    defaults5.set(vc.showsumtimer, forKey: "TUKIJIKANN")
-                    print("今月初めての出勤だよぞおお")
-                    print(vc.showsumtimer)
-                    //timema = 0
-                    if(bababaflag){
-                        vc.showsumtimer = 0
-                        bababaflag = false
-                        print("ここは最初の処理")
+                print(monchecker2)
+                
+                dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "M", options: 0, locale: Locale(identifier: "ja_JP"))
+                print(dateFormatter.string(from:today))
+                let vc = segue.destination as! ViewController3
+                
+                if(flaga == 1){
+                    // let defaults = UserDefaults.standard
+                    //let vc = segue.destination as! ViewController3
+                    let loadedMemoList4  = defaults.object(forKey: "sumtime")
+                    if (loadedMemoList4 as? Int != nil) {
+                        vc.showsumtimer = loadedMemoList4 as! Int
+                    }
+                    
+                    if dateFormatter.string(from:today) != monchecker2&&nitiji2{
+                        print("ミミみい耳耳いい耳耳みm")
+                        changemonth = true
+                        nitiji2 = false
+                    }
+                    else if dateFormatter.string(from:today) == monchecker2{
+                        changemonth = true
+                    }
+                    
+                    if dateFormatter.string(from:today) != monchecker2 /*&& changemonth*/{
+                        let defaults5 = UserDefaults.standard
+                         defaults5.set(vc.showsumtimer, forKey: "TUKIJIKANN")
+                         print("今月初めての出勤だよぞおお")
+                         print(vc.showsumtimer)
+                         //timema = 0
+                         if(bababaflag){
+                         vc.showsumtimer = 0
+                         bababaflag = false
+                         print("ここは最初の処理")
+                         }
+                         else{
+                         vc.showsumtimer = 0
+                         vc.showsumtimer = timema
+                         print("ここは最初以外の処理")
+                         }
+                         
+                         let defaults6 = UserDefaults.standard
+                         defaults6.set(vc.showsumtimer, forKey: "sumtime")
+                         let defaults3 = UserDefaults.standard
+                         defaults3.set(monchecker, forKey: "Month")
+                         
+                         
+                         
+                         
+                         let loadedMemoList6  = defaults.object(forKey: "Month")
+                         if (loadedMemoList6 as? String != nil) {
+                         monchecker2 = loadedMemoList6 as! String
+                         }
+                         print(monchecker2)
+                         changemonth = false
                     }
                     else{
-                        vc.showsumtimer = 0
-                        vc.showsumtimer = timema
-                        print("ここは最初以外の処理")
+                        //vc.showsumtimer += timema
+                        
+                        print("こっちになってるぞよ")
+                        vc.showsumtimer += timema
+                        
+                        let defaults5 = UserDefaults.standard
+                        defaults5.set(vc.showsumtimer, forKey: "sumtime")
+                        let defaults6 = UserDefaults.standard
+                        defaults6.set(vc.showsumtimer, forKey: "TUKIJIKANN")
+                        let defaults12 = UserDefaults.standard
+                        defaults12.set(showdate, forKey: "SHOWMonth")
+                        print(vc.showsumtimer)
                     }
-                    
-                    let defaults6 = UserDefaults.standard
-                    defaults6.set(vc.showsumtimer, forKey: "sumtime")
-                    let defaults3 = UserDefaults.standard
-                    defaults3.set(monchecker, forKey: "Month")
-                    
-                    
-                    
-                    
-                    let loadedMemoList6  = defaults.object(forKey: "Month")
-                     if (loadedMemoList6 as? String != nil) {
-                         monchecker2 = loadedMemoList6 as! String
-                     }
-                    print(monchecker2)
-                    changemonth = false
+                    //timema = 0
+                    flaga = 2;
                 }
-                else{
-                    //vc.showsumtimer += timema
-                    
-                    print("こっちになってるぞよ")
-                    vc.showsumtimer += timema
-                    
-                    let defaults5 = UserDefaults.standard
-                    defaults5.set(vc.showsumtimer, forKey: "sumtime")
-                    let defaults6 = UserDefaults.standard
-                    defaults6.set(vc.showsumtimer, forKey: "TUKIJIKANN")
-                    let defaults12 = UserDefaults.standard
-                    defaults12.set(showdate, forKey: "SHOWMonth")
-                    print(vc.showsumtimer)
-                }
-                //timema = 0
-                flaga = 2;
+                
             }
-            
         }
-    }
+
+
         
-    @IBAction func reset(_ sender: Any) {
-        taikinnbutton.isHidden = true
-        shukkinnbutton.isHidden = false
-        resetbutton.isHidden = true
-        
-        let defaults = UserDefaults.standard
-        let defaults2 = UserDefaults.standard
-        let defaults3 = UserDefaults.standard
-        start_time.remove(at: start_time.count - 1)
-        skememoLists.remove(at: skememoLists.count - 1)
-        
-        if end_time.count != start_time.count {
-            print("あいうえお")
-            end_time.remove(at: end_time.count - 1)
-        }
-        
-        defaults.set(start_time, forKey: "MEMO_LIST")
-        defaults2.set(skememoLists, forKey: "SKEMEMO_LIST")
-        defaults3.set(end_time, forKey: "MEMO_LIST2")
-        UserDefaults.standard.removeObject(forKey: "Hiduke")
-        
-        
-        flag = false
-        self.flaga = 0
-        timema = 0
-        
-        mytimer.invalidate()
-        mytimer2.invalidate()
-        
-        self.timesave.text = "\((self.timema/3600)%60)時間\((self.timema/60)%60)分\((self.timema)%60)秒"
+func reset(_ sender: Any) {
+    taikinnbutton.isHidden = true
+    shukkinnbutton.isHidden = false
+    resetbutton.isHidden = true
+    
+    let defaults = UserDefaults.standard
+    let defaults2 = UserDefaults.standard
+    let defaults3 = UserDefaults.standard
+    start_time.remove(at: start_time.count - 1)
+    skememoLists.remove(at: skememoLists.count - 1)
+    
+    if end_time.count != start_time.count {
+        print("あいうえお")
+        end_time.remove(at: end_time.count - 1)
     }
     
+    defaults.set(start_time, forKey: "MEMO_LIST")
+    defaults2.set(skememoLists, forKey: "SKEMEMO_LIST")
+    defaults3.set(end_time, forKey: "MEMO_LIST2")
+    UserDefaults.standard.removeObject(forKey: "Hiduke")
+    
+    
+    flag = false
+    self.flaga = 0
+    timema = 0
+    
+    mytimer.invalidate()
+    mytimer2.invalidate()
+    
+    self.timesave.text = "\((self.timema/3600)%60)時間\((self.timema/60)%60)分\((self.timema)%60)秒"
+    
+}
 }
 

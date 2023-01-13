@@ -94,6 +94,7 @@ class ViewController4: UIViewController,UITableViewDelegate,UITableViewDataSourc
             /*if(monchecker2 == ""){
                 sumtime.removeFirst();
             }*/
+            
             let defaults5 = UserDefaults.standard
             defaults5.set(sumtime, forKey: "TUKIGOTONOROUDOUJIKANN")
             nitiji = false
