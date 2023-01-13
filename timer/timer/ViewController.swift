@@ -9,7 +9,7 @@ import UIKit
 import AVFoundation
 import LocalAuthentication
 
-class ViewController: UIViewController {
+class ViewController: UIViewController,UIGestureRecognizerDelegate {
 
     @IBOutlet weak var shukkinnbutton: UIButton!
     @IBOutlet weak var taikinnbutton: UIButton!
@@ -57,6 +57,14 @@ class ViewController: UIViewController {
     
     var mytimer = Timer()
     var mytimer2 = Timer()
+    
+   
+           
+           //UIGestureのデリゲート
+    //func tapGesture.delegate = self
+           
+           //viewに追加
+           //self.view.addGestureRecognizer(tapGesture)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -805,37 +813,40 @@ class ViewController: UIViewController {
 
 
         
-func reset(_ sender: Any) {
-    taikinnbutton.isHidden = true
-    shukkinnbutton.isHidden = false
-    resetbutton.isHidden = true
-    
-    let defaults = UserDefaults.standard
-    let defaults2 = UserDefaults.standard
-    let defaults3 = UserDefaults.standard
-    start_time.remove(at: start_time.count - 1)
-    skememoLists.remove(at: skememoLists.count - 1)
-    
-    if end_time.count != start_time.count {
-        print("あいうえお")
-        end_time.remove(at: end_time.count - 1)
+
+    @IBAction func reset(_ sender: Any) {
+        taikinnbutton.isHidden = true
+        shukkinnbutton.isHidden = false
+        resetbutton.isHidden = true
+        
+        let defaults = UserDefaults.standard
+        let defaults2 = UserDefaults.standard
+        let defaults3 = UserDefaults.standard
+        start_time.remove(at: start_time.count - 1)
+        skememoLists.remove(at: skememoLists.count - 1)
+        
+        if end_time.count != start_time.count {
+            print("あいうえお")
+            end_time.remove(at: end_time.count - 1)
+        }
+        
+        defaults.set(start_time, forKey: "MEMO_LIST")
+        defaults2.set(skememoLists, forKey: "SKEMEMO_LIST")
+        defaults3.set(end_time, forKey: "MEMO_LIST2")
+        UserDefaults.standard.removeObject(forKey: "Hiduke")
+        
+        
+        flag = false
+        self.flaga = 0
+        timema = 0
+        
+        mytimer.invalidate()
+        mytimer2.invalidate()
+        
+        self.timesave.text = "\((self.timema/3600)%60)時間\((self.timema/60)%60)分\((self.timema)%60)秒"
+        
     }
     
-    defaults.set(start_time, forKey: "MEMO_LIST")
-    defaults2.set(skememoLists, forKey: "SKEMEMO_LIST")
-    defaults3.set(end_time, forKey: "MEMO_LIST2")
-    UserDefaults.standard.removeObject(forKey: "Hiduke")
-    
-    
-    flag = false
-    self.flaga = 0
-    timema = 0
-    
-    mytimer.invalidate()
-    mytimer2.invalidate()
-    
-    self.timesave.text = "\((self.timema/3600)%60)時間\((self.timema/60)%60)分\((self.timema)%60)秒"
-    
-}
+   
 }
 

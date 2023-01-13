@@ -79,7 +79,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="取り消し"/>
                                 <connections>
-                                    <action selector="reset:" destination="BYZ-38-t0r" eventType="touchUpInside" id="H1e-YS-iCX"/>
+                                    <action selector="reset:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OKC-sV-VbL"/>
                                 </connections>
                             </button>
                         </subviews>
