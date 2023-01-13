@@ -16,6 +16,7 @@
 		0B1AC548295941FA001138E8 /* testRealmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1AC547295941FA001138E8 /* testRealmTests.swift */; };
 		0B1AC552295941FA001138E8 /* testRealmUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1AC551295941FA001138E8 /* testRealmUITests.swift */; };
 		0B1AC554295941FA001138E8 /* testRealmUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1AC553295941FA001138E8 /* testRealmUITestsLaunchTests.swift */; };
+		0B1F7B4429710E5200EAA746 /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1F7B4329710E5200EAA746 /* ViewController2.swift */; };
 		0BF15BA0295954E80064F386 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF15B9F295954E80064F386 /* User.swift */; };
 		3147B12A1FB49F5C66EF5673 /* Pods_testRealm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A3A20F79C40359C6F947A44 /* Pods_testRealm.framework */; };
 		7E8599725D82F32437DB00DD /* Pods_testRealmTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBDF7010C1D1B1579D632818 /* Pods_testRealmTests.framework */; };
@@ -54,6 +55,7 @@
 		0B1AC54D295941FA001138E8 /* testRealmUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = testRealmUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B1AC551295941FA001138E8 /* testRealmUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testRealmUITests.swift; sourceTree = "<group>"; };
 		0B1AC553295941FA001138E8 /* testRealmUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testRealmUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		0B1F7B4329710E5200EAA746 /* ViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
 		0BF15B9F295954E80064F386 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		214FB4587DDAA9F7A3EBC67D /* Pods_testRealm_testRealmUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_testRealm_testRealmUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FD01759958A51C0F8C99FCB /* Pods-testRealm-testRealmUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-testRealm-testRealmUITests.release.xcconfig"; path = "Target Support Files/Pods-testRealm-testRealmUITests/Pods-testRealm-testRealmUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				0B1AC534295941ED001138E8 /* ViewController.swift */,
 				0BF15B9F295954E80064F386 /* User.swift */,
 				0B1AC536295941ED001138E8 /* Main.storyboard */,
+				0B1F7B4329710E5200EAA746 /* ViewController2.swift */,
 				0B1AC539295941FA001138E8 /* Assets.xcassets */,
 				0B1AC53B295941FA001138E8 /* LaunchScreen.storyboard */,
 				0B1AC53E295941FA001138E8 /* Info.plist */,
@@ -409,6 +412,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B1F7B4429710E5200EAA746 /* ViewController2.swift in Sources */,
 				0BF15BA0295954E80064F386 /* User.swift in Sources */,
 				0B1AC535295941ED001138E8 /* ViewController.swift in Sources */,
 				0B1AC531295941ED001138E8 /* AppDelegate.swift in Sources */,
