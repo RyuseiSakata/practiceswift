@@ -48,7 +48,7 @@ class DrawView :UIView {
         }
         if(pointData.count == 4){
             
-            let rectangle = UIBezierPath(rect: CGRect(x: 0, y: 200, width: 1000, height: 400))
+            let rectangle = UIBezierPath(rect: CGRect(x: 0, y: 200, width: 1000, height: 600))
             // 内側の色
             UIColor(red: 1, green: 1, blue: 1, alpha: 1).setFill()
             // 内側を塗りつぶす
