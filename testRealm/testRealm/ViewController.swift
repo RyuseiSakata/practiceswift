@@ -59,6 +59,14 @@ class ViewController: UIViewController, UITableViewDataSource  {
         table.reloadData()
     }
     
+    @IBAction func removeall(_ sender: Any) {
+        let pointData = realm.objects(Point.self)
+        try! realm.write {
+            realm.delete(pointData)
+            
+        }
+        print("消去完了")
+    }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle,
     forRowAt indexPath: IndexPath) {
             // 先にデータを削除しないと、エラーが発生する。

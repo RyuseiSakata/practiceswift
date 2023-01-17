@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B110FBC29768E9A004CFE8D /* DrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B110FBB29768E9A004CFE8D /* DrawView.swift */; };
 		0B1AC531295941ED001138E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1AC530295941ED001138E8 /* AppDelegate.swift */; };
 		0B1AC533295941ED001138E8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1AC532295941ED001138E8 /* SceneDelegate.swift */; };
 		0B1AC535295941ED001138E8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1AC534295941ED001138E8 /* ViewController.swift */; };
@@ -42,6 +43,7 @@
 
 /* Begin PBXFileReference section */
 		014E0B2FB989DC5B6F541ABC /* Pods-testRealmTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-testRealmTests.release.xcconfig"; path = "Target Support Files/Pods-testRealmTests/Pods-testRealmTests.release.xcconfig"; sourceTree = "<group>"; };
+		0B110FBB29768E9A004CFE8D /* DrawView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawView.swift; sourceTree = "<group>"; };
 		0B1AC52D295941ED001138E8 /* testRealm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = testRealm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B1AC530295941ED001138E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0B1AC532295941ED001138E8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				0BF15B9F295954E80064F386 /* User.swift */,
 				0B1AC536295941ED001138E8 /* Main.storyboard */,
 				0B1F7B4329710E5200EAA746 /* ViewController2.swift */,
+				0B110FBB29768E9A004CFE8D /* DrawView.swift */,
 				0B1AC539295941FA001138E8 /* Assets.xcassets */,
 				0B1AC53B295941FA001138E8 /* LaunchScreen.storyboard */,
 				0B1AC53E295941FA001138E8 /* Info.plist */,
@@ -414,6 +417,7 @@
 			files = (
 				0B1F7B4429710E5200EAA746 /* ViewController2.swift in Sources */,
 				0BF15BA0295954E80064F386 /* User.swift in Sources */,
+				0B110FBC29768E9A004CFE8D /* DrawView.swift in Sources */,
 				0B1AC535295941ED001138E8 /* ViewController.swift in Sources */,
 				0B1AC531295941ED001138E8 /* AppDelegate.swift in Sources */,
 				0B1AC533295941ED001138E8 /* SceneDelegate.swift in Sources */,

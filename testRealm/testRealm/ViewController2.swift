@@ -8,14 +8,29 @@
 import UIKit
 import RealmSwift
 
+var flag : Bool = true
+var flag2 : Bool = true
+var flag3 : Bool = true
 class ViewController2: UIViewController,UIGestureRecognizerDelegate {
     
     let pinchView = UIView()
     let realm = try! Realm()
-        
-        override func viewDidLoad() {
+    //var sucsess : Bool
+    @IBOutlet weak var text2: UILabel!
+    
+    @IBOutlet weak var text: UILabel!
+    @IBOutlet weak var image: UIImageView!
+    var image1: UIImage!
+    override func viewDidLoad() {
             super.viewDidLoad()
-            
+        image1 = UIImage(named:"IMG_3314 1")
+        flag = true
+        image.image = image1
+        image.isHidden = flag
+        text.isHidden = true
+        text2.isHidden = true
+           /* let drawView = DrawView(frame: self.view.bounds)
+            self.view.addSubview(drawView)*/
             // MARK: - タップ
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapped(_:)))
             self.view.addGestureRecognizer(tapGesture)
@@ -25,23 +40,27 @@ class ViewController2: UIViewController,UIGestureRecognizerDelegate {
             self.view.addGestureRecognizer(longTapGesture)
 
             // MARK: - UIView
-            pinchView.frame = CGRect(x: 0, y:0, width: UIScreen.main.bounds.width / 2 , height: 100)
+            /*pinchView.frame = CGRect(x: 0, y:0, width: UIScreen.main.bounds.width / 2 , height: 100)
             pinchView.backgroundColor = .orange
             self.pinchView.center = self.view.center
-            self.view.addSubview(pinchView)
+            self.view.addSubview(pinchView)*/
             
             // MARK: - ピンチ
-            let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(pinched(_:)))
+           /* let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(pinched(_:)))
             pinchView.addGestureRecognizer(pinchGesture)
             
             // MARK: - パン
             let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panSlide(_:)))
-            pinchView.addGestureRecognizer(panGesture)
+            pinchView.addGestureRecognizer(panGesture)*/
         }
         // MARK: - タップ
         @objc  func tapped(_ sender : UITapGestureRecognizer) {
-            print("タップされたよ")
+            let drawView = DrawView(frame: self.view.bounds)
+             self.view.addSubview(drawView)
+            image.isHidden = flag
+            text.isHidden = flag2
         }
+    //ここでタッチされた座標を格納
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let point = Point();
         let pointData = realm.objects(Point.self)
@@ -58,24 +77,38 @@ class ViewController2: UIViewController,UIGestureRecognizerDelegate {
             }
         }
         Swift.print(pointData)
+        image.isHidden = flag
+        if(flag){
+            text2.isHidden = flag3
+        }
+        print(image.isHidden)
     }
         // MARK: - 長押し
         @objc  func longTapped(_ sender : UILongPressGestureRecognizer) {
             print("長押しされたよ")
         }
         // MARK: - ピンチ
-        @objc  func pinched(_ sender: UIPinchGestureRecognizer) {
+       /* @objc  func pinched(_ sender: UIPinchGestureRecognizer) {
             self.pinchView.transform = self.pinchView.transform.scaledBy(x: sender.scale, y: sender.scale)
-        }
+        }*/
         // MARK: - パン
     @IBAction func reset(_ sender: Any) {
         let pointData = realm.objects(Point.self)
         try! realm.write {
             realm.delete(pointData)
+            
         }
-        
+        print("消去完了")
     }
-    @objc  func panSlide(_ sender: UIPanGestureRecognizer) {
-            self.pinchView.transform = CGAffineTransform(translationX: sender.translation(in: pinchView).x, y: sender.translation(in: pinchView).y)
+    @IBAction func remove(_ sender: Any) {
+        let pointData = realm.objects(Point.self)
+        try! realm.write {
+            realm.delete(pointData)
+            
         }
+        print("消去完了")
+    }
+    /*@objc  func panSlide(_ sender: UIPanGestureRecognizer) {
+            self.pinchView.transform = CGAffineTransform(translationX: sender.translation(in: pinchView).x, y: sender.translation(in: pinchView).y)
+        }*/
 }
