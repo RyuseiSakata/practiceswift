@@ -38,7 +38,8 @@ class DrawView :UIView {
             line.stroke()
             //flag = false
             flag2 = true
-            if(calrad() == 0.5){
+            print(caldo())
+            if(calrad() == 0.5||caldo() == 60){
                 //ViewController2.image.isHidden = false
                 flag = false
             }
@@ -48,17 +49,14 @@ class DrawView :UIView {
         }
         if(pointData.count == 4){
             
-            let rectangle = UIBezierPath(rect: CGRect(x: 0, y: 200, width: 1000, height: 600))
-            // 内側の色
-            UIColor(red: 1, green: 1, blue: 1, alpha: 1).setFill()
-            // 内側を塗りつぶす
-            rectangle.fill()
-            // 線の色
-            UIColor(red: 0, green: 0, blue: 0, alpha: 100.0).setStroke()
-            // 線の太さ
-            rectangle.lineWidth = 2.0
-            // 線を塗りつぶす
-            rectangle.stroke()
+            line.move(to: CGPoint(x: pointData[0].x, y: pointData[0].y))
+            line.addLine(to: CGPoint(x: pointData[1].x, y: pointData[1].y))
+            line.addLine(to: CGPoint(x: pointData[2].x, y: pointData[2].y))
+            line.addLine(to: CGPoint(x: pointData[0].x, y: pointData[0].y))
+            line.close()
+            UIColor.white.setStroke()
+            line.lineWidth = 3.0
+            line.stroke()
             flag3 = true
             try! realm.write {
                 realm.delete(pointData)
@@ -81,6 +79,16 @@ class DrawView :UIView {
         
         return sqrt(length)
     }
+    func caldo() -> Int{
+        let cos = calrad()
+        var dosuu : Double
+            
+        dosuu = acos(cos)
+        //print(dosuu)
+        
+        return Int(dosuu*(180/M_PI));
+    }
+    
     
     
     

@@ -18,11 +18,14 @@ class ViewController2: UIViewController,UIGestureRecognizerDelegate {
     //var sucsess : Bool
     @IBOutlet weak var text2: UILabel!
     
+    @IBOutlet weak var rad: UILabel!
     @IBOutlet weak var text: UILabel!
     @IBOutlet weak var image: UIImageView!
+    var draw = DrawView()
     var image1: UIImage!
     override func viewDidLoad() {
             super.viewDidLoad()
+         draw = DrawView()
         image1 = UIImage(named:"IMG_3314 1")
         flag = true
         image.image = image1
@@ -59,6 +62,7 @@ class ViewController2: UIViewController,UIGestureRecognizerDelegate {
              self.view.addSubview(drawView)
             image.isHidden = flag
             text.isHidden = flag2
+            
         }
     //ここでタッチされた座標を格納
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -80,6 +84,11 @@ class ViewController2: UIViewController,UIGestureRecognizerDelegate {
         image.isHidden = flag
         if(flag){
             text2.isHidden = flag3
+        }
+        if(pointData.count == 3||pointData.count == 4){
+            rad.text = String(draw.caldo())
+            rad.layer.position.x = pointData[1].x + 2
+            rad.layer.position.y = pointData[1].y
         }
         print(image.isHidden)
     }
