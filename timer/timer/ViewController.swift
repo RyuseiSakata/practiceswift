@@ -86,36 +86,37 @@ class ViewController: UIViewController,UIGestureRecognizerDelegate {
         resetbutton.isHidden = true
         dontmove = true
         // Touch ID・Face IDが利用できるデバイスか確認する
-        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
-            // 利用できる場合は指紋・顔認証を要求する
-            context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: description, reply: {success, evaluateError in
-                if (success) {
-                    self.flagera = true
-                    print("認証成功")
-                }
-                
-                else {
-                    // 認証失敗時の処理を書く
-                    print("認証失敗")
-                }
-            })
-        } else {
-            // Touch ID・Face IDが利用できない場合の処理
-            context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: description, reply: {success, evaluateError in
-                if (success) {
-                    self.flagera = true
-                    print("認証成功")
-                }
-                
-                else {
-                    // 認証失敗時の処理を書く
-                    print("認証失敗")
-                }
-            })
-            let errorDescription = error?.userInfo["NSLocalizedDescription"] ?? ""
-            print(errorDescription) // Biometry is not available on this device.
+        if (context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error)||context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error)){
+            if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+                // 利用できる場合は指紋・顔認証を要求する
+                context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: description, reply: {success, evaluateError in
+                    if (success) {
+                        self.flagera = true
+                        print("認証成功")
+                    }
+                    
+                    else {
+                        // 認証失敗時の処理を書く
+                        print("認証失敗")
+                    }
+                })
+            } else {
+                // Touch ID・Face IDが利用できない場合の処理
+                context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: description, reply: {success, evaluateError in
+                    if (success) {
+                        self.flagera = true
+                        print("認証成功")
+                    }
+                    
+                    else {
+                        // 認証失敗時の処理を書く
+                        print("認証失敗")
+                    }
+                })
+                let errorDescription = error?.userInfo["NSLocalizedDescription"] ?? ""
+                print(errorDescription) // Biometry is not available on this device.
+            }
         }
-        
         // Do any additional setup after loading the view.
        
         
