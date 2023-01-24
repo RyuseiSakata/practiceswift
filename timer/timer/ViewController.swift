@@ -116,6 +116,8 @@ class ViewController: UIViewController,UIGestureRecognizerDelegate {
                 let errorDescription = error?.userInfo["NSLocalizedDescription"] ?? ""
                 print(errorDescription) // Biometry is not available on this device.
             }
+        }else{
+            self.flagera = true
         }
         // Do any additional setup after loading the view.
        
